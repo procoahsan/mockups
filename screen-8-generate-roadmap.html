@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Screen 8 â€” Generate Roadmap Flow | PVS Roadmap Planner</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']},colors:{woah:{50:'#fff7ed',100:'#ffedd5',500:'#ff4815',600:'#ea580c',700:'#c2410c'}}}}}</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}[x-cloak]{display:none!important}
+.sidebar-item{transition:all .15s ease}.sidebar-item:hover{background:rgba(255,255,255,0.08)}.sidebar-item.active{background:rgba(255,72,21,0.15);border-right:3px solid #ff4815}
+.nav-screen{transition:all .15s ease}.nav-screen:hover{background:#f1f5f9}.nav-screen.current{background:#fff7ed;color:#ea580c;font-weight:600;border:1px solid #fed7aa}
+@keyframes pulse-glow{0%,100%{box-shadow:0 0 0 0 rgba(251,191,36,0.4)}50%{box-shadow:0 0 20px 6px rgba(251,191,36,0.15)}}
+.pulse-glow{animation:pulse-glow 2s ease-in-out infinite}
+@keyframes spin-slow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.spin-slow{animation:spin-slow 3s linear infinite}
+@keyframes progress-fill{from{width:0}to{width:100%}}
+.progress-bar{animation:progress-fill 2s ease-out forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .4s ease-out forwards}
+.fade-up-d1{animation-delay:.1s;opacity:0}.fade-up-d2{animation-delay:.2s;opacity:0}.fade-up-d3{animation-delay:.3s;opacity:0}.fade-up-d4{animation-delay:.4s;opacity:0}.fade-up-d5{animation-delay:.5s;opacity:0}
+</style>
+</head>
+<body class="bg-slate-50 text-slate-800" x-data="{ step: 'empty' }" x-cloak>
+
+<!-- TOP NAV -->
+<header class="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-slate-200 flex items-center px-4 gap-3 shadow-sm">
+  <div class="flex items-center gap-2.5 w-[240px]">
+    <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:#ff4815"><svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3"/></svg></div>
+    <div class="flex flex-col leading-none"><span class="text-[10px] font-bold tracking-widest uppercase" style="color:#ff4815">WOAH</span><span class="text-[13px] font-semibold text-slate-800">PVS Information System</span></div>
+  </div>
+  <div class="h-6 w-px bg-slate-200"></div>
+  <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-sm font-medium"><span class="w-5 h-4 rounded-sm bg-gradient-to-b from-blue-600 to-yellow-500 text-[7px] text-white font-bold flex items-center justify-center">SZ</span> Eswatini</div>
+  <div class="flex-1"></div>
+  <div class="flex items-center gap-1 text-xs">
+    <a href="screen-1-timeline.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Timeline</a>
+    <a href="screen-2-activity-cards.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Cards</a>
+    <a href="screen-3-colour-coding.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Colours</a>
+    <a href="screen-4-status-badges.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Status</a>
+    <a href="screen-5-executive-summary.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Summary</a>
+    <a href="screen-6-filters-export.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Filters</a>
+    <a href="screen-7-edit-flow.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Edit</a>
+    <span class="nav-screen current px-2.5 py-1 rounded-md">Generate</span>
+    <a href="screen-9-approval.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Approval</a>
+    <a href="screen-10-notifications.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Notify</a>
+    <a href="screen-11-mobile.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Mobile</a>
+  </div>
+  <div class="h-6 w-px bg-slate-200 mx-1"></div>
+  <div class="w-7 h-7 rounded-full bg-gradient-to-br from-woah-500 to-woah-700 flex items-center justify-center text-white text-xs font-semibold">KD</div>
+</header>
+
+<!-- SIDEBAR -->
+<aside class="fixed top-14 left-0 bottom-0 w-[240px] z-40 flex flex-col overflow-y-auto text-white" style="background:#1e293b">
+  <nav class="flex-1 py-4 px-3 space-y-0.5">
+    <p class="px-3 text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2">Navigation</p>
+    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6z"/></svg> Dashboard</a>
+    <a href="#" class="sidebar-item active flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-white font-semibold"><svg class="w-[18px] h-[18px]" style="color:#ff4815" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75"/></svg> Roadmaps</a>
+    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25"/></svg> Recommendations</a>
+    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75z"/></svg> Analytics</a>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<div class="ml-[240px] pt-14 min-h-screen">
+  <div class="px-8 pt-6 pb-4">
+    <h1 class="text-2xl font-bold text-slate-900 mb-1">Screen 8 â€” Generate Roadmap with AI</h1>
+    <p class="text-sm text-slate-500 max-w-3xl mb-6">FR10's defining feature: LLM auto-generation of a 5-year activity roadmap based on the country's PVS evaluation scores and mission history.</p>
+  </div>
+
+  <div class="px-8 pb-8 space-y-8">
+
+    <!-- â•â•â• STATE 1: Empty / Trigger â•â•â• -->
+    <div>
+      <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">State 1 â€” Empty State (No Roadmap Yet)</h2>
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-12 text-center">
+        <div class="w-20 h-20 mx-auto rounded-2xl bg-amber-50 border-2 border-amber-200 flex items-center justify-center mb-6 pulse-glow">
+          <svg class="w-10 h-10 text-amber-500" fill="currentColor" viewBox="0 0 24 24"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z"/></svg>
+        </div>
+        <h3 class="text-xl font-bold text-slate-900 mb-2">No roadmap has been created for Eswatini</h3>
+        <p class="text-sm text-slate-500 max-w-md mx-auto mb-8">Use AI to auto-generate a 5-year activity roadmap based on Eswatini's PVS evaluation scores, mission history, and regional priorities.</p>
+        <button @click="step='loading'" class="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl text-white text-sm font-bold shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5" style="background:linear-gradient(135deg,#ff4815,#ea580c)">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+          Generate Roadmap with AI
+        </button>
+        <p class="text-[11px] text-slate-400 mt-4">Powered by PVS AI Engine v3.2 Â· Based on 2026 evaluation data</p>
+      </div>
+    </div>
+
+    <!-- â•â•â• STATE 2: Loading / Step-by-step progress â•â•â• -->
+    <div>
+      <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">State 2 â€” Generation In Progress</h2>
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-10">
+        <div class="max-w-lg mx-auto">
+          <div class="flex items-center justify-center mb-8">
+            <div class="w-16 h-16 rounded-2xl bg-amber-50 border-2 border-amber-300 flex items-center justify-center">
+              <svg class="w-8 h-8 text-amber-500 spin-slow" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182"/></svg>
+            </div>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 text-center mb-2">Generating Roadmap for Eswatiniâ€¦</h3>
+          <p class="text-xs text-slate-500 text-center mb-8">Analyzing PVS scores and mission history to recommend optimal activities.</p>
+
+          <!-- Progress steps -->
+          <div class="space-y-4">
+            <div class="flex items-center gap-3">
+              <div class="w-7 h-7 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0"><svg class="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg></div>
+              <div class="flex-1">
+                <p class="text-sm font-semibold text-slate-900">Loading PVS Evaluation Data</p>
+                <p class="text-[11px] text-slate-400">48 critical competencies loaded from 2026 evaluation</p>
+              </div>
+              <span class="text-[10px] font-bold text-green-600">Complete</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-7 h-7 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0"><svg class="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg></div>
+              <div class="flex-1">
+                <p class="text-sm font-semibold text-slate-900">Analyzing Mission History</p>
+                <p class="text-[11px] text-slate-400">6 past missions found, last PVS Evaluation in 2022</p>
+              </div>
+              <span class="text-[10px] font-bold text-green-600">Complete</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-7 h-7 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-amber-600 spin-slow" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182"/></svg>
+              </div>
+              <div class="flex-1">
+                <p class="text-sm font-semibold text-amber-800">Generating Activity Recommendations</p>
+                <p class="text-[11px] text-slate-400">Mapping competency gaps to recommended missionsâ€¦</p>
+              </div>
+              <span class="text-[10px] font-bold text-amber-600">In Progress</span>
+            </div>
+            <div class="flex items-center gap-3 opacity-40">
+              <div class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0"><span class="text-[11px] font-bold text-slate-400">4</span></div>
+              <div class="flex-1">
+                <p class="text-sm font-medium text-slate-500">Scheduling Activities Across 5 Years</p>
+                <p class="text-[11px] text-slate-300">Optimizing timeline placement by priority and dependency</p>
+              </div>
+              <span class="text-[10px] font-medium text-slate-300">Pending</span>
+            </div>
+          </div>
+
+          <!-- Progress bar -->
+          <div class="mt-8">
+            <div class="flex justify-between text-[10px] font-medium text-slate-400 mb-1"><span>Overall Progress</span><span>65%</span></div>
+            <div class="h-2 bg-slate-100 rounded-full overflow-hidden">
+              <div class="h-full rounded-full" style="width:65%;background:linear-gradient(90deg,#ff4815,#fbbf24)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- â•â•â• STATE 3: Result Preview â•â•â• -->
+    <div>
+      <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">State 3 â€” Generation Complete (Result Preview)</h2>
+      <div class="bg-white rounded-xl border-2 border-green-300 shadow-sm overflow-hidden">
+        <!-- Success banner -->
+        <div class="bg-green-50 border-b border-green-200 px-6 py-4 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center"><svg class="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+          <div>
+            <h3 class="text-sm font-bold text-green-800">Roadmap Generated Successfully</h3>
+            <p class="text-[11px] text-green-600">12 activities recommended across 5 years Â· Avg. confidence: 91%</p>
+          </div>
+          <div class="flex-1"></div>
+          <button class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-white text-sm font-bold shadow-md hover:shadow-lg transition-all" style="background:linear-gradient(135deg,#ff4815,#ea580c)">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            Review on Timeline
+          </button>
+        </div>
+
+        <!-- Activity list preview -->
+        <div class="p-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <!-- Generated activities -->
+            <div class="fade-up fade-up-d1 flex items-center gap-3 p-3 rounded-lg border border-amber-200 bg-amber-50/50">
+              <div class="w-1.5 h-10 rounded bg-blue-500 flex-shrink-0"></div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-semibold text-slate-900 truncate">PVS Evaluation</p>
+                <p class="text-[10px] text-slate-500">2027 Â· Evaluation</p>
+              </div>
+              <div class="text-right flex-shrink-0">
+                <span class="text-[10px] font-bold text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded-full">96%</span>
+              </div>
+            </div>
+            <div class="fade-up fade-up-d2 flex items-center gap-3 p-3 rounded-lg border border-amber-200 bg-amber-50/50">
+              <div class="w-1.5 h-10 rounded bg-purple-500 flex-shrink-0"></div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-semibold text-slate-900 truncate">Gap Analysis</p>
+                <p class="text-[10px] text-slate-500">2027 Â· Gap Analysis</p>
+              </div>
+              <div class="text-right flex-shrink-0">
+                <span class="text-[10px] font-bold text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded-full">96%</span>
+              </div>
+            </div>
+            <div class="fade-up fade-up-d3 flex items-center gap-3 p-3 rounded-lg border border-amber-200 bg-amber-50/50">
+              <div class="w-1.5 h-10 rounded bg-orange-500 flex-shrink-0"></div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-semibold text-slate-900 truncate">Laboratory Mission</p>
+                <p class="text-[10px] text-slate-500">2028 Â· Targeted Support</p>
+              </div>
+              <div class="text-right flex-shrink-0">
+                <span class="text-[10px] font-bold text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded-full">93%</span>
+              </div>
+            </div>
+            <div class="fade-up fade-up-d4 flex items-center gap-3 p-3 rounded-lg border border-amber-200 bg-amber-50/50">
+              <div class="w-1.5 h-10 rounded bg-teal-500 flex-shrink-0"></div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-semibold text-slate-900 truncate">Animal Welfare Mission</p>
+                <p class="text-[10px] text-slate-500">2029 Â· Animal Welfare</p>
+              </div>
+              <div class="text-right flex-shrink-0">
+                <span class="text-[10px] font-bold text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded-full">89%</span>
+              </div>
+            </div>
+            <div class="fade-up fade-up-d5 flex items-center gap-3 p-3 rounded-lg border border-amber-200 bg-amber-50/50">
+              <div class="w-1.5 h-10 rounded bg-pink-500 flex-shrink-0"></div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-semibold text-slate-900 truncate">National Bridging Workshop</p>
+                <p class="text-[10px] text-slate-500">2030 Â· Workshop</p>
+              </div>
+              <div class="text-right flex-shrink-0">
+                <span class="text-[10px] font-bold text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded-full">87%</span>
+              </div>
+            </div>
+            <div class="fade-up fade-up-d5 flex items-center gap-3 p-3 rounded-lg border border-slate-200 bg-slate-50">
+              <div class="flex-1 text-center">
+                <span class="text-xs text-slate-400 font-medium">+ 7 more activities</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
+

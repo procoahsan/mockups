@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Screen 9 â€” Approval Flow | PVS Roadmap Planner</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']},colors:{woah:{50:'#fff7ed',100:'#ffedd5',500:'#ff4815',600:'#ea580c',700:'#c2410c'}}}}}</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}[x-cloak]{display:none!important}
+.sidebar-item{transition:all .15s ease}.sidebar-item:hover{background:rgba(255,255,255,0.08)}.sidebar-item.active{background:rgba(255,72,21,0.15);border-right:3px solid #ff4815}
+.nav-screen{transition:all .15s ease}.nav-screen:hover{background:#f1f5f9}.nav-screen.current{background:#fff7ed;color:#ea580c;font-weight:600;border:1px solid #fed7aa}
+</style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+<!-- TOP NAV -->
+<header class="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-slate-200 flex items-center px-4 gap-3 shadow-sm">
+  <div class="flex items-center gap-2.5 w-[240px]">
+    <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:#ff4815"><svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3"/></svg></div>
+    <div class="flex flex-col leading-none"><span class="text-[10px] font-bold tracking-widest uppercase" style="color:#ff4815">WOAH</span><span class="text-[13px] font-semibold text-slate-800">PVS Information System</span></div>
+  </div>
+  <div class="h-6 w-px bg-slate-200"></div>
+  <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-sm font-medium"><span class="w-5 h-4 rounded-sm bg-gradient-to-b from-blue-600 to-yellow-500 text-[7px] text-white font-bold flex items-center justify-center">SZ</span> Eswatini</div>
+  <div class="flex-1"></div>
+  <div class="flex items-center gap-1 text-xs">
+    <a href="screen-1-timeline.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Timeline</a>
+    <a href="screen-2-activity-cards.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Cards</a>
+    <a href="screen-3-colour-coding.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Colours</a>
+    <a href="screen-4-status-badges.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Status</a>
+    <a href="screen-5-executive-summary.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Summary</a>
+    <a href="screen-6-filters-export.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Filters</a>
+    <a href="screen-7-edit-flow.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Edit</a>
+    <a href="screen-8-generate-roadmap.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Generate</a>
+    <span class="nav-screen current px-2.5 py-1 rounded-md">Approval</span>
+    <a href="screen-10-notifications.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Notify</a>
+    <a href="screen-11-mobile.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Mobile</a>
+  </div>
+  <div class="h-6 w-px bg-slate-200 mx-1"></div>
+  <div class="w-7 h-7 rounded-full bg-gradient-to-br from-woah-500 to-woah-700 flex items-center justify-center text-white text-xs font-semibold">KD</div>
+</header>
+
+<!-- SIDEBAR -->
+<aside class="fixed top-14 left-0 bottom-0 w-[240px] z-40 flex flex-col overflow-y-auto text-white" style="background:#1e293b">
+  <nav class="flex-1 py-4 px-3 space-y-0.5">
+    <p class="px-3 text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2">Navigation</p>
+    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6z"/></svg> Dashboard</a>
+    <a href="#" class="sidebar-item active flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-white font-semibold"><svg class="w-[18px] h-[18px]" style="color:#ff4815" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75"/></svg> Roadmaps</a>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<div class="ml-[240px] pt-14 min-h-screen">
+  <div class="px-8 pt-6 pb-4">
+    <h1 class="text-2xl font-bold text-slate-900 mb-1">Screen 9 â€” Whole-Roadmap Approval Flow</h1>
+    <p class="text-sm text-slate-500 max-w-3xl mb-6">CBD submits the entire roadmap for Delegate review. Delegate sees a diff panel, read-only timeline preview, and Approve/Reject with mandatory comments. Approved state locks the roadmap.</p>
+  </div>
+
+  <div class="px-8 pb-8 space-y-8">
+
+    <!-- â•â•â• STATE 1: CBD Submit View â•â•â• -->
+    <div>
+      <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">State 1 â€” CBD Staff: Submit Roadmap for Approval</h2>
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+        <div class="flex items-center gap-4 mb-6">
+          <div class="flex-1">
+            <h3 class="text-lg font-bold text-slate-900">Eswatini â€” 5-Year Roadmap 2027â€“2031</h3>
+            <p class="text-xs text-slate-500 mt-1">12 activities Â· Last edited 2 hours ago by K. Dlamini (CBD)</p>
+          </div>
+          <span class="px-3 py-1 rounded-full text-[10px] font-bold bg-amber-100 text-amber-700 border border-amber-200">Draft â€” Not Submitted</span>
+        </div>
+        <!-- Summary bar -->
+        <div class="grid grid-cols-4 gap-3 mb-6">
+          <div class="bg-slate-50 rounded-lg p-3"><p class="text-[9px] font-bold text-slate-400 uppercase">Activities</p><p class="text-lg font-bold text-slate-900">12</p></div>
+          <div class="bg-slate-50 rounded-lg p-3"><p class="text-[9px] font-bold text-slate-400 uppercase">AI Generated</p><p class="text-lg font-bold text-amber-600">5</p></div>
+          <div class="bg-slate-50 rounded-lg p-3"><p class="text-[9px] font-bold text-slate-400 uppercase">CBD Added</p><p class="text-lg font-bold text-slate-900">5</p></div>
+          <div class="bg-slate-50 rounded-lg p-3"><p class="text-[9px] font-bold text-slate-400 uppercase">Delegate Added</p><p class="text-lg font-bold text-emerald-600">2</p></div>
+        </div>
+        <!-- Submit actions (CBD only) -->
+        <div class="flex items-center gap-3 pt-4 border-t border-slate-200">
+          <textarea class="flex-1 text-xs rounded-lg border border-slate-200 p-3 resize-none focus:outline-none focus:border-woah-400 focus:ring-2 focus:ring-woah-100" rows="2" placeholder="Add a note for the Delegate (optional)â€¦"></textarea>
+          <button class="px-6 py-3 rounded-lg text-white text-sm font-bold shadow-md hover:shadow-lg transition-all flex items-center gap-2" style="background:linear-gradient(135deg,#2563eb,#1d4ed8)">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"/></svg>
+            Submit to Delegate
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- â•â•â• STATE 2: Delegate Review with Diff â•â•â• -->
+    <div>
+      <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">State 2 â€” Delegate: Review Submitted Roadmap with Diff</h2>
+      <div class="bg-white rounded-xl border-2 border-blue-300 shadow-sm overflow-hidden">
+        <!-- Review header -->
+        <div class="bg-blue-50 border-b border-blue-200 px-6 py-4 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center"><svg class="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15a2.251 2.251 0 012.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z"/></svg></div>
+          <div>
+            <h3 class="text-sm font-bold text-blue-800">Roadmap Submitted for Your Review</h3>
+            <p class="text-[11px] text-blue-600">Submitted by K. Dlamini (CBD) Â· 2 hours ago</p>
+          </div>
+          <div class="flex-1"></div>
+          <span class="px-3 py-1 rounded-full text-[10px] font-bold bg-blue-100 text-blue-700 border border-blue-200">Pending Review</span>
+        </div>
+
+        <!-- Diff panel -->
+        <div class="p-6">
+          <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Changes Since Last Version</h4>
+          <div class="space-y-2 mb-6">
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-green-50 border border-green-200">
+              <span class="text-[10px] font-bold text-green-700 bg-green-100 px-2 py-0.5 rounded">+ Added</span>
+              <span class="text-sm text-slate-800">Laboratory Mission</span>
+              <span class="text-[10px] text-slate-400 ml-auto">2028 Â· AI Generated (93%)</span>
+            </div>
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-green-50 border border-green-200">
+              <span class="text-[10px] font-bold text-green-700 bg-green-100 px-2 py-0.5 rounded">+ Added</span>
+              <span class="text-sm text-slate-800">Animal Welfare Mission</span>
+              <span class="text-[10px] text-slate-400 ml-auto">2029 Â· AI Generated (89%)</span>
+            </div>
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-amber-50 border border-amber-200">
+              <span class="text-[10px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded">~ Modified</span>
+              <span class="text-sm text-slate-800">Strategic Planning</span>
+              <span class="text-[10px] text-slate-400 ml-auto">Moved from 2029 â†’ 2028</span>
+            </div>
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-red-50 border border-red-200">
+              <span class="text-[10px] font-bold text-red-700 bg-red-100 px-2 py-0.5 rounded">âˆ’ Removed</span>
+              <span class="text-sm text-slate-800 line-through">PPR Training Workshop</span>
+              <span class="text-[10px] text-slate-400 ml-auto">Was in 2030</span>
+            </div>
+          </div>
+
+          <!-- Approve/Reject (Delegate only) -->
+          <div class="pt-4 border-t border-slate-200">
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Delegate Decision</p>
+            <textarea class="w-full text-xs rounded-lg border border-slate-200 p-3 resize-none focus:outline-none focus:border-woah-400 focus:ring-2 focus:ring-woah-100 mb-3" rows="2" placeholder="Comments (required for rejection)â€¦"></textarea>
+            <div class="flex items-center gap-3">
+              <button class="px-6 py-2.5 rounded-lg text-white text-sm font-bold shadow-md hover:shadow-lg transition-all flex items-center gap-2 bg-green-600 hover:bg-green-700">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                Approve Roadmap
+              </button>
+              <button class="px-6 py-2.5 rounded-lg text-white text-sm font-bold shadow-md hover:shadow-lg transition-all flex items-center gap-2 bg-red-600 hover:bg-red-700">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                Reject with Comments
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- â•â•â• STATE 3: Approved / Locked â•â•â• -->
+    <div>
+      <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">State 3 â€” Approved & Locked</h2>
+      <div class="bg-white rounded-xl border-2 border-green-400 shadow-sm overflow-hidden">
+        <div class="bg-green-50 border-b border-green-200 px-6 py-5 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center"><svg class="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg></div>
+          <div>
+            <h3 class="text-lg font-bold text-green-800">Roadmap Approved & Locked</h3>
+            <p class="text-xs text-green-600">Approved by Dr. M. Nkosi (Delegate) on 4 Aug 2026 Â· v2.1</p>
+          </div>
+          <div class="flex-1"></div>
+          <div class="text-right">
+            <p class="text-[9px] font-bold text-slate-400 uppercase">Next Review</p>
+            <p class="text-sm font-bold text-slate-800">4 Feb 2027</p>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="bg-green-50 border border-green-200 rounded-lg p-4 flex items-center gap-3">
+            <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
+            <p class="text-sm text-green-800">This roadmap is locked. Editing is disabled until the next scheduled review on <strong>4 Feb 2027</strong>. Contact the Delegate to request early unlock.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
+

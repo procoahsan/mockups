@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Screen 7 — Edit Flow | PVS Roadmap Planner</title>
+<title>Screen 7 â€” Edit Flow | PVS Roadmap Planner</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
@@ -34,13 +34,17 @@
   <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-sm font-medium"><span class="w-5 h-4 rounded-sm bg-gradient-to-b from-blue-600 to-yellow-500 text-[7px] text-white font-bold flex items-center justify-center">SZ</span> Eswatini</div>
   <div class="flex-1"></div>
   <div class="flex items-center gap-1 text-xs">
-    <a href="screen-1-timeline.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">1. Timeline</a>
-    <a href="screen-2-activity-cards.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">2. Cards</a>
-    <a href="screen-3-colour-coding.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">3. Colours</a>
-    <a href="screen-4-status-badges.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">4. Status</a>
-    <a href="screen-5-executive-summary.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">5. Summary</a>
-    <a href="screen-6-filters-export.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">6. Filters</a>
-    <span class="nav-screen current px-2.5 py-1 rounded-md">7. Edit</span>
+    <a href="screen-1-timeline.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Timeline</a>
+    <a href="screen-2-activity-cards.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Cards</a>
+    <a href="screen-3-colour-coding.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Colours</a>
+    <a href="screen-4-status-badges.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Status</a>
+    <a href="screen-5-executive-summary.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Summary</a>
+    <a href="screen-6-filters-export.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Filters</a>
+    <span class="nav-screen current px-2.5 py-1 rounded-md">Edit</span>
+    <a href="screen-8-generate-roadmap.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Generate</a>
+    <a href="screen-9-approval.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Approval</a>
+    <a href="screen-10-notifications.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Notify</a>
+    <a href="screen-11-mobile.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Mobile</a>
   </div>
   <div class="h-6 w-px bg-slate-200 mx-1"></div>
   <!-- Edit Mode Indicator -->
@@ -63,13 +67,13 @@
 <!-- MAIN -->
 <div class="ml-[240px] pt-14 min-h-screen">
   <div class="px-8 pt-6 pb-4">
-    <h1 class="text-2xl font-bold text-slate-900 mb-1">Screen 7 — Edit Flow</h1>
+    <h1 class="text-2xl font-bold text-slate-900 mb-1">Screen 7 â€” Edit Flow</h1>
     <p class="text-sm text-slate-500 max-w-3xl mb-6">How Delegates and CBD staff interact with the timeline: selecting cards, adding/removing/moving activities, the floating toolbar, the detail side drawer with edit form, and how AI-generated items are visually distinguished.</p>
   </div>
 
   <div class="px-8 pb-8 space-y-8">
 
-    <!-- ═══════ STEP 1: Enter Edit Mode ═══════ -->
+    <!-- â•â•â•â•â•â•â• STEP 1: Enter Edit Mode â•â•â•â•â•â•â• -->
     <div>
       <div class="flex items-center gap-3 mb-3">
         <span class="w-7 h-7 rounded-full bg-woah-500 text-white text-xs font-bold flex items-center justify-center">1</span>
@@ -82,12 +86,12 @@
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931z"/></svg>
             <span x-text="editMode ? 'Exit Edit Mode' : 'Edit Roadmap'"></span>
           </button>
-          <span class="text-xs text-slate-400" x-show="editMode">Edit mode active — select cards to modify, or use the toolbar below.</span>
+          <span class="text-xs text-slate-400" x-show="editMode">Edit mode active â€” select cards to modify, or use the toolbar below.</span>
         </div>
       </div>
     </div>
 
-    <!-- ═══════ STEP 2: Card Selection ═══════ -->
+    <!-- â•â•â•â•â•â•â• STEP 2: Card Selection â•â•â•â•â•â•â• -->
     <div>
       <div class="flex items-center gap-3 mb-3">
         <span class="w-7 h-7 rounded-full bg-woah-500 text-white text-xs font-bold flex items-center justify-center">2</span>
@@ -99,14 +103,14 @@
           <!-- Unselected card -->
           <div class="card-manual rounded-lg h-12 flex items-center px-4 gap-2 cursor-pointer" style="width:240px" @click="selected = (selected === 'eval' ? null : 'eval')" :class="selected === 'eval' ? 'card-selected' : ''">
             <div class="w-1.5 h-full rounded-l bg-blue-500 absolute left-0"></div>
-            <span class="text-[11px] font-medium text-blue-800 pl-2">🔍 PVS Evaluation</span>
+            <span class="text-[11px] font-medium text-blue-800 pl-2">ðŸ” PVS Evaluation</span>
             <span class="ml-auto text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700">Draft</span>
           </div>
 
           <!-- AI card (visually different) -->
           <div class="card-ai rounded-lg h-12 flex items-center px-4 gap-2 cursor-pointer" style="width:260px" @click="selected = (selected === 'lab' ? null : 'lab')" :class="selected === 'lab' ? 'card-selected' : ''">
             <div class="w-1.5 h-full rounded-l bg-orange-500 absolute left-0"></div>
-            <span class="text-[11px] font-medium text-orange-800 pl-2">🧪 Laboratory Mission</span>
+            <span class="text-[11px] font-medium text-orange-800 pl-2">ðŸ§ª Laboratory Mission</span>
             <span class="ml-auto text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-amber-200 text-amber-800 flex items-center gap-0.5">
               <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 24 24"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
               AI 93%
@@ -119,11 +123,11 @@
             <span class="text-xs font-medium text-slate-400">Add Activity</span>
           </div>
         </div>
-        <p class="text-[10px] text-slate-400 mt-3" x-show="selected">Selected: <span class="font-bold text-woah-600" x-text="selected === 'eval' ? 'PVS Evaluation' : 'Laboratory Mission'"></span> — use toolbar to edit, move, or delete.</p>
+        <p class="text-[10px] text-slate-400 mt-3" x-show="selected">Selected: <span class="font-bold text-woah-600" x-text="selected === 'eval' ? 'PVS Evaluation' : 'Laboratory Mission'"></span> â€” use toolbar to edit, move, or delete.</p>
       </div>
     </div>
 
-    <!-- ═══════ STEP 3: Floating Toolbar ═══════ -->
+    <!-- â•â•â•â•â•â•â• STEP 3: Floating Toolbar â•â•â•â•â•â•â• -->
     <div>
       <div class="flex items-center gap-3 mb-3">
         <span class="w-7 h-7 rounded-full bg-woah-500 text-white text-xs font-bold flex items-center justify-center">3</span>
@@ -176,14 +180,14 @@
           <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Add</strong><br>New activity</div>
           <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Remove</strong><br>Delete selected</div>
           <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Duplicate</strong><br>Copy selected</div>
-          <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Move ←→</strong><br>Shift quarters</div>
+          <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Move â†â†’</strong><br>Shift quarters</div>
           <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Resize</strong><br>Change duration</div>
           <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Undo/Redo</strong><br>History stack</div>
         </div>
       </div>
     </div>
 
-    <!-- ═══════ STEP 4: Detail Drawer + Edit Form ═══════ -->
+    <!-- â•â•â•â•â•â•â• STEP 4: Detail Drawer + Edit Form â•â•â•â•â•â•â• -->
     <div>
       <div class="flex items-center gap-3 mb-3">
         <span class="w-7 h-7 rounded-full bg-woah-500 text-white text-xs font-bold flex items-center justify-center">4</span>
@@ -193,29 +197,55 @@
         <div class="flex">
           <!-- Left: Timeline preview (dimmed) -->
           <div class="flex-1 p-6 bg-slate-50/50 border-r border-slate-200 relative" style="min-height:600px">
-            <p class="text-xs text-slate-400 mb-4 font-medium">← Timeline (dimmed when drawer is open)</p>
+            <p class="text-xs text-slate-400 mb-4 font-medium">â† Timeline (dimmed when drawer is open)</p>
             <div class="space-y-3 opacity-50">
-              <div class="h-10 rounded-lg bg-blue-50 border border-blue-200 flex items-center px-3"><span class="text-[11px] text-blue-800">🔍 PVS Evaluation — 2027 Q1</span></div>
-              <div class="h-10 rounded-lg bg-blue-50 border border-blue-200 flex items-center px-3"><span class="text-[11px] text-blue-800">🔄 PVS Follow-up — 2027 Q3</span></div>
-              <div class="h-10 rounded-lg border-2 border-amber-400 flex items-center px-3" style="background:linear-gradient(135deg,#fefce8,#fef9c3)"><span class="text-[11px] text-purple-800">📊 Gap Analysis — 2027 Q4</span></div>
-              <div class="h-10 rounded-lg border-2 border-amber-400 flex items-center px-3 card-selected" style="background:linear-gradient(135deg,#fefce8,#fef9c3)"><span class="text-[11px] text-orange-800 font-bold">🧪 Laboratory Mission — 2028 Q2</span></div>
-              <div class="h-10 rounded-lg bg-indigo-50 border border-indigo-200 flex items-center px-3"><span class="text-[11px] text-indigo-800">📋 Strategic Planning — 2028 Q4</span></div>
+              <div class="h-10 rounded-lg bg-blue-50 border border-blue-200 flex items-center px-3"><span class="text-[11px] text-blue-800">ðŸ” PVS Evaluation â€” 2027 Q1</span></div>
+              <div class="h-10 rounded-lg bg-blue-50 border border-blue-200 flex items-center px-3"><span class="text-[11px] text-blue-800">ðŸ”„ PVS Follow-up â€” 2027 Q3</span></div>
+              <div class="h-10 rounded-lg border-2 border-amber-400 flex items-center px-3" style="background:linear-gradient(135deg,#fefce8,#fef9c3)"><span class="text-[11px] text-purple-800">ðŸ“Š Gap Analysis â€” 2027 Q4</span></div>
+              <div class="h-10 rounded-lg border-2 border-amber-400 flex items-center px-3 card-selected" style="background:linear-gradient(135deg,#fefce8,#fef9c3)"><span class="text-[11px] text-orange-800 font-bold">ðŸ§ª Laboratory Mission â€” 2028 Q2</span></div>
+              <div class="h-10 rounded-lg bg-indigo-50 border border-indigo-200 flex items-center px-3"><span class="text-[11px] text-indigo-800">ðŸ“‹ Strategic Planning â€” 2028 Q4</span></div>
             </div>
             <div class="absolute inset-0 bg-white/30 pointer-events-none"></div>
           </div>
 
           <!-- Right: Edit Drawer -->
-          <div class="w-[460px] flex flex-col" style="min-height:600px">
+          <div class="w-[40vw] flex flex-col relative" style="min-height:600px">
+            
+            <!-- CONFIRMATION OVERLAYS -->
+            <div x-show="showDeleteConfirm" class="absolute inset-0 bg-white/95 backdrop-blur-sm z-10 flex flex-col items-center justify-center p-8 text-center" x-transition>
+              <div class="w-16 h-16 rounded-full bg-red-100 text-red-600 flex items-center justify-center mb-4">
+                <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              </div>
+              <h3 class="text-lg font-bold text-slate-900 mb-2">Delete this activity?</h3>
+              <p class="text-sm text-slate-500 mb-6">This action cannot be undone. The activity will be removed from the roadmap.</p>
+              <div class="flex items-center gap-3 w-full max-w-xs">
+                <button @click="showDeleteConfirm = false" class="flex-1 px-4 py-2 text-sm font-medium rounded-lg border border-slate-200 hover:bg-slate-50">Cancel</button>
+                <button @click="showDeleteConfirm = false" class="flex-1 px-4 py-2 text-sm font-bold rounded-lg bg-red-600 text-white hover:bg-red-700 shadow-sm">Delete</button>
+              </div>
+            </div>
+            
+            <div x-show="showRejectConfirm" class="absolute inset-0 bg-white/95 backdrop-blur-sm z-10 flex flex-col items-center justify-center p-8 text-center" x-transition>
+              <div class="w-16 h-16 rounded-full bg-red-100 text-red-600 flex items-center justify-center mb-4">
+                <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+              </div>
+              <h3 class="text-lg font-bold text-slate-900 mb-2">Reject Activity</h3>
+              <p class="text-sm text-slate-500 mb-4">Please provide a reason for rejecting this activity.</p>
+              <textarea rows="3" class="w-full max-w-sm mb-6 px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-red-400 resize-none" placeholder="Reason for rejection..."></textarea>
+              <div class="flex items-center gap-3 w-full max-w-sm">
+                <button @click="showRejectConfirm = false" class="flex-1 px-4 py-2 text-sm font-medium rounded-lg border border-slate-200 hover:bg-slate-50">Cancel</button>
+                <button @click="showRejectConfirm = false" class="flex-1 px-4 py-2 text-sm font-bold rounded-lg bg-red-600 text-white hover:bg-red-700 shadow-sm">Confirm Reject</button>
+              </div>
+            </div>
             <!-- Header -->
             <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
               <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center text-lg relative">
-                  🧪
+                  ðŸ§ª
                   <div class="absolute -top-1 -right-1 w-5 h-5 bg-amber-400 rounded-full flex items-center justify-center"><svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg></div>
                 </div>
                 <div>
                   <h3 class="text-sm font-bold text-slate-900">Edit: Laboratory Mission</h3>
-                  <p class="text-[10px] text-amber-600 font-medium">🤖 AI-Generated · Confidence: 93%</p>
+                  <p class="text-[10px] text-amber-600 font-medium">ðŸ¤– AI-Generated Â· Confidence: 93%</p>
                 </div>
               </div>
               <button class="p-1.5 rounded-lg hover:bg-slate-100 text-slate-400"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
@@ -260,24 +290,26 @@
               </div>
               <div class="grid grid-cols-2 gap-3">
                 <div>
-                  <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Start Quarter</label>
+                  <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Target Year</label>
                   <select class="w-full mt-1 px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-woah-400">
-                    <option>2027 Q1</option><option>2027 Q2</option><option>2027 Q3</option><option>2027 Q4</option>
-                    <option>2028 Q1</option><option selected>2028 Q2</option><option>2028 Q3</option><option>2028 Q4</option>
-                    <option>2029 Q1</option><option>2029 Q2</option>
+                    <option>2027</option>
+                    <option selected>2028</option>
+                    <option>2029</option>
+                    <option>2030</option>
+                    <option>2031</option>
                   </select>
                 </div>
                 <div>
                   <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Duration</label>
                   <select class="w-full mt-1 px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-woah-400">
-                    <option selected>1 quarter (3 months)</option>
-                    <option>2 quarters (6 months)</option>
-                    <option>3 quarters (9 months)</option>
-                    <option>4 quarters (12 months)</option>
+                    <option selected>1 Year</option>
+                    <option>2 Years</option>
+                    <option>3 Years</option>
+                    <option>Ongoing</option>
                   </select>
                 </div>
               </div>
-              <div>
+              <div class="hidden">
                 <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Estimated Budget (USD)</label>
                 <input type="number" value="180000" class="w-full mt-1 px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-woah-400">
               </div>
@@ -287,28 +319,40 @@
               </div>
               <div>
                 <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Notes / Justification</label>
-                <textarea rows="2" class="w-full mt-1 px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-woah-400 resize-none" placeholder="Add notes explaining any changes from the AI recommendation…"></textarea>
+                <textarea rows="2" class="w-full mt-1 px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-woah-400 resize-none" placeholder="Add notes explaining any changes from the AI recommendationâ€¦"></textarea>
               </div>
             </div>
 
             <!-- Footer Actions -->
-            <div class="px-6 py-4 border-t border-slate-200 bg-slate-50 space-y-2">
-              <div class="flex items-center gap-2">
-                <button class="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-bold rounded-lg bg-green-600 text-white hover:bg-green-700 shadow-sm">
-                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
-                  Approve
-                </button>
-                <button class="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-bold rounded-lg bg-white text-red-600 border border-red-200 hover:bg-red-50">
-                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
-                  Reject
-                </button>
+            <div class="px-6 py-4 border-t border-slate-200 bg-slate-50 space-y-4">
+              <!-- Delegate Actions -->
+              <div>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Delegate Actions</p>
+                <div class="flex items-center gap-2">
+                  <button class="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-bold rounded-lg bg-green-600 text-white hover:bg-green-700 shadow-sm">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                    Approve
+                  </button>
+                  <button @click="showRejectConfirm = true" class="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-bold rounded-lg bg-white text-red-600 border border-red-200 hover:bg-red-50">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                    Reject
+                  </button>
+                </div>
               </div>
-              <div class="flex items-center gap-2">
-                <button class="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-semibold rounded-lg text-white shadow-sm" style="background:#ff4815">
-                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931z"/></svg>
-                  Save Changes
-                </button>
-                <button class="px-4 py-2.5 text-sm font-medium rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-600">Cancel</button>
+              
+              <!-- CBD Actions -->
+              <div>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">CBD Actions</p>
+                <div class="flex items-center gap-2">
+                  <button class="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-semibold rounded-lg text-white shadow-sm" style="background:#ff4815">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931z"/></svg>
+                    Save Changes
+                  </button>
+                  <button class="px-4 py-2.5 text-sm font-medium rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-600">Cancel</button>
+                  <button @click="showDeleteConfirm = true" class="p-2.5 rounded-lg border border-red-200 text-red-600 hover:bg-red-50" title="Delete Activity">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -316,11 +360,11 @@
       </div>
     </div>
 
-    <!-- ═══════ STEP 5: AI vs Manual Visual Distinction ═══════ -->
+    <!-- â•â•â•â•â•â•â• STEP 5: AI vs Manual Visual Distinction â•â•â•â•â•â•â• -->
     <div>
       <div class="flex items-center gap-3 mb-3">
         <span class="w-7 h-7 rounded-full bg-woah-500 text-white text-xs font-bold flex items-center justify-center">5</span>
-        <h2 class="text-sm font-bold text-slate-800">AI-Generated vs Manual — Visual Comparison</h2>
+        <h2 class="text-sm font-bold text-slate-800">AI-Generated vs Manual â€” Visual Comparison</h2>
       </div>
       <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
         <div class="grid grid-cols-2 gap-6">
@@ -330,11 +374,11 @@
             <div class="card-manual rounded-xl p-4 space-y-3">
               <div class="h-1.5 w-full bg-blue-500 rounded-t -mt-4 -mx-4" style="width:calc(100% + 2rem)"></div>
               <div class="flex items-center gap-2 mt-2">
-                <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">🔍</div>
+                <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">ðŸ”</div>
                 <div><p class="text-sm font-bold">PVS Evaluation</p><p class="text-[10px] text-slate-400">Evaluation</p></div>
               </div>
               <div class="text-[10px] text-slate-500">Clean white card, solid top accent bar, no sparkle or gradient.</div>
-              <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[9px] font-bold bg-amber-50 text-amber-700 border border-amber-200">✏️ Draft</span>
+              <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[9px] font-bold bg-amber-50 text-amber-700 border border-amber-200">âœï¸ Draft</span>
             </div>
             <div class="mt-3 flex items-center gap-2 text-[10px] text-slate-500">
               <span class="w-3 h-3 rounded bg-white border border-slate-200"></span> White background
@@ -349,18 +393,18 @@
               <div class="h-1.5 w-full bg-orange-500 rounded-t -mt-4 -mx-4" style="width:calc(100% + 2rem)"></div>
               <div class="flex items-center gap-2 mt-2">
                 <div class="w-8 h-8 rounded-lg bg-orange-100 flex items-center justify-center relative">
-                  🧪
+                  ðŸ§ª
                   <div class="absolute -top-1 -right-1 w-4 h-4 bg-amber-400 rounded-full flex items-center justify-center"><svg class="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg></div>
                 </div>
                 <div><p class="text-sm font-bold">Laboratory Mission</p><p class="text-[10px] text-amber-700 font-medium">AI Confidence: 93%</p></div>
               </div>
               <div class="text-[10px] text-amber-900/70">Amber gradient background, gold border, sparkle badge, confidence score, and rationale visible.</div>
-              <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[9px] font-bold bg-amber-200 text-amber-800 border border-amber-300">✨ Auto Generated</span>
+              <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[9px] font-bold bg-amber-200 text-amber-800 border border-amber-300">âœ¨ Auto Generated</span>
             </div>
             <div class="mt-3 flex items-center gap-2 text-[10px] text-slate-500">
               <span class="w-3 h-3 rounded border-2 border-amber-400 bg-amber-50"></span> Amber gradient
               <span class="w-3 h-3 rounded bg-amber-400"></span> Gold border
-              <span>✨ Sparkle icon</span>
+              <span>âœ¨ Sparkle icon</span>
             </div>
           </div>
         </div>
@@ -369,7 +413,7 @@
 
     <!-- Design Notes -->
     <div class="bg-blue-50 border border-blue-200 rounded-xl p-5">
-      <h3 class="text-sm font-bold text-blue-800 mb-2">Design Notes — Edit Flow</h3>
+      <h3 class="text-sm font-bold text-blue-800 mb-2">Design Notes â€” Edit Flow</h3>
       <ul class="text-xs text-blue-700 space-y-1 list-disc ml-5">
         <li><strong>Edit Mode toggle</strong> activates/deactivates the floating toolbar and card selection highlights.</li>
         <li><strong>Selected cards</strong> get a 3px orange outline + glow to clearly indicate selection state.</li>
@@ -388,8 +432,12 @@ function editFlow() {
   return {
     editMode: true,
     selected: 'lab',
+    showDeleteConfirm: false,
+    showRejectConfirm: false,
   };
 }
 </script>
 </body>
 </html>
+
+

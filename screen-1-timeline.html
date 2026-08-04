@@ -1,14 +1,14 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Screen 1 — 5-Year Timeline Layout | PVS Roadmap Planner</title>
+<title>Screen 1 â€” 5-Year Timeline Layout | PVS Roadmap Planner</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 <script>
-tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']},colors:{woah:{50:'#fff7ed',100:'#ffedd5',200:'#fed7aa',300:'#fdba74',400:'#fb923c',500:'#ff4815',600:'#ea580c',700:'#c2410c',800:'#9a3412',900:'#7c2d12'},pvs:{blue:'#2563eb',purple:'#7c3aed',green:'#16a34a',orange:'#ea580c',pink:'#db2777',teal:'#0d9488',indigo:'#4f46e5',navy:'#1e3a5f',emerald:'#059669',amber:'#d97706'}}}}}
+tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']},colors:{woah:{50:'#fff7ed',100:'#ffedd5',200:'#fed7aa',300:'#fdba74',400:'#fb923c',500:'#ff4815',600:'#ea580c',700:'#c2410c',800:'#9a3412',900:'#7c2d12'},pvs:{blue:'#2563eb',purple:'#7c3aed',green:'#16a34a',orange:'#ea580c',pink:'#db2777',teal:'#0d9488',cyan:'#0369A1',navy:'#1e3a5f',emerald:'#059669',amber:'#d97706'}}}}}
 </script>
 <style>
 *,*::before,*::after{box-sizing:border-box}
@@ -36,12 +36,12 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .tooltip-trigger .tooltip-content::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#1e293b}
 .tooltip-trigger:hover .tooltip-content{display:block}
 
-/* ═══ RESPONSIVE: Sidebar ═══ */
+/* â•â•â• RESPONSIVE: Sidebar â•â•â• */
 .sidebar{width:240px;transition:width .2s ease}
 .main-content{margin-left:240px;transition:margin-left .2s ease}
 .header-brand{width:240px;transition:width .2s ease}
 
-/* ═══ RESPONSIVE: Laptop ≤1600px — slim sidebar ═══ */
+/* â•â•â• RESPONSIVE: Laptop â‰¤1600px â€” slim sidebar â•â•â• */
 @media (max-width:1600px){
   .sidebar{width:200px !important}
   .main-content{margin-left:200px !important}
@@ -53,7 +53,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
   .activity-card .card-title{font-size:11px}
 }
 
-/* ═══ RESPONSIVE: Zoomed / small laptop ≤1500px — icon-only sidebar ═══ */
+/* â•â•â• RESPONSIVE: Zoomed / small laptop â‰¤1500px â€” icon-only sidebar â•â•â• */
 @media (max-width:1500px){
   .sidebar{width:64px !important;overflow:hidden !important}
   .sidebar nav{padding-left:8px !important;padding-right:8px !important}
@@ -94,7 +94,15 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
   .timeline-wrapper{overflow-x:auto}
 }
 
-/* ═══ RESPONSIVE: Heavy zoom ≤1100px — compact everything ═══ */
+/* â•â•â• Scroll affordance gradient â•â•â• */
+.timeline-wrapper{position:relative}
+.timeline-wrapper::after{content:'';position:absolute;right:0;top:0;bottom:0;width:40px;background:linear-gradient(to right,transparent,rgba(255,255,255,0.9));pointer-events:none;z-index:5}
+
+/* â•â•â• Confidence degradation â€” Year 4-5 reduced opacity â•â•â• */
+.year-col.confidence-low{opacity:0.7}
+.year-col.confidence-speculative{opacity:0.55}
+
+/* â•â•â• RESPONSIVE: Heavy zoom â‰¤1100px â€” compact everything â•â•â• */
 @media (max-width:1100px){
   .sidebar{width:0 !important;display:none !important}
   .main-content{margin-left:0 !important}
@@ -123,7 +131,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
   .year-col .cards-container{padding:6px}
 }
 
-/* ═══ RESPONSIVE: Extreme zoom ≤900px ═══ */
+/* â•â•â• RESPONSIVE: Extreme zoom â‰¤900px â•â•â• */
 @media (max-width:900px){
   .year-col{min-width:200px !important}
   .timeline-wrapper{overflow-x:auto !important}
@@ -134,7 +142,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 </head>
 <body class="bg-slate-50 text-slate-800" x-data="timeline()" x-cloak>
 
-<!-- ═══════ TOP NAVIGATION ═══════ -->
+<!-- â•â•â•â•â•â•â• TOP NAVIGATION â•â•â•â•â•â•â• -->
 <header class="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-slate-200 flex items-center pr-4 gap-3 shadow-sm">
   <div class="header-brand flex items-center gap-2.5 flex-shrink-0 px-4">
     <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:#ff4815">
@@ -151,10 +159,10 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
     Eswatini
     <svg class="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
   </div>
-  <span class="header-meta hidden md:inline text-xs text-slate-400">Africa — Southern</span>
+  <span class="header-meta hidden md:inline text-xs text-slate-400">Africa â€” Southern</span>
   <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium" style="background:#fff7ed;color:#ea580c">
     <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
-    2027–2031
+    2027â€“2031
   </div>
   <!-- FIX #1: Ref label now has tooltip explaining baseline year -->
   <div class="tooltip-trigger text-xs text-slate-400 cursor-help">
@@ -168,20 +176,24 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
   <div class="flex-1"></div>
   <!-- Screen Nav -->
   <div class="nav-screen-list flex items-center gap-1 text-xs">
-    <span class="nav-screen current px-2.5 py-1 rounded-md">1. Timeline</span>
-    <a href="screen-2-activity-cards.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">2. Cards</a>
-    <a href="screen-3-colour-coding.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">3. Colours</a>
-    <a href="screen-4-status-badges.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">4. Status</a>
-    <a href="screen-5-executive-summary.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">5. Summary</a>
-    <a href="screen-6-filters-export.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">6. Filters</a>
-    <a href="screen-7-edit-flow.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">7. Edit</a>
+    <span class="nav-screen current px-2.5 py-1 rounded-md">Timeline</span>
+    <a href="screen-2-activity-cards.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Cards</a>
+    <a href="screen-3-colour-coding.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Colours</a>
+    <a href="screen-4-status-badges.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Status</a>
+    <a href="screen-5-executive-summary.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Summary</a>
+    <a href="screen-6-filters-export.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Filters</a>
+    <a href="screen-7-edit-flow.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Edit</a>
+    <a href="screen-8-generate-roadmap.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Generate</a>
+    <a href="screen-9-approval.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Approval</a>
+    <a href="screen-10-notifications.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Notify</a>
+    <a href="screen-11-mobile.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Mobile</a>
   </div>
   <div class="h-6 w-px bg-slate-200 mx-1"></div>
   <button class="relative p-2 rounded-lg hover:bg-slate-50"><svg class="w-5 h-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg><span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span></button>
   <div class="w-7 h-7 rounded-full bg-gradient-to-br from-woah-500 to-woah-700 flex items-center justify-center text-white text-xs font-semibold">KD</div>
 </header>
 
-<!-- ═══════ LEFT SIDEBAR ═══════ -->
+<!-- â•â•â•â•â•â•â• LEFT SIDEBAR â•â•â•â•â•â•â• -->
 <aside class="sidebar fixed top-14 left-0 bottom-0 z-40 flex flex-col overflow-y-auto text-white" style="background:#1e293b">
   <nav class="flex-1 py-4 px-3 space-y-0.5">
     <p class="sidebar-section-label px-3 text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2">Navigation</p>
@@ -209,7 +221,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
   </div>
 </aside>
 
-<!-- ═══════ MAIN CONTENT ═══════ -->
+<!-- â•â•â•â•â•â•â• MAIN CONTENT â•â•â•â•â•â•â• -->
 <div class="main-content pt-14 min-h-screen flex flex-col">
 
   <!-- Page Title -->
@@ -217,12 +229,11 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
     <div class="flex items-center gap-2 text-xs text-slate-400 mb-2">
       <span>Countries</span><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
       <span>Eswatini</span><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
-      <span class="text-slate-600 font-medium">Roadmap 2027–2031</span>
+      <span class="text-slate-600 font-medium">Roadmap 2027â€“2031</span>
     </div>
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-3">
         <h1 class="page-title text-2xl font-bold text-slate-900">5-Year Roadmap</h1>
-        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-blue-100 text-blue-700 border border-blue-200">Drag & Drop</span>
       </div>
       <!-- FIX #10: AI toggle also on main area for discoverability -->
       <button @click="showAI = !showAI" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors border" :class="showAI ? 'bg-amber-50 border-amber-300 text-amber-800' : 'bg-slate-50 border-slate-200 text-slate-500'">
@@ -236,7 +247,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
     </p>
   </div>
 
-  <!-- FIX #8: Legend bar with grouped sections — structural vs content categories -->
+  <!-- FIX #8: Legend bar with grouped sections â€” structural vs content categories -->
   <div class="page-padding px-8 pb-4">
     <div class="legend-bar bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
       <div class="flex items-center gap-6 flex-wrap">
@@ -275,20 +286,24 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
             <div class="w-8" style="background:rgba(250,204,21,0.15)"></div>
             <div class="w-8" style="background:rgba(239,68,68,0.1)"></div>
           </div>
-          <span class="text-[10px] text-slate-400">High → Low</span>
+          <span class="text-[10px] text-slate-400">High â†’ Low</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ═══════ YEARLY KANBAN TIMELINE ═══════ -->
+  <!-- â•â•â•â•â•â•â• YEARLY KANBAN TIMELINE â•â•â•â•â•â•â• -->
   <div class="flex-1 page-padding px-8 pb-4 flex flex-col">
     <div class="bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col" style="height:calc(100vh - 330px)">
       <div class="timeline-wrapper flex flex-1 overflow-hidden">
 
         <template x-for="(yearData, yi) in yearColumns" :key="yearData.year">
           <div class="flex-1 min-w-[180px] flex flex-col border-r border-slate-200 last:border-r-0 drop-zone year-col"
-               :class="dragOverYear === yearData.year ? 'is-over' : ''">
+               :class="[
+                 dragOverYear === yearData.year ? 'is-over' : '',
+                 yi === 3 ? 'confidence-low' : '',
+                 yi === 4 ? 'confidence-speculative' : ''
+               ]">
 
             <!-- Column header -->
             <div class="year-header p-3 border-b border-slate-200 text-center relative"
@@ -313,17 +328,9 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
               </template>
             </div>
 
-            <!-- Budget row -->
-            <div class="budget-row px-3 py-2 border-b border-slate-100 flex items-center justify-between"
-                 :style="'background:rgba(255,72,21,' + (yearData.budget / 600 * 0.12) + ')'"
-                 @dragover.prevent="dragOverYear = yearData.year"
-                 @drop.prevent="onDrop($event, yearData.year)">
-              <span class="text-[9px] font-bold text-slate-400 uppercase">Budget</span>
-              <span class="text-[11px] font-bold" :class="yearData.budget > 0 ? 'text-slate-800' : 'text-slate-300'"
-                    x-text="yearData.budget > 0 ? '$' + yearData.budget.toLocaleString() + 'K' : '—'"></span>
-            </div>
+            <!-- Budget row removed â€” per-activity budget not in FR10 scope -->
 
-            <!-- Cards Container — drop zone for the main area -->
+            <!-- Cards Container â€” drop zone for the main area -->
             <div class="cards-container flex-1 p-3 overflow-y-auto space-y-2.5"
                  @dragover.prevent="dragOverYear = yearData.year"
                  @drop.prevent="onDrop($event, yearData.year)">
@@ -352,7 +359,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
                       <span class="card-status text-[9px] font-bold px-1.5 py-0.5 rounded-full"
                             :style="'background:'+act.statusBg+';color:'+act.statusColor"
                             x-text="act.status"></span>
-                      <span class="card-budget text-[9px] text-slate-400" x-text="'$'+act.budget+'K'"></span>
+                      <span class="text-[9px] text-slate-400" x-text="act.source || ''"></span>
                     </div>
                   </div>
                 </div>
@@ -382,12 +389,12 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
       </h3>
       <ul class="text-xs text-blue-700 space-y-1 list-disc ml-5">
         <li><strong>#1 Baseline label:</strong> "Ref" renamed to "Baseline" with a tooltip explaining it's the most recent PVS Evaluation year used as the starting reference.</li>
-        <li><strong>#2 Confidence gradient:</strong> Each year column has a tinted header — green (high certainty) fading to amber/red (speculative) — communicating that planning reliability decreases over the horizon.</li>
+        <li><strong>#2 Confidence gradient:</strong> Each year column has a tinted header â€” green (high certainty) fading to amber/red (speculative) â€” communicating that planning reliability decreases over the horizon.</li>
         <li><strong>#3 Budget row:</strong> Each year column shows explicit dollar figures ($385K, $280K, etc.) inline so values are readable in print and screenshots without hover.</li>
         <li><strong>#4 Milestones:</strong> Diamond markers now have inline text labels ("Year 1 Review", "Mid-Plan Checkpoint") visible directly in the column header.</li>
         <li><strong>#5 Today marker:</strong> A red bottom-border highlights the current year column. When the roadmap is entirely in the future, it shows a "Pre-roadmap" state instead of a cramped edge marker.</li>
         <li><strong>#6 Card labels:</strong> Each card shows the activity name, category, and budget. Cards are ordered chronologically within each year column.</li>
-        <li><strong>#8 Legend grouping:</strong> The legend is split into three labelled sections — Mission Types, Overlays, and Confidence — instead of a flat row.</li>
+        <li><strong>#8 Legend grouping:</strong> The legend is split into three labelled sections â€” Mission Types, Overlays, and Confidence â€” instead of a flat row.</li>
         <li><strong>#9 Collisions:</strong> Activities in the same year stack vertically as individual cards, eliminating overlap. The kanban layout handles collisions inherently.</li>
         <li><strong>#10 AI toggle:</strong> A toggle button in both the sidebar and the main toolbar lets users show/hide AI-recommended activities. Hidden AI cards fade out; the count badge stays visible.</li>
       </ul>
@@ -411,7 +418,7 @@ function timeline() {
       { key:'lab', label:'Laboratory', color:'#ea580c' },
       { key:'workshop', label:'Workshop', color:'#db2777' },
       { key:'welfare', label:'Animal Welfare', color:'#0d9488' },
-      { key:'strategic', label:'Strategic Planning', color:'#4f46e5' },
+      { key:'strategic', label:'Strategic Planning', color:'#0369A1' },
     ],
     // FIX #2: confidence bands per year
     yearColumns: [
@@ -422,18 +429,18 @@ function timeline() {
       { year:2031, headerBg:'rgba(239,68,68,0.04)', confLabel:'Speculative', confColor:'#dc2626', milestone:null, budget:175 },
     ],
     activities: [
-      { id:1, name:'PVS Evaluation', category:'Evaluation', color:'#2563eb', year:2027, status:'Draft', statusBg:'#fef3c7', statusColor:'#92400e', ai:false, budget:150, order:1 },
-      { id:2, name:'PVS Follow-up', category:'Evaluation', color:'#3b82f6', year:2027, status:'Approved', statusBg:'#dcfce7', statusColor:'#166534', ai:false, budget:85, order:2 },
-      { id:3, name:'Gap Analysis', category:'Gap Analysis', color:'#7c3aed', year:2027, status:'AI 96%', statusBg:'#fef3c7', statusColor:'#92400e', ai:true, budget:150, order:3 },
-      { id:4, name:'Laboratory Mission', category:'Targeted Support', color:'#ea580c', year:2028, status:'AI 93%', statusBg:'#fef3c7', statusColor:'#92400e', ai:true, budget:180, order:1 },
-      { id:5, name:'Strategic Planning', category:'Strategic Planning', color:'#4f46e5', year:2028, status:'CBD Edited', statusBg:'#f1f5f9', statusColor:'#475569', ai:false, budget:100, order:2 },
-      { id:6, name:'Animal Welfare', category:'Animal Welfare', color:'#0d9488', year:2029, status:'AI 89%', statusBg:'#fef3c7', statusColor:'#92400e', ai:true, budget:120, order:1 },
-      { id:7, name:'Curriculum Review', category:'Workshop', color:'#db2777', year:2029, status:'Draft', statusBg:'#fef3c7', statusColor:'#92400e', ai:false, budget:45, order:2 },
-      { id:8, name:'Workforce Assessment', category:'Targeted Support', color:'#16a34a', year:2030, status:'Delegate', statusBg:'#d1fae5', statusColor:'#065f46', ai:false, budget:140, order:1 },
-      { id:9, name:'National Bridging', category:'Workshop', color:'#db2777', year:2030, status:'AI 87%', statusBg:'#fef3c7', statusColor:'#92400e', ai:true, budget:85, order:2 },
-      { id:10, name:'PPP Workshop', category:'Workshop', color:'#db2777', year:2030, status:'Draft', statusBg:'#fef3c7', statusColor:'#92400e', ai:false, budget:85, order:3 },
-      { id:11, name:'VLSP Mission', category:'Strategic Planning', color:'#4f46e5', year:2031, status:'Submitted', statusBg:'#dbeafe', statusColor:'#1e40af', ai:false, budget:65, order:1 },
-      { id:12, name:'VSB Support', category:'Targeted Support', color:'#16a34a', year:2031, status:'Draft', statusBg:'#fef3c7', statusColor:'#92400e', ai:false, budget:110, order:2 },
+      { id:1, name:'PVS Evaluation', category:'Evaluation', color:'#2563eb', year:2027, status:'Draft', statusBg:'#fef3c7', statusColor:'#92400e', ai:false, source:'CBD Planned', order:1 },
+      { id:2, name:'PVS Follow-up', category:'Evaluation', color:'#3b82f6', year:2027, status:'Approved', statusBg:'#dcfce7', statusColor:'#166534', ai:false, source:'CBD Planned', order:2 },
+      { id:3, name:'Gap Analysis', category:'Gap Analysis', color:'#7c3aed', year:2027, status:'AI 96%', statusBg:'#fef3c7', statusColor:'#92400e', ai:true, source:'AI Engine', order:3 },
+      { id:4, name:'Laboratory Mission', category:'Targeted Support', color:'#ea580c', year:2028, status:'AI 93%', statusBg:'#fef3c7', statusColor:'#92400e', ai:true, source:'AI Engine', order:1 },
+      { id:5, name:'Strategic Planning', category:'Strategic Planning', color:'#0369A1', year:2028, status:'CBD Edited', statusBg:'#f1f5f9', statusColor:'#475569', ai:false, source:'CBD Edited', order:2 },
+      { id:6, name:'Animal Welfare', category:'Animal Welfare', color:'#0d9488', year:2029, status:'AI 89%', statusBg:'#fef3c7', statusColor:'#92400e', ai:true, source:'AI Engine', order:1 },
+      { id:7, name:'Curriculum Review', category:'Workshop', color:'#db2777', year:2029, status:'Draft', statusBg:'#fef3c7', statusColor:'#92400e', ai:false, source:'CBD Planned', order:2 },
+      { id:8, name:'Workforce Assessment', category:'Targeted Support', color:'#16a34a', year:2030, status:'Delegate', statusBg:'#d1fae5', statusColor:'#065f46', ai:false, source:'Delegate', order:1 },
+      { id:9, name:'National Bridging', category:'Workshop', color:'#db2777', year:2030, status:'AI 87%', statusBg:'#fef3c7', statusColor:'#92400e', ai:true, source:'AI Engine', order:2 },
+      { id:10, name:'PPP Workshop', category:'Workshop', color:'#db2777', year:2030, status:'Draft', statusBg:'#fef3c7', statusColor:'#92400e', ai:false, source:'CBD Planned', order:3 },
+      { id:11, name:'VLSP Mission', category:'Strategic Planning', color:'#0369A1', year:2031, status:'Submitted', statusBg:'#dbeafe', statusColor:'#1e40af', ai:false, source:'CBD Planned', order:1 },
+      { id:12, name:'VSB Support', category:'Targeted Support', color:'#16a34a', year:2031, status:'Draft', statusBg:'#fef3c7', statusColor:'#92400e', ai:false, source:'CBD Planned', order:2 },
     ],
 
     getVisible(year) {
@@ -473,3 +480,5 @@ function timeline() {
 </script>
 </body>
 </html>
+
+

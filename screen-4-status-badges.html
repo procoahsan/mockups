@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Screen 4 — Status Badges | PVS Roadmap Planner</title>
+<title>Screen 4 â€” Status Badges | PVS Roadmap Planner</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']},colors:{woah:{50:'#fff7ed',100:'#ffedd5',500:'#ff4815',600:'#ea580c',700:'#c2410c'}}}}}</script>
@@ -27,13 +27,17 @@
   <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-sm font-medium"><span class="w-5 h-4 rounded-sm bg-gradient-to-b from-blue-600 to-yellow-500 text-[7px] text-white font-bold flex items-center justify-center">SZ</span> Eswatini</div>
   <div class="flex-1"></div>
   <div class="flex items-center gap-1 text-xs">
-    <a href="screen-1-timeline.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">1. Timeline</a>
-    <a href="screen-2-activity-cards.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">2. Cards</a>
-    <a href="screen-3-colour-coding.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">3. Colours</a>
-    <span class="nav-screen current px-2.5 py-1 rounded-md">4. Status</span>
-    <a href="screen-5-executive-summary.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">5. Summary</a>
-    <a href="screen-6-filters-export.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">6. Filters</a>
-    <a href="screen-7-edit-flow.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">7. Edit</a>
+    <a href="screen-1-timeline.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Timeline</a>
+    <a href="screen-2-activity-cards.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Cards</a>
+    <a href="screen-3-colour-coding.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Colours</a>
+    <span class="nav-screen current px-2.5 py-1 rounded-md">Status</span>
+    <a href="screen-5-executive-summary.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Summary</a>
+    <a href="screen-6-filters-export.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Filters</a>
+    <a href="screen-7-edit-flow.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Edit</a>
+    <a href="screen-8-generate-roadmap.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Generate</a>
+    <a href="screen-9-approval.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Approval</a>
+    <a href="screen-10-notifications.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Notify</a>
+    <a href="screen-11-mobile.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Mobile</a>
   </div>
   <div class="h-6 w-px bg-slate-200 mx-1"></div>
   <div class="w-7 h-7 rounded-full bg-gradient-to-br from-woah-500 to-woah-700 flex items-center justify-center text-white text-xs font-semibold">KD</div>
@@ -51,13 +55,13 @@
 <!-- MAIN -->
 <div class="ml-[240px] pt-14 min-h-screen">
   <div class="px-8 pt-6 pb-4">
-    <h1 class="text-2xl font-bold text-slate-900 mb-1">Screen 4 — Status Badges</h1>
+    <h1 class="text-2xl font-bold text-slate-900 mb-1">Screen 4 â€” Status Badges</h1>
     <p class="text-sm text-slate-500 max-w-3xl mb-8">Modern pill badges reflecting the roadmap lifecycle. Each status has a unique icon, background colour, and text colour for instant visual recognition.</p>
   </div>
 
   <div class="px-8 pb-8">
 
-    <!-- ═══════ ALL STATUS BADGES ═══════ -->
+    <!-- â•â•â•â•â•â•â• ALL STATUS BADGES â•â•â•â•â•â•â• -->
     <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-5">Complete Status Badge Set</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-10">
 
@@ -192,7 +196,8 @@
       <!-- Cancelled -->
       <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
         <div class="flex items-center justify-between mb-4">
-          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-gray-100 text-gray-500 border border-gray-300 line-through">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-gray-100 text-gray-500 border border-gray-300 relative">
+            <span class="absolute top-1/2 left-2 right-2 h-[2px] bg-gray-400 -translate-y-1/2"></span>
             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
             Cancelled
           </span>
@@ -206,25 +211,25 @@
       </div>
     </div>
 
-    <!-- ═══════ LIFECYCLE FLOW ═══════ -->
+    <!-- â•â•â•â•â•â•â• LIFECYCLE FLOW â•â•â•â•â•â•â• -->
     <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-5">Status Lifecycle Flow</h2>
     <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 mb-8">
       <div class="flex items-center justify-center gap-2 flex-wrap">
-        <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-bold bg-purple-50 text-purple-700 border border-purple-200">✨ Auto Generated</span>
+        <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-bold bg-purple-50 text-purple-700 border border-purple-200">âœ¨ Auto Generated</span>
         <svg class="w-5 h-5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-        <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200">✏️ Draft</span>
+        <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200">âœï¸ Draft</span>
         <svg class="w-5 h-5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-        <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-300">🖊️ Edited by CBD</span>
+        <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-300">ðŸ–Šï¸ Edited by CBD</span>
         <svg class="w-5 h-5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-        <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-200">📤 Submitted</span>
+        <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-200">ðŸ“¤ Submitted</span>
         <svg class="w-5 h-5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
         <div class="flex flex-col items-center gap-1">
-          <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-bold bg-green-50 text-green-700 border border-green-200">✅ Approved</span>
-          <span class="text-[9px] text-slate-400">— or —</span>
-          <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-bold bg-red-50 text-red-700 border border-red-200">❌ Rejected</span>
+          <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-bold bg-green-50 text-green-700 border border-green-200">âœ… Approved</span>
+          <span class="text-[9px] text-slate-400">â€” or â€”</span>
+          <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-bold bg-red-50 text-red-700 border border-red-200">âŒ Rejected</span>
         </div>
         <svg class="w-5 h-5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-        <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">🏁 Completed</span>
+        <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">ðŸ Completed</span>
       </div>
       <div class="mt-4 flex items-center justify-center gap-4 text-[10px] text-slate-400">
         <span class="flex items-center gap-1"><span class="inline-block w-3 h-3 rounded-full bg-red-100 border border-red-300"></span> Overdue = alert state on any active status</span>
@@ -232,12 +237,12 @@
       </div>
     </div>
 
-    <!-- ═══════ BADGE SIZE VARIANTS ═══════ -->
+    <!-- â•â•â•â•â•â•â• BADGE SIZE VARIANTS â•â•â•â•â•â•â• -->
     <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-5">Badge Size Variants</h2>
     <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 mb-8">
       <div class="space-y-4">
         <div>
-          <p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Large — Detail View / Drawer</p>
+          <p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Large â€” Detail View / Drawer</p>
           <div class="flex items-center gap-3 flex-wrap">
             <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold bg-green-50 text-green-700 border border-green-200">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -250,7 +255,7 @@
           </div>
         </div>
         <div>
-          <p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Medium — Card View</p>
+          <p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Medium â€” Card View</p>
           <div class="flex items-center gap-3 flex-wrap">
             <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-green-50 text-green-700 border border-green-200">
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -263,7 +268,7 @@
           </div>
         </div>
         <div>
-          <p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Small — Timeline Bar / Compact</p>
+          <p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Small â€” Timeline Bar / Compact</p>
           <div class="flex items-center gap-3 flex-wrap">
             <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-green-100 text-green-700">Approved</span>
             <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-amber-100 text-amber-700">Draft</span>
@@ -272,7 +277,10 @@
             <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-slate-100 text-slate-600">CBD Edited</span>
             <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-purple-100 text-purple-700">AI Generated</span>
             <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-emerald-100 text-emerald-700">Completed</span>
-            <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-gray-100 text-gray-500 line-through">Cancelled</span>
+            <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-gray-100 text-gray-500 relative">
+              <span class="absolute top-1/2 left-1.5 right-1.5 h-px bg-gray-400 -translate-y-1/2"></span>
+              Cancelled
+            </span>
           </div>
         </div>
       </div>
@@ -280,16 +288,42 @@
 
     <!-- Design Notes -->
     <div class="bg-blue-50 border border-blue-200 rounded-xl p-5">
-      <h3 class="text-sm font-bold text-blue-800 mb-2">Design Notes — Status Badges</h3>
+      <h3 class="text-sm font-bold text-blue-800 mb-2">Design Notes â€” Status Badges</h3>
       <ul class="text-xs text-blue-700 space-y-1 list-disc ml-5">
         <li>Each status uses a consistent pattern: <strong>icon + label</strong> inside a pill with <strong>tinted background + border + dark text</strong>.</li>
         <li><strong>Overdue</strong> badge has a subtle pulse animation on the warning icon for immediate attention.</li>
         <li><strong>Cancelled</strong> uses strikethrough text to signal terminal state.</li>
         <li>Three size variants (Large, Medium, Small) are used across detail drawers, expanded cards, and compact timeline bars.</li>
-        <li>The lifecycle flow shows the progression: Auto Generated → Draft → Edited → Submitted → Approved/Rejected → Completed.</li>
+        <li>The lifecycle flow shows the progression: Auto Generated â†’ Draft â†’ Edited â†’ Submitted â†’ Approved/Rejected â†’ Completed.</li>
       </ul>
+    </div>
+    <!-- â•â•â• GREY BACKGROUND TEST â•â•â• -->
+    <div class="mt-8">
+      <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Legibility Test: Small Badges on Grey Background</h2>
+      <p class="text-xs text-slate-500 mb-4">Verifying contrast of all small badges when placed on the grey background of a timeline card or row.</p>
+      
+      <div class="bg-slate-100 rounded-xl border border-slate-200 p-8 shadow-inner">
+        <div class="flex flex-wrap gap-4 items-center justify-center">
+          <span class="px-1.5 py-0.5 rounded-full bg-purple-100 text-purple-700 text-[9px] font-bold flex items-center gap-0.5">
+            <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 24 24"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+            Auto Generated
+          </span>
+          <span class="px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700 text-[9px] font-bold">Draft</span>
+          <span class="px-1.5 py-0.5 rounded-full bg-slate-200 text-slate-600 text-[9px] font-bold">CBD Edited</span>
+          <span class="px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700 text-[9px] font-bold">Submitted</span>
+          <span class="px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-[9px] font-bold">Delegate Added</span>
+          <span class="px-1.5 py-0.5 rounded-full bg-green-100 text-green-700 text-[9px] font-bold">Approved</span>
+          <span class="px-1.5 py-0.5 rounded-full bg-red-100 text-red-700 text-[9px] font-bold">Rejected</span>
+          <span class="px-1.5 py-0.5 rounded-full bg-slate-200 text-slate-500 text-[9px] font-bold relative">
+            <span class="absolute top-1/2 left-1.5 right-1.5 h-px bg-slate-400 -translate-y-1/2"></span>
+            Cancelled
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 </body>
 </html>
+
+
