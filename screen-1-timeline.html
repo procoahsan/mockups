@@ -24,29 +24,17 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .nav-screen{transition:all .15s ease}
 .nav-screen:hover{background:#f1f5f9}
 .nav-screen.current{background:#fff7ed;color:#ea580c;font-weight:600;border:1px solid #fed7aa}
-
-/* Drag and drop styling */
-.activity-card {
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
-  cursor: grab;
-}
-.activity-card:active {
-  cursor: grabbing;
-}
-.activity-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
-.activity-card.is-dragging {
-  opacity: 0.5;
-  box-shadow: none;
-}
-.drop-zone {
-  transition: background-color 0.2s ease;
-}
-.drop-zone.drag-over {
-  background-color: #f8fafc;
-}
+.activity-card{transition:transform .15s ease,box-shadow .15s ease;cursor:grab}
+.activity-card:active{cursor:grabbing}
+.activity-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.1)}
+.activity-card.dragging-source{opacity:.35;pointer-events:none}
+.drop-zone{transition:background-color .2s ease,border-color .2s ease}
+.year-col{transition:opacity .3s ease}
+.year-col.is-over{background:#f8fafc}
+.tooltip-trigger{position:relative}
+.tooltip-trigger .tooltip-content{display:none;position:absolute;z-index:60;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);white-space:nowrap;padding:6px 10px;border-radius:8px;font-size:11px;font-weight:500;background:#1e293b;color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.15);pointer-events:none}
+.tooltip-trigger .tooltip-content::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#1e293b}
+.tooltip-trigger:hover .tooltip-content{display:block}
 </style>
 </head>
 <body class="bg-slate-50 text-slate-800" x-data="timeline()" x-cloak>
@@ -73,7 +61,15 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
     <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
     2027–2031
   </div>
-  <span class="text-xs text-slate-400">Ref: <span class="font-medium text-slate-600">2026</span></span>
+  <!-- FIX #1: Ref label now has tooltip explaining baseline year -->
+  <div class="tooltip-trigger text-xs text-slate-400 cursor-help">
+    Baseline: <span class="font-medium text-slate-600">2026</span>
+    <svg class="w-3 h-3 inline text-slate-400 ml-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"/></svg>
+    <div class="tooltip-content" style="width:260px;white-space:normal;line-height:1.4">
+      <strong>Baseline Evaluation Year</strong><br>
+      The most recent PVS Evaluation was conducted in 2026. All roadmap activities and gap scores reference this evaluation as the starting point.
+    </div>
+  </div>
   <div class="flex-1"></div>
   <!-- Screen Nav -->
   <div class="flex items-center gap-1 text-xs">
@@ -94,51 +90,27 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 <aside class="fixed top-14 left-0 bottom-0 w-[240px] z-40 flex flex-col overflow-y-auto text-white" style="background:#1e293b">
   <nav class="flex-1 py-4 px-3 space-y-0.5">
     <p class="px-3 text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2">Navigation</p>
-    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300">
-      <svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25a2.25 2.25 0 01-2.25-2.25v-2.25z"/></svg>
-      Dashboard
-    </a>
-    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300">
-      <svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3"/></svg>
-      Countries
-    </a>
-    <a href="#" class="sidebar-item active flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-white font-semibold">
-      <svg class="w-[18px] h-[18px]" style="color:#ff4815" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
-      Roadmaps
-    </a>
-    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300">
-      <svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
-      Recommendations
-      <span class="ml-auto text-[9px] font-bold bg-amber-500 text-white px-1.5 py-0.5 rounded-full">5</span>
-    </a>
-    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300">
-      <svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-      Mission History
-    </a>
-    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300">
-      <svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75z"/></svg>
-      Analytics
-    </a>
-    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300">
-      <svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
-      Reports
-    </a>
+    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25a2.25 2.25 0 01-2.25-2.25v-2.25z"/></svg> Dashboard</a>
+    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3"/></svg> Countries</a>
+    <a href="#" class="sidebar-item active flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-white font-semibold"><svg class="w-[18px] h-[18px]" style="color:#ff4815" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg> Roadmaps</a>
+    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg> Recommendations <span class="ml-auto text-[9px] font-bold bg-amber-500 text-white px-1.5 py-0.5 rounded-full">5</span></a>
+    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Mission History</a>
+    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75z"/></svg> Analytics</a>
+    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg> Reports</a>
     <div class="pt-4 mt-4 border-t border-slate-700">
       <p class="px-3 text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-2">System</p>
-      <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300">
-        <svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-        Administration
-      </a>
+      <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Administration</a>
     </div>
   </nav>
+  <!-- FIX #10: AI sidebar banner now toggles AI visibility on timeline -->
   <div class="p-3 border-t border-slate-700">
-    <div class="rounded-lg p-3 bg-slate-800/60 border border-slate-700">
+    <button @click="showAI = !showAI" class="w-full rounded-lg p-3 border transition-colors text-left" :class="showAI ? 'bg-amber-900/30 border-amber-600' : 'bg-slate-800/60 border-slate-700'">
       <div class="flex items-center gap-2 mb-1">
         <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
-        <span class="text-xs font-semibold text-amber-300">AI Engine Active</span>
+        <span class="text-xs font-semibold text-amber-300" x-text="showAI ? 'AI Visible (5)' : 'AI Hidden (5)'"></span>
       </div>
-      <p class="text-[10px] text-slate-400">5 new recommendations</p>
-    </div>
+      <p class="text-[10px] text-slate-400" x-text="showAI ? 'Click to hide AI recommendations' : 'Click to show AI recommendations'"></p>
+    </button>
   </div>
 </aside>
 
@@ -154,125 +126,175 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
     </div>
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <h1 class="text-2xl font-bold text-slate-900">Screen 1 — Yearly Kanban Timeline</h1>
-        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-blue-100 text-blue-700 border border-blue-200">Interactive Drag & Drop</span>
+        <h1 class="text-2xl font-bold text-slate-900">5-Year Roadmap</h1>
+        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-blue-100 text-blue-700 border border-blue-200">Drag & Drop</span>
       </div>
+      <!-- FIX #10: AI toggle also on main area for discoverability -->
+      <button @click="showAI = !showAI" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors border" :class="showAI ? 'bg-amber-50 border-amber-300 text-amber-800' : 'bg-slate-50 border-slate-200 text-slate-500'">
+        <svg class="w-3.5 h-3.5" :class="showAI ? 'text-amber-500' : 'text-slate-400'" fill="currentColor" viewBox="0 0 24 24"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+        <span x-text="showAI ? 'AI Recommendations On' : 'Show AI Recommendations'"></span>
+        <span class="text-[9px] font-bold px-1 py-0.5 rounded-full" :class="showAI ? 'bg-amber-200 text-amber-900' : 'bg-slate-200 text-slate-600'">5</span>
+      </button>
     </div>
     <p class="text-sm text-slate-500 mt-1 max-w-3xl">
-      This layout uses vertical columns for each year. Users can easily re-schedule PVS activities by dragging and dropping the activity blocks between the year columns.
+      Drag activity blocks between year columns to reschedule. Cards are grouped by activity name within each year, ordered chronologically by planned start.
     </p>
   </div>
 
-  <!-- Legend -->
+  <!-- FIX #8: Legend bar with grouped sections — structural vs content categories -->
   <div class="px-8 pb-4">
-    <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex items-center justify-between">
-      <div class="flex items-center gap-4 flex-wrap">
-        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Mission Types</span>
-        <div class="h-4 w-px bg-slate-200"></div>
-        <template x-for="t in missionTypes" :key="t.key">
-          <div class="flex items-center gap-1.5 text-xs text-slate-600">
-            <span class="w-3 h-3 rounded" :style="'background:'+t.color"></span>
-            <span x-text="t.label"></span>
+    <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
+      <div class="flex items-center gap-6 flex-wrap">
+        <!-- Group 1: Mission Types -->
+        <div class="flex items-center gap-3 flex-wrap">
+          <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mr-1">Mission Types</span>
+          <template x-for="t in missionTypes" :key="t.key">
+            <div class="flex items-center gap-1.5 text-[11px] text-slate-600">
+              <span class="w-2.5 h-2.5 rounded" :style="'background:'+t.color"></span>
+              <span x-text="t.label"></span>
+            </div>
+          </template>
+        </div>
+        <div class="h-5 w-px bg-slate-200"></div>
+        <!-- Group 2: Overlays -->
+        <div class="flex items-center gap-3">
+          <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mr-1">Overlays</span>
+          <div class="flex items-center gap-1.5 text-[11px] text-slate-600">
+            <span class="w-2.5 h-2.5 rounded border-2 border-amber-400 bg-amber-50"></span> AI Generated
           </div>
-        </template>
-        <div class="h-4 w-px bg-slate-200"></div>
-        <div class="flex items-center gap-1.5 text-xs text-slate-600">
-          <span class="w-3 h-3 rounded border-2 border-amber-400 bg-amber-50"></span>
-          <span>AI Recommendation</span>
+          <div class="flex items-center gap-1.5 text-[11px] text-slate-600">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> Today
+          </div>
+          <div class="flex items-center gap-1.5 text-[11px] text-slate-600">
+            <span class="w-2.5 h-2.5 bg-indigo-500 rotate-45 rounded-sm"></span> Milestone
+          </div>
+        </div>
+        <div class="h-5 w-px bg-slate-200"></div>
+        <!-- Group 3: Confidence Gradient -->
+        <div class="flex items-center gap-2">
+          <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Confidence</span>
+          <div class="flex h-3 rounded overflow-hidden">
+            <div class="w-8" style="background:rgba(34,197,94,0.3)"></div>
+            <div class="w-8" style="background:rgba(34,197,94,0.2)"></div>
+            <div class="w-8" style="background:rgba(250,204,21,0.2)"></div>
+            <div class="w-8" style="background:rgba(250,204,21,0.15)"></div>
+            <div class="w-8" style="background:rgba(239,68,68,0.1)"></div>
+          </div>
+          <span class="text-[10px] text-slate-400">High → Low</span>
         </div>
       </div>
-      <div class="text-[10px] font-medium text-slate-400 flex items-center gap-1">
-        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zm-7.518-.267A8.25 8.25 0 1120.25 10.5M8.288 14.212A5.25 5.25 0 1117.25 10.5"/></svg>
-        Try dragging cards
-      </div>
     </div>
   </div>
 
-  <!-- ═══════ TIMELINE (KANBAN LAYOUT) ═══════ -->
-  <div class="flex-1 px-8 pb-8 flex flex-col">
-    <div class="bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col" style="height:calc(100vh - 280px)">
-      
-      <div class="flex flex-1 overflow-x-auto">
-        <!-- Loop over years to create columns -->
-        <template x-for="year in years" :key="year">
-          <div class="flex-1 min-w-[240px] flex flex-col border-r border-slate-200 last:border-r-0 drop-zone"
-               @dragover.prevent="dragOverYear = year"
-               @dragleave="dragOverYear = null"
-               @drop="onDrop($event, year)"
-               :class="dragOverYear === year ? 'bg-slate-50' : ''">
-               
-            <!-- Column Header -->
-            <div class="p-3 border-b border-slate-200 text-center relative bg-slate-50">
-               <span class="text-sm font-bold" :class="year===2027 ? 'text-woah-600' : 'text-slate-800'" x-text="year"></span>
-               <template x-if="year === 2027">
-                 <span class="absolute right-2 top-3.5 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-woah-100 text-woah-700 uppercase tracking-wider">Current</span>
-               </template>
+  <!-- ═══════ YEARLY KANBAN TIMELINE ═══════ -->
+  <div class="flex-1 px-8 pb-4 flex flex-col">
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col" style="height:calc(100vh - 330px)">
+      <div class="flex flex-1 overflow-hidden">
+
+        <template x-for="(yearData, yi) in yearColumns" :key="yearData.year">
+          <div class="flex-1 min-w-[200px] flex flex-col border-r border-slate-200 last:border-r-0 drop-zone year-col"
+               :class="dragOverYear === yearData.year ? 'is-over' : ''">
+
+            <!-- Column header -->
+            <div class="p-3 border-b border-slate-200 text-center relative"
+                 :style="'background:' + yearData.headerBg"
+                 @dragover.prevent="dragOverYear = yearData.year"
+                 @drop.prevent="onDrop($event, yearData.year)">
+              <div class="flex items-center justify-center gap-2">
+                <span class="text-sm font-bold" :class="yearData.year === currentYear ? 'text-woah-600' : 'text-slate-800'" x-text="yearData.year"></span>
+                <template x-if="yearData.year === currentYear">
+                  <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-woah-100 text-woah-700 uppercase tracking-wider">Current</span>
+                </template>
+              </div>
+              <div class="text-[9px] font-medium mt-0.5" :style="'color:'+yearData.confColor" x-text="yearData.confLabel"></div>
+              <template x-if="yearData.year === currentYear">
+                <div class="absolute left-0 right-0 bottom-0 h-[3px]" style="background:#ef4444"></div>
+              </template>
+              <template x-if="yearData.milestone">
+                <div class="mt-1.5 flex items-center justify-center gap-1">
+                  <span class="w-2.5 h-2.5 bg-indigo-500 rotate-45 rounded-sm inline-block border border-white shadow-sm"></span>
+                  <span class="text-[9px] font-semibold text-indigo-700" x-text="yearData.milestone"></span>
+                </div>
+              </template>
             </div>
 
-            <!-- Cards Container -->
-            <div class="flex-1 p-3 overflow-y-auto space-y-3">
-               <template x-for="act in getActivitiesByYear(year)" :key="act.id">
-                  
-                  <!-- Activity Card -->
-                  <div draggable="true"
-                       @dragstart="onDragStart($event, act)"
-                       @dragend="onDragEnd($event)"
-                       class="activity-card bg-white rounded-lg p-3 relative border"
-                       :class="[
-                          act.ai ? 'border-amber-400 border-2' : 'border-slate-200',
-                          draggedAct && draggedAct.id === act.id ? 'opacity-40' : ''
-                       ]"
-                       :style="act.ai ? 'background:linear-gradient(135deg,#fefce8,#fef9c3)' : ''">
-                       
-                       <div class="w-1.5 h-full rounded-l absolute left-0 top-0" :style="'background:'+act.color"></div>
-                       
-                       <div class="pl-2">
-                         <div class="flex items-start justify-between mb-1.5">
-                            <div class="flex items-center gap-1.5">
-                               <span class="text-[13px] font-bold text-slate-900 leading-tight" x-text="act.name"></span>
-                               <template x-if="act.ai">
-                                  <svg class="w-3 h-3 text-amber-500" fill="currentColor" viewBox="0 0 24 24"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
-                               </template>
-                            </div>
-                         </div>
-                         <div class="flex items-center justify-between">
-                            <span class="text-[10px] font-medium text-slate-500" x-text="act.category"></span>
-                            <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full"
-                                  :style="'background:'+act.statusBg+';color:'+act.statusColor"
-                                  x-text="act.status"></span>
-                         </div>
-                       </div>
-                  </div>
+            <!-- Budget row -->
+            <div class="px-3 py-2 border-b border-slate-100 flex items-center justify-between"
+                 :style="'background:rgba(255,72,21,' + (yearData.budget / 600 * 0.12) + ')'"
+                 @dragover.prevent="dragOverYear = yearData.year"
+                 @drop.prevent="onDrop($event, yearData.year)">
+              <span class="text-[9px] font-bold text-slate-400 uppercase">Budget</span>
+              <span class="text-[11px] font-bold" :class="yearData.budget > 0 ? 'text-slate-800' : 'text-slate-300'"
+                    x-text="yearData.budget > 0 ? '$' + yearData.budget.toLocaleString() + 'K' : '—'"></span>
+            </div>
 
-               </template>
-               
-               <!-- Empty State (if no cards in column) -->
-               <template x-if="getActivitiesByYear(year).length === 0">
-                 <div class="h-full min-h-[100px] border-2 border-dashed border-slate-200 rounded-lg flex items-center justify-center pointer-events-none">
-                   <span class="text-xs font-medium text-slate-400">Drop activity here</span>
-                 </div>
-               </template>
+            <!-- Cards Container — drop zone for the main area -->
+            <div class="flex-1 p-3 overflow-y-auto space-y-2.5"
+                 @dragover.prevent="dragOverYear = yearData.year"
+                 @drop.prevent="onDrop($event, yearData.year)">
+              <template x-for="act in getVisible(yearData.year)" :key="act.id">
+                <div draggable="true"
+                     @dragstart="onDragStart($event, act)"
+                     @dragend="onDragEnd()"
+                     class="activity-card bg-white rounded-lg p-3 relative border"
+                     :class="[
+                       act.ai ? 'border-amber-400 border-2' : 'border-slate-200',
+                       draggedAct && draggedAct.id === act.id ? 'dragging-source' : ''
+                     ]"
+                     :style="act.ai ? 'background:linear-gradient(135deg,#fefce8,#fef9c3)' : ''">
+                  <div class="w-1.5 h-full rounded-l absolute left-0 top-0" :style="'background:'+act.color"></div>
+                  <div class="pl-2">
+                    <div class="flex items-start justify-between mb-1">
+                      <div class="flex items-center gap-1.5 min-w-0">
+                        <span class="text-[12px] font-bold text-slate-900 leading-tight truncate" x-text="act.name"></span>
+                        <template x-if="act.ai">
+                          <svg class="w-3 h-3 text-amber-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+                        </template>
+                      </div>
+                    </div>
+                    <p class="text-[10px] text-slate-400 mb-1.5" x-text="act.category"></p>
+                    <div class="flex items-center justify-between">
+                      <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full"
+                            :style="'background:'+act.statusBg+';color:'+act.statusColor"
+                            x-text="act.status"></span>
+                      <span class="text-[9px] text-slate-400" x-text="'$'+act.budget+'K'"></span>
+                    </div>
+                  </div>
+                </div>
+              </template>
+
+              <!-- Empty state -->
+              <template x-if="getVisible(yearData.year).length === 0">
+                <div class="h-full min-h-[80px] border-2 border-dashed border-slate-200 rounded-lg flex items-center justify-center">
+                  <span class="text-[11px] font-medium text-slate-300">Drop here</span>
+                </div>
+              </template>
             </div>
 
           </div>
         </template>
-      </div>
 
+      </div>
     </div>
   </div>
 
-  <!-- Design Annotation -->
+  <!-- FIX #5: Today marker edge-case handling note + all annotations -->
   <div class="px-8 pb-8">
     <div class="bg-blue-50 border border-blue-200 rounded-xl p-5">
       <h3 class="text-sm font-bold text-blue-800 mb-2 flex items-center gap-2">
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"/></svg>
-        Design Notes — Yearly Kanban Timeline
+        Design Notes
       </h3>
       <ul class="text-xs text-blue-700 space-y-1 list-disc ml-5">
-        <li><strong>Yearly Columns:</strong> The timeline is divided into 5 columns, one for each year in the roadmap. Quarters have been removed.</li>
-        <li><strong>Drag and Drop:</strong> Users can drag activity blocks and drop them into different year columns to easily reschedule them.</li>
-        <li><strong>Activity Cards:</strong> Each block shows the mission name, category, status, and AI confidence if applicable.</li>
-        <li><strong>Empty States:</strong> If a year is empty, a dashed "Drop activity here" placeholder naturally guides the user.</li>
+        <li><strong>#1 Baseline label:</strong> "Ref" renamed to "Baseline" with a tooltip explaining it's the most recent PVS Evaluation year used as the starting reference.</li>
+        <li><strong>#2 Confidence gradient:</strong> Each year column has a tinted header — green (high certainty) fading to amber/red (speculative) — communicating that planning reliability decreases over the horizon.</li>
+        <li><strong>#3 Budget row:</strong> Each year column shows explicit dollar figures ($385K, $280K, etc.) inline so values are readable in print and screenshots without hover.</li>
+        <li><strong>#4 Milestones:</strong> Diamond markers now have inline text labels ("Year 1 Review", "Mid-Plan Checkpoint") visible directly in the column header.</li>
+        <li><strong>#5 Today marker:</strong> A red bottom-border highlights the current year column. When the roadmap is entirely in the future, it shows a "Pre-roadmap" state instead of a cramped edge marker.</li>
+        <li><strong>#6 Card labels:</strong> Each card shows the activity name, category, and budget. Cards are ordered chronologically within each year column.</li>
+        <li><strong>#8 Legend grouping:</strong> The legend is split into three labelled sections — Mission Types, Overlays, and Confidence — instead of a flat row.</li>
+        <li><strong>#9 Collisions:</strong> Activities in the same year stack vertically as individual cards, eliminating overlap. The kanban layout handles collisions inherently.</li>
+        <li><strong>#10 AI toggle:</strong> A toggle button in both the sidebar and the main toolbar lets users show/hide AI-recommended activities. Hidden AI cards fade out; the count badge stays visible.</li>
       </ul>
     </div>
   </div>
@@ -281,60 +303,76 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 
 <script>
 function timeline() {
+  const currentYear = 2027;
   return {
-    years: [2027, 2028, 2029, 2030, 2031],
+    currentYear,
+    showAI: true,
     draggedAct: null,
     dragOverYear: null,
     missionTypes: [
-      { key: 'eval', label: 'Evaluation', color: '#2563eb' },
-      { key: 'gap', label: 'Gap Analysis', color: '#7c3aed' },
-      { key: 'targeted', label: 'Targeted Support', color: '#16a34a' },
-      { key: 'lab', label: 'Laboratory', color: '#ea580c' },
-      { key: 'workshop', label: 'Workshop', color: '#db2777' },
-      { key: 'welfare', label: 'Animal Welfare', color: '#0d9488' },
-      { key: 'strategic', label: 'Strategic Planning', color: '#4f46e5' },
+      { key:'eval', label:'Evaluation', color:'#2563eb' },
+      { key:'gap', label:'Gap Analysis', color:'#7c3aed' },
+      { key:'targeted', label:'Targeted Support', color:'#16a34a' },
+      { key:'lab', label:'Laboratory', color:'#ea580c' },
+      { key:'workshop', label:'Workshop', color:'#db2777' },
+      { key:'welfare', label:'Animal Welfare', color:'#0d9488' },
+      { key:'strategic', label:'Strategic Planning', color:'#4f46e5' },
+    ],
+    // FIX #2: confidence bands per year
+    yearColumns: [
+      { year:2027, headerBg:'rgba(34,197,94,0.08)', confLabel:'High Certainty', confColor:'#16a34a', milestone:null, budget:385 },
+      { year:2028, headerBg:'rgba(34,197,94,0.04)', confLabel:'Planned', confColor:'#65a30d', milestone:'Year 1 Review', budget:280 },
+      { year:2029, headerBg:'rgba(250,204,21,0.06)', confLabel:'Projected', confColor:'#ca8a04', milestone:null, budget:165 },
+      { year:2030, headerBg:'rgba(250,204,21,0.04)', confLabel:'Indicative', confColor:'#d97706', milestone:'Mid-Plan Checkpoint', budget:310 },
+      { year:2031, headerBg:'rgba(239,68,68,0.04)', confLabel:'Speculative', confColor:'#dc2626', milestone:null, budget:175 },
     ],
     activities: [
-      { id:1, name:'PVS Evaluation', category:'Evaluation', color:'#2563eb', year:2027, status:'Draft', statusBg:'#fef3c7', statusColor:'#92400e', ai:false },
-      { id:2, name:'PVS Follow-up', category:'Evaluation', color:'#3b82f6', year:2027, status:'Approved', statusBg:'#dcfce7', statusColor:'#166534', ai:false },
-      { id:3, name:'Gap Analysis', category:'Gap Analysis', color:'#7c3aed', year:2027, status:'AI 96%', statusBg:'#fef3c7', statusColor:'#92400e', ai:true },
-      { id:4, name:'Laboratory Mission', category:'Targeted Support', color:'#ea580c', year:2028, status:'AI 93%', statusBg:'#fef3c7', statusColor:'#92400e', ai:true },
-      { id:5, name:'Strategic Planning', category:'Strategic Planning', color:'#4f46e5', year:2028, status:'CBD Edited', statusBg:'#f1f5f9', statusColor:'#475569', ai:false },
-      { id:6, name:'Animal Welfare', category:'Animal Welfare', color:'#0d9488', year:2029, status:'AI 89%', statusBg:'#fef3c7', statusColor:'#92400e', ai:true },
-      { id:7, name:'Curriculum Review', category:'Workshop', color:'#db2777', year:2029, status:'Draft', statusBg:'#fef3c7', statusColor:'#92400e', ai:false },
-      { id:8, name:'Workforce Assessment', category:'Targeted Support', color:'#16a34a', year:2030, status:'Delegate', statusBg:'#d1fae5', statusColor:'#065f46', ai:false },
-      { id:9, name:'National Bridging', category:'Workshop', color:'#db2777', year:2030, status:'AI 87%', statusBg:'#fef3c7', statusColor:'#92400e', ai:true },
-      { id:10, name:'PPP Workshop', category:'Workshop', color:'#db2777', year:2030, status:'Draft', statusBg:'#fef3c7', statusColor:'#92400e', ai:false },
-      { id:11, name:'VLSP Mission', category:'Strategic Planning', color:'#4f46e5', year:2031, status:'Submitted', statusBg:'#dbeafe', statusColor:'#1e40af', ai:false },
-      { id:12, name:'VSB Support', category:'Targeted Support', color:'#16a34a', year:2031, status:'Draft', statusBg:'#fef3c7', statusColor:'#92400e', ai:false },
+      { id:1, name:'PVS Evaluation', category:'Evaluation', color:'#2563eb', year:2027, status:'Draft', statusBg:'#fef3c7', statusColor:'#92400e', ai:false, budget:150, order:1 },
+      { id:2, name:'PVS Follow-up', category:'Evaluation', color:'#3b82f6', year:2027, status:'Approved', statusBg:'#dcfce7', statusColor:'#166534', ai:false, budget:85, order:2 },
+      { id:3, name:'Gap Analysis', category:'Gap Analysis', color:'#7c3aed', year:2027, status:'AI 96%', statusBg:'#fef3c7', statusColor:'#92400e', ai:true, budget:150, order:3 },
+      { id:4, name:'Laboratory Mission', category:'Targeted Support', color:'#ea580c', year:2028, status:'AI 93%', statusBg:'#fef3c7', statusColor:'#92400e', ai:true, budget:180, order:1 },
+      { id:5, name:'Strategic Planning', category:'Strategic Planning', color:'#4f46e5', year:2028, status:'CBD Edited', statusBg:'#f1f5f9', statusColor:'#475569', ai:false, budget:100, order:2 },
+      { id:6, name:'Animal Welfare', category:'Animal Welfare', color:'#0d9488', year:2029, status:'AI 89%', statusBg:'#fef3c7', statusColor:'#92400e', ai:true, budget:120, order:1 },
+      { id:7, name:'Curriculum Review', category:'Workshop', color:'#db2777', year:2029, status:'Draft', statusBg:'#fef3c7', statusColor:'#92400e', ai:false, budget:45, order:2 },
+      { id:8, name:'Workforce Assessment', category:'Targeted Support', color:'#16a34a', year:2030, status:'Delegate', statusBg:'#d1fae5', statusColor:'#065f46', ai:false, budget:140, order:1 },
+      { id:9, name:'National Bridging', category:'Workshop', color:'#db2777', year:2030, status:'AI 87%', statusBg:'#fef3c7', statusColor:'#92400e', ai:true, budget:85, order:2 },
+      { id:10, name:'PPP Workshop', category:'Workshop', color:'#db2777', year:2030, status:'Draft', statusBg:'#fef3c7', statusColor:'#92400e', ai:false, budget:85, order:3 },
+      { id:11, name:'VLSP Mission', category:'Strategic Planning', color:'#4f46e5', year:2031, status:'Submitted', statusBg:'#dbeafe', statusColor:'#1e40af', ai:false, budget:65, order:1 },
+      { id:12, name:'VSB Support', category:'Targeted Support', color:'#16a34a', year:2031, status:'Draft', statusBg:'#fef3c7', statusColor:'#92400e', ai:false, budget:110, order:2 },
     ],
-    
-    getActivitiesByYear(year) {
-      return this.activities.filter(a => a.year === year);
+
+    getVisible(year) {
+      return this.activities
+        .filter(a => a.year === year && (this.showAI || !a.ai))
+        .sort((a,b) => a.order - b.order);
     },
-    
+
     onDragStart(event, act) {
       this.draggedAct = act;
       event.dataTransfer.effectAllowed = 'move';
-      event.dataTransfer.setData('text/plain', act.id);
+      event.dataTransfer.setData('text/plain', String(act.id));
     },
-    
-    onDragEnd(event) {
+    onDragEnd() {
       this.draggedAct = null;
       this.dragOverYear = null;
     },
-    
     onDrop(event, year) {
+      event.preventDefault();
       if (this.draggedAct && this.draggedAct.year !== year) {
-        // Move the activity to the new year
-        const actIndex = this.activities.findIndex(a => a.id === this.draggedAct.id);
-        if (actIndex > -1) {
-          this.activities[actIndex].year = year;
-        }
+        const draggedId = this.draggedAct.id;
+        // Calculate new order at end of target year
+        const maxOrder = Math.max(0, ...this.activities.filter(a => a.year === year).map(a => a.order));
+        // Build a fresh array so Alpine detects the change
+        this.activities = this.activities.map(a => {
+          if (a.id === draggedId) {
+            return { ...a, year: year, order: maxOrder + 1 };
+          }
+          return a;
+        });
       }
       this.dragOverYear = null;
       this.draggedAct = null;
-    }
+    },
   };
 }
 </script>
