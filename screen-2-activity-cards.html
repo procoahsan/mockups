@@ -29,19 +29,80 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .tooltip-wrap .tip{visibility:hidden;opacity:0;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#1e293b;color:#fff;padding:5px 10px;border-radius:6px;font-size:10px;white-space:nowrap;z-index:50;transition:opacity .15s;pointer-events:none}
 .tooltip-wrap .tip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:#1e293b}
 .tooltip-wrap:hover .tip{visibility:visible;opacity:1}
+
+/* ═══ RESPONSIVE: Sidebar ═══ */
+.sidebar{width:240px;transition:width .2s ease}
+.main-content{margin-left:240px;transition:margin-left .2s ease}
+.header-brand{width:240px;transition:width .2s ease}
+
+/* ═══ RESPONSIVE: Laptop ≤1600px — slim sidebar ═══ */
+@media (max-width:1600px){
+  .sidebar{width:200px !important}
+  .main-content{margin-left:200px !important}
+  .header-brand{width:200px !important}
+  .header-brand .brand-title{font-size:12px}
+  .main-content .page-padding{padding-left:1.25rem;padding-right:1.25rem}
+  .nav-screen{padding:4px 6px !important;font-size:10px !important}
+}
+
+/* ═══ RESPONSIVE: Zoomed / small laptop ≤1500px — icon-only sidebar ═══ */
+@media (max-width:1500px){
+  .sidebar{width:64px !important;overflow:hidden !important}
+  .sidebar nav{padding-left:8px !important;padding-right:8px !important}
+  .sidebar .sidebar-text{display:none !important}
+  .sidebar .sidebar-badge{display:none !important}
+  .sidebar .sidebar-section-label{display:none !important}
+  .sidebar .sidebar-section-divider{margin:8px 0 !important}
+  .sidebar .sidebar-item{justify-content:center !important;padding:12px 0 !important;border-radius:8px;gap:0 !important}
+  .sidebar .sidebar-item svg{margin:0 !important;width:22px !important;height:22px !important}
+  
+  .sidebar .ai-banner-text, .sidebar .ai-banner-title{display:none !important}
+  .sidebar .ai-banner-container{padding:8px !important}
+  .sidebar .ai-banner{padding:12px 0 !important;display:flex !important;justify-content:center !important;align-items:center !important}
+  .sidebar .ai-banner-icon-wrapper{margin:0 !important;gap:0 !important}
+  .sidebar .ai-banner svg{margin:0 !important;width:22px !important;height:22px !important}
+  
+  .main-content{margin-left:64px !important}
+  .header-brand{width:64px !important;justify-content:center !important;padding-left:0 !important}
+  .header-brand .brand-text{display:none !important}
+  .header-meta{display:none !important}
+  .page-title{font-size:1.25rem !important}
+  .page-subtitle{font-size:12px}
+  .page-padding{padding-left:1rem !important;padding-right:1rem !important}
+}
+
+/* ═══ RESPONSIVE: Heavy zoom ≤1100px — compact everything ═══ */
+@media (max-width:1100px){
+  .sidebar{width:0 !important;display:none !important}
+  .main-content{margin-left:0 !important}
+  .header-brand{width:auto !important}
+  .header-brand .brand-text{display:none !important}
+  .header-meta{display:none !important}
+  .nav-screen-list{overflow-x:auto;flex-wrap:nowrap !important;gap:2px !important}
+  .nav-screen{padding:3px 5px !important;font-size:9px !important;white-space:nowrap}
+  .page-padding{padding-left:0.75rem !important;padding-right:0.75rem !important}
+  .page-title{font-size:1.1rem !important}
+  .page-subtitle{font-size:11px !important}
+}
+
+/* ═══ RESPONSIVE: Extreme zoom ≤900px ═══ */
+@media (max-width:900px){
+  .nav-screen-list{overflow-x:auto !important}
+  .page-padding{padding-left:0.5rem !important;padding-right:0.5rem !important}
+}
 </style>
 </head>
 <body class="bg-slate-50 text-slate-800" x-data="{ drawerOpen: false, currentCard: null }" x-cloak>
 
 <!-- TOP NAV (compact) -->
 <header class="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-slate-200 flex items-center px-4 gap-3 shadow-sm">
-  <div class="flex items-center gap-2.5 w-[240px] flex-shrink-0">
-    <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:#ff4815">
+  <div class="header-brand flex items-center gap-2.5 flex-shrink-0">
+    <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:#ff4815">
       <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3"/></svg>
     </div>
-    <div class="flex flex-col leading-none">
+    <div class="brand-text flex flex-col leading-none">
       <span class="text-[10px] font-bold tracking-widest uppercase" style="color:#ff4815">WOAH</span>
-      <span class="text-[13px] font-semibold text-slate-800">PVS Information System</span>
+      <span class="brand-subtitle text-[13px] font-semibold text-slate-800 brand-title">PVS Information System</span>
     </div>
   </div>
   <div class="h-6 w-px bg-slate-200"></div>
@@ -51,7 +112,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
   </div>
   <span class="text-xs text-slate-400">Ref: 2026</span>
   <div class="flex-1"></div>
-  <div class="flex items-center gap-1 text-xs">
+  <div class="nav-screen-list flex items-center gap-1 text-xs">
     <a href="screen-1-timeline.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">1. Timeline</a>
     <span class="nav-screen current px-2.5 py-1 rounded-md">2. Cards</span>
     <a href="screen-3-colour-coding.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">3. Colours</a>
@@ -66,26 +127,26 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 </header>
 
 <!-- SIDEBAR -->
-<aside class="fixed top-14 left-0 bottom-0 w-[240px] z-40 flex flex-col overflow-y-auto text-white" style="background:#1e293b">
+<aside class="sidebar fixed top-14 left-0 bottom-0 z-40 flex flex-col overflow-y-auto text-white" style="background:#1e293b">
   <nav class="flex-1 py-4 px-3 space-y-0.5">
-    <p class="px-3 text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2">Navigation</p>
-    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6z"/></svg> Dashboard</a>
-    <a href="#" class="sidebar-item active flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-white font-semibold"><svg class="w-[18px] h-[18px]" style="color:#ff4815" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75"/></svg> Roadmaps</a>
-    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25"/></svg> Recommendations</a>
-    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Mission History</a>
-    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75z"/></svg> Analytics</a>
+    <p class="sidebar-section-label px-3 text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2">Navigation</p>
+    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6z"/></svg> <span class="sidebar-text">Dashboard</span></a>
+    <a href="#" class="sidebar-item active flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-white font-semibold"><svg class="w-[18px] h-[18px] flex-shrink-0" style="color:#ff4815" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75"/></svg> <span class="sidebar-text">Roadmaps</span></a>
+    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25"/></svg> <span class="sidebar-text">Recommendations</span></a>
+    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> <span class="sidebar-text">Mission History</span></a>
+    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75z"/></svg> <span class="sidebar-text">Analytics</span></a>
   </nav>
 </aside>
 
 <!-- MAIN -->
-<div class="ml-[240px] pt-14 min-h-screen">
-  <div class="px-8 pt-6 pb-4">
+<div class="main-content pt-14 min-h-screen">
+  <div class="page-padding px-8 pt-6 pb-4">
     <h1 class="text-2xl font-bold text-slate-900 mb-1">Screen 2 — Activity Card Design</h1>
     <p class="text-sm text-slate-500 max-w-3xl mb-6">Each card surfaces: mission type icon, name, recommended quarter, source rationale, estimated budget, duration, status badge, and AI recommendation flag. Cards have hover elevation, tooltips, overflow menus, and drag handles.</p>
   </div>
 
   <!-- ═══════ CARD SHOWCASE ═══════ -->
-  <div class="px-8 pb-8">
+  <div class="page-padding px-8 pb-8">
 
     <!-- Section: Standard Cards -->
     <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Standard Activity Cards (CBD / Delegate Created)</h2>
