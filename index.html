@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PVS Roadmap Planner — Prototype Hub</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<script>
+tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']},colors:{woah:{50:'#fff7ed',100:'#ffedd5',200:'#fed7aa',300:'#fdba74',400:'#fb923c',500:'#ff4815',600:'#ea580c',700:'#c2410c',800:'#9a3412',900:'#7c2d12'}}}}}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.hub-card{transition:all .25s cubic-bezier(.16,1,.3,1)}
+.hub-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px -4px rgba(0,0,0,.1),0 4px 10px -4px rgba(0,0,0,.06);border-color:#ff4815}
+</style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+<!-- TOP NAV -->
+<header class="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-slate-200 flex items-center px-4 gap-3 shadow-sm">
+  <div class="flex items-center gap-2.5">
+    <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:#ff4815">
+      <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3"/></svg>
+    </div>
+    <div class="flex flex-col leading-none">
+      <span class="text-[10px] font-bold tracking-widest uppercase" style="color:#ff4815">WOAH</span>
+      <span class="text-[13px] font-semibold text-slate-800">PVS Information System</span>
+    </div>
+  </div>
+  <div class="flex-1"></div>
+  <div class="flex items-center gap-3">
+    <span class="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-woah-50 text-woah-700 border border-woah-200">Prototype Hub</span>
+  </div>
+</header>
+
+<!-- MAIN CONTENT -->
+<main class="flex-1 pt-24 pb-12 px-8 max-w-7xl mx-auto w-full">
+  <div class="mb-10 text-center max-w-2xl mx-auto">
+    <h1 class="text-3xl font-bold text-slate-900 mb-4">PVS Roadmap Planner</h1>
+    <p class="text-slate-500 text-sm leading-relaxed">
+      Welcome to the interactive HTML prototype for the World Organisation for Animal Health (WOAH). 
+      This hub connects all 7 designed screens of the Roadmap Planner module. 
+      Built with TailwindCSS and Alpine.js, ready for stakeholder presentation.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+    <!-- Screen 1 -->
+    <a href="screen-1-timeline.html" class="hub-card bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col group block">
+      <div class="h-32 bg-slate-100 border-b border-slate-200 flex items-center justify-center overflow-hidden relative">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#ff4815_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <svg class="w-12 h-12 text-woah-500 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5m.75-9l3-3 2.148 2.148A12.061 12.061 0 0116.5 7.605"/></svg>
+      </div>
+      <div class="p-5 flex-1 flex flex-col">
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="text-sm font-bold text-slate-900 group-hover:text-woah-600 transition-colors">1. Timeline Layout</h2>
+          <span class="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded">Interactive</span>
+        </div>
+        <p class="text-[11px] text-slate-500 mt-auto">The core horizontal timeline spanning 5 years, divided into quarterly cells with activity bars.</p>
+      </div>
+    </a>
+
+    <!-- Screen 2 -->
+    <a href="screen-2-activity-cards.html" class="hub-card bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col group block">
+      <div class="h-32 bg-slate-100 border-b border-slate-200 flex items-center justify-center overflow-hidden relative">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#2563eb_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <svg class="w-12 h-12 text-blue-500 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"/></svg>
+      </div>
+      <div class="p-5 flex-1 flex flex-col">
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="text-sm font-bold text-slate-900 group-hover:text-woah-600 transition-colors">2. Activity Cards</h2>
+          <span class="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded">Interactive</span>
+        </div>
+        <p class="text-[11px] text-slate-500 mt-auto">Designs for standard cards, AI-generated cards, and inline timeline bar variants.</p>
+      </div>
+    </a>
+
+    <!-- Screen 3 -->
+    <a href="screen-3-colour-coding.html" class="hub-card bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col group block">
+      <div class="h-32 bg-slate-100 border-b border-slate-200 flex items-center justify-center overflow-hidden relative">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#7c3aed_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="flex gap-2 relative z-10">
+          <div class="w-6 h-6 rounded-full bg-blue-500"></div>
+          <div class="w-6 h-6 rounded-full bg-purple-500"></div>
+          <div class="w-6 h-6 rounded-full bg-green-600"></div>
+          <div class="w-6 h-6 rounded-full bg-orange-500"></div>
+        </div>
+      </div>
+      <div class="p-5 flex-1 flex flex-col">
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="text-sm font-bold text-slate-900 group-hover:text-woah-600 transition-colors">3. Colour Coding</h2>
+          <span class="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded">Design System</span>
+        </div>
+        <p class="text-[11px] text-slate-500 mt-auto">Comprehensive colour scheme for mission types, source attribution, and WCAG compliance.</p>
+      </div>
+    </a>
+
+    <!-- Screen 4 -->
+    <a href="screen-4-status-badges.html" class="hub-card bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col group block">
+      <div class="h-32 bg-slate-100 border-b border-slate-200 flex items-center justify-center overflow-hidden relative">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#16a34a_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <svg class="w-12 h-12 text-green-600 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      </div>
+      <div class="p-5 flex-1 flex flex-col">
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="text-sm font-bold text-slate-900 group-hover:text-woah-600 transition-colors">4. Status Badges</h2>
+          <span class="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded">Design System</span>
+        </div>
+        <p class="text-[11px] text-slate-500 mt-auto">Complete set of status badges across the roadmap lifecycle, in three size variants.</p>
+      </div>
+    </a>
+
+    <!-- Screen 5 -->
+    <a href="screen-5-executive-summary.html" class="hub-card bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col group block">
+      <div class="h-32 bg-slate-100 border-b border-slate-200 flex items-center justify-center overflow-hidden relative">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#0ea5e9_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <svg class="w-12 h-12 text-sky-500 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z"/><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z"/></svg>
+      </div>
+      <div class="p-5 flex-1 flex flex-col">
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="text-sm font-bold text-slate-900 group-hover:text-woah-600 transition-colors">5. Executive Summary</h2>
+          <span class="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded">Dashboard</span>
+        </div>
+        <p class="text-[11px] text-slate-500 mt-auto">At-a-glance analytics, budget projections, mission breakdowns, and cohort insights.</p>
+      </div>
+    </a>
+
+    <!-- Screen 6 -->
+    <a href="screen-6-filters-export.html" class="hub-card bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col group block">
+      <div class="h-32 bg-slate-100 border-b border-slate-200 flex items-center justify-center overflow-hidden relative">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#db2777_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <svg class="w-12 h-12 text-pink-500 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z"/></svg>
+      </div>
+      <div class="p-5 flex-1 flex flex-col">
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="text-sm font-bold text-slate-900 group-hover:text-woah-600 transition-colors">6. Filters & Export</h2>
+          <span class="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded">Interactive</span>
+        </div>
+        <p class="text-[11px] text-slate-500 mt-auto">Comprehensive filter bar states, dropdown anatomy, and export menu interactions.</p>
+      </div>
+    </a>
+
+    <!-- Screen 7 -->
+    <a href="screen-7-edit-flow.html" class="hub-card bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col group block">
+      <div class="h-32 bg-slate-100 border-b border-slate-200 flex items-center justify-center overflow-hidden relative">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#4f46e5_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <svg class="w-12 h-12 text-indigo-500 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931z"/></svg>
+      </div>
+      <div class="p-5 flex-1 flex flex-col">
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="text-sm font-bold text-slate-900 group-hover:text-woah-600 transition-colors">7. Edit Flow</h2>
+          <span class="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded">Interactive</span>
+        </div>
+        <p class="text-[11px] text-slate-500 mt-auto">Interactive edit mode, floating toolbar, detail drawer, and AI vs manual visual distinction.</p>
+      </div>
+    </a>
+
+  </div>
+</main>
+
+<footer class="py-6 border-t border-slate-200 bg-white text-center">
+  <p class="text-xs text-slate-400">Designed for World Organisation for Animal Health (WOAH)</p>
+</footer>
+
+</body>
+</html>

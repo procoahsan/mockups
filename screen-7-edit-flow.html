@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Screen 7 — Edit Flow | PVS Roadmap Planner</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']},colors:{woah:{50:'#fff7ed',100:'#ffedd5',500:'#ff4815',600:'#ea580c',700:'#c2410c'}}}}}</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}[x-cloak]{display:none!important}
+.sidebar-item{transition:all .15s ease}.sidebar-item:hover{background:rgba(255,255,255,0.08)}.sidebar-item.active{background:rgba(255,72,21,0.15);border-right:3px solid #ff4815}
+.nav-screen{transition:all .15s ease}.nav-screen:hover{background:#f1f5f9}.nav-screen.current{background:#fff7ed;color:#ea580c;font-weight:600;border:1px solid #fed7aa}
+.glass{background:rgba(255,255,255,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.card-selected{outline:3px solid #ff4815;outline-offset:1px;box-shadow:0 0 0 6px rgba(255,72,21,0.1)}
+.card-ai{border:2px solid #fbbf24;background:linear-gradient(135deg,#fefce8,#fef9c3)}
+.card-manual{background:#fff;border:1px solid #e2e8f0}
+.ghost-card{border:2px dashed #94a3b8;background:rgba(241,245,249,0.6);opacity:.7}
+@keyframes slideUp{0%{opacity:0;transform:translateY(12px)}100%{opacity:1;transform:translateY(0)}}
+.slide-up{animation:slideUp .3s ease-out}
+.drawer-anim{transition:transform .3s cubic-bezier(.16,1,.3,1)}
+</style>
+</head>
+<body class="bg-slate-50 text-slate-800" x-data="editFlow()" x-cloak>
+
+<!-- TOP NAV -->
+<header class="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-slate-200 flex items-center px-4 gap-3 shadow-sm">
+  <div class="flex items-center gap-2.5 w-[240px]">
+    <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:#ff4815"><svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3"/></svg></div>
+    <div class="flex flex-col leading-none"><span class="text-[10px] font-bold tracking-widest uppercase" style="color:#ff4815">WOAH</span><span class="text-[13px] font-semibold text-slate-800">PVS Information System</span></div>
+  </div>
+  <div class="h-6 w-px bg-slate-200"></div>
+  <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-sm font-medium"><span class="w-5 h-4 rounded-sm bg-gradient-to-b from-blue-600 to-yellow-500 text-[7px] text-white font-bold flex items-center justify-center">SZ</span> Eswatini</div>
+  <div class="flex-1"></div>
+  <div class="flex items-center gap-1 text-xs">
+    <a href="screen-1-timeline.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">1. Timeline</a>
+    <a href="screen-2-activity-cards.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">2. Cards</a>
+    <a href="screen-3-colour-coding.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">3. Colours</a>
+    <a href="screen-4-status-badges.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">4. Status</a>
+    <a href="screen-5-executive-summary.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">5. Summary</a>
+    <a href="screen-6-filters-export.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">6. Filters</a>
+    <span class="nav-screen current px-2.5 py-1 rounded-md">7. Edit</span>
+  </div>
+  <div class="h-6 w-px bg-slate-200 mx-1"></div>
+  <!-- Edit Mode Indicator -->
+  <div class="flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold text-white" style="background:#ff4815" x-show="editMode">
+    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931z"/></svg>
+    Edit Mode
+  </div>
+  <div class="w-7 h-7 rounded-full bg-gradient-to-br from-woah-500 to-woah-700 flex items-center justify-center text-white text-xs font-semibold">KD</div>
+</header>
+
+<!-- SIDEBAR -->
+<aside class="fixed top-14 left-0 bottom-0 w-[240px] z-40 flex flex-col overflow-y-auto text-white" style="background:#1e293b">
+  <nav class="flex-1 py-4 px-3 space-y-0.5">
+    <p class="px-3 text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2">Navigation</p>
+    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6z"/></svg> Dashboard</a>
+    <a href="#" class="sidebar-item active flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-white font-semibold"><svg class="w-[18px] h-[18px]" style="color:#ff4815" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75"/></svg> Roadmaps</a>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<div class="ml-[240px] pt-14 min-h-screen">
+  <div class="px-8 pt-6 pb-4">
+    <h1 class="text-2xl font-bold text-slate-900 mb-1">Screen 7 — Edit Flow</h1>
+    <p class="text-sm text-slate-500 max-w-3xl mb-6">How Delegates and CBD staff interact with the timeline: selecting cards, adding/removing/moving activities, the floating toolbar, the detail side drawer with edit form, and how AI-generated items are visually distinguished.</p>
+  </div>
+
+  <div class="px-8 pb-8 space-y-8">
+
+    <!-- ═══════ STEP 1: Enter Edit Mode ═══════ -->
+    <div>
+      <div class="flex items-center gap-3 mb-3">
+        <span class="w-7 h-7 rounded-full bg-woah-500 text-white text-xs font-bold flex items-center justify-center">1</span>
+        <h2 class="text-sm font-bold text-slate-800">Enter Edit Mode</h2>
+      </div>
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+        <p class="text-xs text-slate-600 mb-4">Users click the "Edit Roadmap" button to activate edit mode. The UI transitions to show the floating toolbar and selection highlights.</p>
+        <div class="flex items-center gap-3">
+          <button @click="editMode = !editMode" class="flex items-center gap-2 px-5 py-2.5 text-sm font-bold rounded-lg text-white shadow-sm transition-colors" :style="editMode ? 'background:#dc2626' : 'background:#ff4815'">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931z"/></svg>
+            <span x-text="editMode ? 'Exit Edit Mode' : 'Edit Roadmap'"></span>
+          </button>
+          <span class="text-xs text-slate-400" x-show="editMode">Edit mode active — select cards to modify, or use the toolbar below.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ STEP 2: Card Selection ═══════ -->
+    <div>
+      <div class="flex items-center gap-3 mb-3">
+        <span class="w-7 h-7 rounded-full bg-woah-500 text-white text-xs font-bold flex items-center justify-center">2</span>
+        <h2 class="text-sm font-bold text-slate-800">Select a Card</h2>
+      </div>
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+        <p class="text-xs text-slate-600 mb-4">Click any card on the timeline to select it. Selected cards show an orange outline and selection glow. Multi-select with Ctrl/Cmd+Click.</p>
+        <div class="flex items-center gap-4 flex-wrap">
+          <!-- Unselected card -->
+          <div class="card-manual rounded-lg h-12 flex items-center px-4 gap-2 cursor-pointer" style="width:240px" @click="selected = (selected === 'eval' ? null : 'eval')" :class="selected === 'eval' ? 'card-selected' : ''">
+            <div class="w-1.5 h-full rounded-l bg-blue-500 absolute left-0"></div>
+            <span class="text-[11px] font-medium text-blue-800 pl-2">🔍 PVS Evaluation</span>
+            <span class="ml-auto text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700">Draft</span>
+          </div>
+
+          <!-- AI card (visually different) -->
+          <div class="card-ai rounded-lg h-12 flex items-center px-4 gap-2 cursor-pointer" style="width:260px" @click="selected = (selected === 'lab' ? null : 'lab')" :class="selected === 'lab' ? 'card-selected' : ''">
+            <div class="w-1.5 h-full rounded-l bg-orange-500 absolute left-0"></div>
+            <span class="text-[11px] font-medium text-orange-800 pl-2">🧪 Laboratory Mission</span>
+            <span class="ml-auto text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-amber-200 text-amber-800 flex items-center gap-0.5">
+              <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 24 24"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+              AI 93%
+            </span>
+          </div>
+
+          <!-- Ghost card (add new) -->
+          <div class="ghost-card rounded-lg h-12 flex items-center justify-center px-4 gap-2 cursor-pointer hover:bg-slate-100/60 transition-colors" style="width:180px" x-show="editMode">
+            <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+            <span class="text-xs font-medium text-slate-400">Add Activity</span>
+          </div>
+        </div>
+        <p class="text-[10px] text-slate-400 mt-3" x-show="selected">Selected: <span class="font-bold text-woah-600" x-text="selected === 'eval' ? 'PVS Evaluation' : 'Laboratory Mission'"></span> — use toolbar to edit, move, or delete.</p>
+      </div>
+    </div>
+
+    <!-- ═══════ STEP 3: Floating Toolbar ═══════ -->
+    <div>
+      <div class="flex items-center gap-3 mb-3">
+        <span class="w-7 h-7 rounded-full bg-woah-500 text-white text-xs font-bold flex items-center justify-center">3</span>
+        <h2 class="text-sm font-bold text-slate-800">Floating Toolbar</h2>
+      </div>
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+        <p class="text-xs text-slate-600 mb-4">The floating toolbar appears at the bottom of the screen during edit mode. It provides all editing actions without context-switching.</p>
+
+        <!-- Toolbar -->
+        <div class="slide-up glass rounded-2xl border border-slate-200/60 shadow-lg px-3 py-2.5 flex items-center gap-1.5 max-w-3xl mx-auto" x-show="editMode">
+          <button class="flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-xl hover:bg-white/80 text-green-700 transition-colors">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+            Add
+          </button>
+          <button class="flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-xl hover:bg-white/80 text-red-600 transition-colors" :class="selected ? '' : 'opacity-40 cursor-not-allowed'">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"/></svg>
+            Remove
+          </button>
+          <button class="p-2 rounded-xl hover:bg-white/80 text-slate-500 transition-colors" :class="selected ? '' : 'opacity-40 cursor-not-allowed'">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75"/></svg>
+          </button>
+          <div class="w-px h-6 bg-slate-200 mx-0.5"></div>
+          <button class="p-2 rounded-xl hover:bg-white/80 text-slate-500 transition-colors" :class="selected ? '' : 'opacity-40'">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
+          </button>
+          <button class="p-2 rounded-xl hover:bg-white/80 text-slate-500 transition-colors" :class="selected ? '' : 'opacity-40'">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+          </button>
+          <button class="p-2 rounded-xl hover:bg-white/80 text-slate-500 transition-colors" :class="selected ? '' : 'opacity-40'">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"/></svg>
+          </button>
+          <div class="w-px h-6 bg-slate-200 mx-0.5"></div>
+          <button class="p-2 rounded-xl hover:bg-white/80 text-slate-500 transition-colors">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"/></svg>
+          </button>
+          <button class="p-2 rounded-xl hover:bg-white/80 text-slate-500 transition-colors">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3"/></svg>
+          </button>
+          <div class="w-px h-6 bg-slate-200 mx-0.5"></div>
+          <button class="px-3 py-2 text-xs font-medium rounded-xl border border-slate-200 hover:bg-white/80 text-slate-600">Save Draft</button>
+          <button class="px-3 py-2 text-xs font-bold rounded-xl text-white shadow-sm" style="background:#ff4815">Submit</button>
+          <button class="px-3 py-2 text-xs font-bold rounded-xl bg-green-600 text-white shadow-sm">Publish</button>
+        </div>
+
+        <div x-show="!editMode" class="text-center py-6 text-slate-400 text-xs">
+          <p>Click "Edit Roadmap" above to see the floating toolbar.</p>
+        </div>
+
+        <div class="mt-4 grid grid-cols-6 gap-2 text-[10px]" x-show="editMode">
+          <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Add</strong><br>New activity</div>
+          <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Remove</strong><br>Delete selected</div>
+          <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Duplicate</strong><br>Copy selected</div>
+          <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Move ←→</strong><br>Shift quarters</div>
+          <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Resize</strong><br>Change duration</div>
+          <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Undo/Redo</strong><br>History stack</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ STEP 4: Detail Drawer + Edit Form ═══════ -->
+    <div>
+      <div class="flex items-center gap-3 mb-3">
+        <span class="w-7 h-7 rounded-full bg-woah-500 text-white text-xs font-bold flex items-center justify-center">4</span>
+        <h2 class="text-sm font-bold text-slate-800">Detail Drawer with Edit Form</h2>
+      </div>
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="flex">
+          <!-- Left: Timeline preview (dimmed) -->
+          <div class="flex-1 p-6 bg-slate-50/50 border-r border-slate-200 relative" style="min-height:600px">
+            <p class="text-xs text-slate-400 mb-4 font-medium">← Timeline (dimmed when drawer is open)</p>
+            <div class="space-y-3 opacity-50">
+              <div class="h-10 rounded-lg bg-blue-50 border border-blue-200 flex items-center px-3"><span class="text-[11px] text-blue-800">🔍 PVS Evaluation — 2027 Q1</span></div>
+              <div class="h-10 rounded-lg bg-blue-50 border border-blue-200 flex items-center px-3"><span class="text-[11px] text-blue-800">🔄 PVS Follow-up — 2027 Q3</span></div>
+              <div class="h-10 rounded-lg border-2 border-amber-400 flex items-center px-3" style="background:linear-gradient(135deg,#fefce8,#fef9c3)"><span class="text-[11px] text-purple-800">📊 Gap Analysis — 2027 Q4</span></div>
+              <div class="h-10 rounded-lg border-2 border-amber-400 flex items-center px-3 card-selected" style="background:linear-gradient(135deg,#fefce8,#fef9c3)"><span class="text-[11px] text-orange-800 font-bold">🧪 Laboratory Mission — 2028 Q2</span></div>
+              <div class="h-10 rounded-lg bg-indigo-50 border border-indigo-200 flex items-center px-3"><span class="text-[11px] text-indigo-800">📋 Strategic Planning — 2028 Q4</span></div>
+            </div>
+            <div class="absolute inset-0 bg-white/30 pointer-events-none"></div>
+          </div>
+
+          <!-- Right: Edit Drawer -->
+          <div class="w-[460px] flex flex-col" style="min-height:600px">
+            <!-- Header -->
+            <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center text-lg relative">
+                  🧪
+                  <div class="absolute -top-1 -right-1 w-5 h-5 bg-amber-400 rounded-full flex items-center justify-center"><svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg></div>
+                </div>
+                <div>
+                  <h3 class="text-sm font-bold text-slate-900">Edit: Laboratory Mission</h3>
+                  <p class="text-[10px] text-amber-600 font-medium">🤖 AI-Generated · Confidence: 93%</p>
+                </div>
+              </div>
+              <button class="p-1.5 rounded-lg hover:bg-slate-100 text-slate-400"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+            </div>
+
+            <!-- Edit Form -->
+            <div class="flex-1 overflow-y-auto px-6 py-5 space-y-4">
+              <!-- AI Rationale (read-only) -->
+              <div class="rounded-lg p-3 border-2 border-amber-300" style="background:linear-gradient(135deg,#fefce8,#fef9c3)">
+                <div class="flex items-center gap-1.5 mb-1.5">
+                  <svg class="w-4 h-4 text-amber-600" fill="currentColor" viewBox="0 0 24 24"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+                  <span class="text-xs font-bold text-amber-800">AI Rationale (read-only)</span>
+                </div>
+                <p class="text-[11px] text-amber-900 leading-relaxed">Low laboratory critical competencies detected (CC II-1 at level 1, CC II-2 at level 2). Previous laboratory mission was conducted over 9 years ago.</p>
+              </div>
+
+              <div>
+                <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Mission Name</label>
+                <input type="text" value="Laboratory Mission" class="w-full mt-1 px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-woah-400 focus:ring-2 focus:ring-woah-100">
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Category</label>
+                  <select class="w-full mt-1 px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-woah-400">
+                    <option>Evaluation</option>
+                    <option>Gap Analysis</option>
+                    <option selected>Targeted Support</option>
+                    <option>Strategic Planning</option>
+                    <option>Workshop</option>
+                    <option>Animal Welfare</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Mission Type</label>
+                  <select class="w-full mt-1 px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-woah-400">
+                    <option selected>Laboratory Mission</option>
+                    <option>VSB Support</option>
+                    <option>Workforce Assessment</option>
+                    <option>VLSP Mission</option>
+                  </select>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Start Quarter</label>
+                  <select class="w-full mt-1 px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-woah-400">
+                    <option>2027 Q1</option><option>2027 Q2</option><option>2027 Q3</option><option>2027 Q4</option>
+                    <option>2028 Q1</option><option selected>2028 Q2</option><option>2028 Q3</option><option>2028 Q4</option>
+                    <option>2029 Q1</option><option>2029 Q2</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Duration</label>
+                  <select class="w-full mt-1 px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-woah-400">
+                    <option selected>1 quarter (3 months)</option>
+                    <option>2 quarters (6 months)</option>
+                    <option>3 quarters (9 months)</option>
+                    <option>4 quarters (12 months)</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Estimated Budget (USD)</label>
+                <input type="number" value="180000" class="w-full mt-1 px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-woah-400">
+              </div>
+              <div>
+                <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Description</label>
+                <textarea rows="3" class="w-full mt-1 px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-woah-400 resize-none">Targeted laboratory strengthening mission focused on diagnostic capacity, quality management systems, and biosafety/biosecurity protocols.</textarea>
+              </div>
+              <div>
+                <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Notes / Justification</label>
+                <textarea rows="2" class="w-full mt-1 px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-woah-400 resize-none" placeholder="Add notes explaining any changes from the AI recommendation…"></textarea>
+              </div>
+            </div>
+
+            <!-- Footer Actions -->
+            <div class="px-6 py-4 border-t border-slate-200 bg-slate-50 space-y-2">
+              <div class="flex items-center gap-2">
+                <button class="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-bold rounded-lg bg-green-600 text-white hover:bg-green-700 shadow-sm">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                  Approve
+                </button>
+                <button class="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-bold rounded-lg bg-white text-red-600 border border-red-200 hover:bg-red-50">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                  Reject
+                </button>
+              </div>
+              <div class="flex items-center gap-2">
+                <button class="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-semibold rounded-lg text-white shadow-sm" style="background:#ff4815">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931z"/></svg>
+                  Save Changes
+                </button>
+                <button class="px-4 py-2.5 text-sm font-medium rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-600">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ STEP 5: AI vs Manual Visual Distinction ═══════ -->
+    <div>
+      <div class="flex items-center gap-3 mb-3">
+        <span class="w-7 h-7 rounded-full bg-woah-500 text-white text-xs font-bold flex items-center justify-center">5</span>
+        <h2 class="text-sm font-bold text-slate-800">AI-Generated vs Manual — Visual Comparison</h2>
+      </div>
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+        <div class="grid grid-cols-2 gap-6">
+          <!-- Manual -->
+          <div>
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3">Manually Created (CBD / Delegate)</p>
+            <div class="card-manual rounded-xl p-4 space-y-3">
+              <div class="h-1.5 w-full bg-blue-500 rounded-t -mt-4 -mx-4" style="width:calc(100% + 2rem)"></div>
+              <div class="flex items-center gap-2 mt-2">
+                <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">🔍</div>
+                <div><p class="text-sm font-bold">PVS Evaluation</p><p class="text-[10px] text-slate-400">Evaluation</p></div>
+              </div>
+              <div class="text-[10px] text-slate-500">Clean white card, solid top accent bar, no sparkle or gradient.</div>
+              <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[9px] font-bold bg-amber-50 text-amber-700 border border-amber-200">✏️ Draft</span>
+            </div>
+            <div class="mt-3 flex items-center gap-2 text-[10px] text-slate-500">
+              <span class="w-3 h-3 rounded bg-white border border-slate-200"></span> White background
+              <span class="w-3 h-3 rounded bg-blue-500"></span> Type colour accent
+              <span>No AI badge</span>
+            </div>
+          </div>
+          <!-- AI -->
+          <div>
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3">AI-Generated (LLM Recommendation)</p>
+            <div class="card-ai rounded-xl p-4 space-y-3">
+              <div class="h-1.5 w-full bg-orange-500 rounded-t -mt-4 -mx-4" style="width:calc(100% + 2rem)"></div>
+              <div class="flex items-center gap-2 mt-2">
+                <div class="w-8 h-8 rounded-lg bg-orange-100 flex items-center justify-center relative">
+                  🧪
+                  <div class="absolute -top-1 -right-1 w-4 h-4 bg-amber-400 rounded-full flex items-center justify-center"><svg class="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg></div>
+                </div>
+                <div><p class="text-sm font-bold">Laboratory Mission</p><p class="text-[10px] text-amber-700 font-medium">AI Confidence: 93%</p></div>
+              </div>
+              <div class="text-[10px] text-amber-900/70">Amber gradient background, gold border, sparkle badge, confidence score, and rationale visible.</div>
+              <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[9px] font-bold bg-amber-200 text-amber-800 border border-amber-300">✨ Auto Generated</span>
+            </div>
+            <div class="mt-3 flex items-center gap-2 text-[10px] text-slate-500">
+              <span class="w-3 h-3 rounded border-2 border-amber-400 bg-amber-50"></span> Amber gradient
+              <span class="w-3 h-3 rounded bg-amber-400"></span> Gold border
+              <span>✨ Sparkle icon</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Design Notes -->
+    <div class="bg-blue-50 border border-blue-200 rounded-xl p-5">
+      <h3 class="text-sm font-bold text-blue-800 mb-2">Design Notes — Edit Flow</h3>
+      <ul class="text-xs text-blue-700 space-y-1 list-disc ml-5">
+        <li><strong>Edit Mode toggle</strong> activates/deactivates the floating toolbar and card selection highlights.</li>
+        <li><strong>Selected cards</strong> get a 3px orange outline + glow to clearly indicate selection state.</li>
+        <li><strong>Floating toolbar</strong> uses glassmorphism and only enables destructive actions when a card is selected.</li>
+        <li><strong>Detail drawer</strong> slides from the right with full edit form. AI rationale is read-only but visible.</li>
+        <li><strong>AI cards</strong> are always distinguishable via amber gradient, gold border, sparkle badge, and confidence %.</li>
+        <li><strong>Ghost card</strong> (dashed border) appears in edit mode to invite users to add new activities.</li>
+        <li>When a CBD staff member edits an AI card, the status changes to "Edited by CBD" automatically.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+function editFlow() {
+  return {
+    editMode: true,
+    selected: 'lab',
+  };
+}
+</script>
+</body>
+</html>
