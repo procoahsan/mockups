@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -20,13 +20,41 @@
 @keyframes slideUp{0%{opacity:0;transform:translateY(12px)}100%{opacity:1;transform:translateY(0)}}
 .slide-up{animation:slideUp .3s ease-out}
 .drawer-anim{transition:transform .3s cubic-bezier(.16,1,.3,1)}
+/* ═══ RESPONSIVE: Sidebar ═══ */
+.sidebar{width:240px;transition:width .2s ease}
+.main-content{margin-left:240px;transition:margin-left .2s ease}
+.header-brand{width:240px;transition:width .2s ease}
+@media (max-width:1600px){
+  .sidebar{width:200px !important}
+  .main-content{margin-left:200px !important}
+  .header-brand{width:200px !important}
+  .header-brand .brand-title{font-size:12px}
+  .nav-screen{padding:4px 6px !important;font-size:10px !important}
+}
+@media (max-width:1500px){
+  .sidebar{width:64px !important;overflow:hidden !important}
+  .sidebar nav{padding-left:8px !important;padding-right:8px !important}
+  .sidebar .sidebar-text, .sidebar .sidebar-badge, .sidebar .sidebar-section-label{display:none !important}
+  .sidebar .sidebar-section-divider{margin:8px 0 !important}
+  .sidebar .sidebar-item{justify-content:center !important;padding:12px 0 !important;border-radius:8px;gap:0 !important}
+  .sidebar .sidebar-item svg{margin:0 !important;width:22px !important;height:22px !important}
+  .main-content{margin-left:64px !important}
+  .header-brand{width:64px !important;justify-content:center !important;padding-left:0 !important}
+  .header-brand .brand-text{display:none !important}
+}
+@media (max-width:1100px){
+  .sidebar{width:0 !important;display:none !important}
+  .main-content{margin-left:0 !important}
+  .header-brand{width:auto !important}
+  .header-brand .brand-text{display:none !important}
+}
 </style>
 </head>
 <body class="bg-slate-50 text-slate-800" x-data="editFlow()" x-cloak>
 
 <!-- TOP NAV -->
 <header class="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-slate-200 flex items-center px-4 gap-3 shadow-sm">
-  <div class="flex items-center gap-2.5 w-[240px]">
+  <div class="header-brand flex items-center gap-2.5">
     <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:#ff4815"><svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3"/></svg></div>
     <div class="flex flex-col leading-none"><span class="text-[10px] font-bold tracking-widest uppercase" style="color:#ff4815">WOAH</span><span class="text-[13px] font-semibold text-slate-800">PVS Information System</span></div>
   </div>
@@ -56,16 +84,16 @@
 </header>
 
 <!-- SIDEBAR -->
-<aside class="fixed top-14 left-0 bottom-0 w-[240px] z-40 flex flex-col overflow-y-auto text-white" style="background:#1e293b">
+<aside class="sidebar fixed top-14 left-0 bottom-0 z-40 flex flex-col overflow-y-auto text-white" style="background:#1e293b">
   <nav class="flex-1 py-4 px-3 space-y-0.5">
-    <p class="px-3 text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2">Navigation</p>
-    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6z"/></svg> Dashboard</a>
-    <a href="#" class="sidebar-item active flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-white font-semibold"><svg class="w-[18px] h-[18px]" style="color:#ff4815" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75"/></svg> Roadmaps</a>
+    <p class="sidebar-section-label px-3 text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2">Navigation</p>
+    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6z"/></svg> <span class="sidebar-text">Dashboard</span></a>
+    <a href="#" class="sidebar-item active flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-white font-semibold"><svg class="w-[18px] h-[18px]" style="color:#ff4815" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75"/></svg> <span class="sidebar-text">Roadmaps</span></a>
   </nav>
 </aside>
 
 <!-- MAIN -->
-<div class="ml-[240px] pt-14 min-h-screen">
+<div class="main-content pt-14 min-h-screen">
   <div class="px-8 pt-6 pb-4">
     <h1 class="text-2xl font-bold text-slate-900 mb-1">Screen 7 â€” Edit Flow</h1>
     <p class="text-sm text-slate-500 max-w-3xl mb-6">How Delegates and CBD staff interact with the timeline: selecting cards, adding/removing/moving activities, the floating toolbar, the detail side drawer with edit form, and how AI-generated items are visually distinguished.</p>
@@ -73,11 +101,11 @@
 
   <div class="px-8 pb-8 space-y-8">
 
-    <!-- â•â•â•â•â•â•â• STEP 1: Enter Edit Mode â•â•â•â•â•â•â• -->
+    <!-- COMPONENT: Edit Mode Toggle -->
     <div>
-      <div class="flex items-center gap-3 mb-3">
-        <span class="w-7 h-7 rounded-full bg-woah-500 text-white text-xs font-bold flex items-center justify-center">1</span>
-        <h2 class="text-sm font-bold text-slate-800">Enter Edit Mode</h2>
+      <div class="flex items-center gap-3 mb-3 text-woah-600">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931z"/></svg>
+        <h2 class="text-sm font-bold text-slate-800">Edit Mode Toggle</h2>
       </div>
       <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
         <p class="text-xs text-slate-600 mb-4">Users click the "Edit Roadmap" button to activate edit mode. The UI transitions to show the floating toolbar and selection highlights.</p>
@@ -91,11 +119,11 @@
       </div>
     </div>
 
-    <!-- â•â•â•â•â•â•â• STEP 2: Card Selection â•â•â•â•â•â•â• -->
+    <!-- COMPONENT: Card Selection -->
     <div>
-      <div class="flex items-center gap-3 mb-3">
-        <span class="w-7 h-7 rounded-full bg-woah-500 text-white text-xs font-bold flex items-center justify-center">2</span>
-        <h2 class="text-sm font-bold text-slate-800">Select a Card</h2>
+      <div class="flex items-center gap-3 mb-3 text-woah-600">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"/></svg>
+        <h2 class="text-sm font-bold text-slate-800">Selection & Interactions</h2>
       </div>
       <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
         <p class="text-xs text-slate-600 mb-4">Click any card on the timeline to select it. Selected cards show an orange outline and selection glow. Multi-select with Ctrl/Cmd+Click.</p>
@@ -127,49 +155,55 @@
       </div>
     </div>
 
-    <!-- â•â•â•â•â•â•â• STEP 3: Floating Toolbar â•â•â•â•â•â•â• -->
+    <!-- COMPONENT: Floating Toolbar -->
     <div>
-      <div class="flex items-center gap-3 mb-3">
-        <span class="w-7 h-7 rounded-full bg-woah-500 text-white text-xs font-bold flex items-center justify-center">3</span>
+      <div class="flex items-center gap-3 mb-3 text-woah-600">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
         <h2 class="text-sm font-bold text-slate-800">Floating Toolbar</h2>
       </div>
       <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
         <p class="text-xs text-slate-600 mb-4">The floating toolbar appears at the bottom of the screen during edit mode. It provides all editing actions without context-switching.</p>
 
-        <!-- Toolbar -->
+        <!-- Toolbar: Safe actions | Move | Undo/Redo | Commit | ── Destructive ── -->
         <div class="slide-up glass rounded-2xl border border-slate-200/60 shadow-lg px-3 py-2.5 flex items-center gap-1.5 max-w-3xl mx-auto" x-show="editMode">
+          <!-- Safe: Add -->
           <button class="flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-xl hover:bg-white/80 text-green-700 transition-colors">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
             Add
           </button>
-          <button class="flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-xl hover:bg-white/80 text-red-600 transition-colors" :class="selected ? '' : 'opacity-40 cursor-not-allowed'">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"/></svg>
-            Remove
-          </button>
-          <button class="p-2 rounded-xl hover:bg-white/80 text-slate-500 transition-colors" :class="selected ? '' : 'opacity-40 cursor-not-allowed'">
+          <!-- Safe: Duplicate -->
+          <button class="p-2 rounded-xl hover:bg-white/80 text-slate-500 transition-colors" :class="selected ? '' : 'opacity-40 cursor-not-allowed'" title="Duplicate">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75"/></svg>
           </button>
           <div class="w-px h-6 bg-slate-200 mx-0.5"></div>
-          <button class="p-2 rounded-xl hover:bg-white/80 text-slate-500 transition-colors" :class="selected ? '' : 'opacity-40'">
+          <!-- Move: Left / Right / Resize -->
+          <button class="p-2 rounded-xl hover:bg-white/80 text-slate-500 transition-colors" :class="selected ? '' : 'opacity-40'" title="Move Left">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
           </button>
-          <button class="p-2 rounded-xl hover:bg-white/80 text-slate-500 transition-colors" :class="selected ? '' : 'opacity-40'">
+          <button class="p-2 rounded-xl hover:bg-white/80 text-slate-500 transition-colors" :class="selected ? '' : 'opacity-40'" title="Move Right">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
           </button>
-          <button class="p-2 rounded-xl hover:bg-white/80 text-slate-500 transition-colors" :class="selected ? '' : 'opacity-40'">
+          <button class="p-2 rounded-xl hover:bg-white/80 text-slate-500 transition-colors" :class="selected ? '' : 'opacity-40'" title="Resize">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"/></svg>
           </button>
           <div class="w-px h-6 bg-slate-200 mx-0.5"></div>
-          <button class="p-2 rounded-xl hover:bg-white/80 text-slate-500 transition-colors">
+          <!-- Undo / Redo -->
+          <button class="p-2 rounded-xl hover:bg-white/80 text-slate-500 transition-colors" title="Undo">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"/></svg>
           </button>
-          <button class="p-2 rounded-xl hover:bg-white/80 text-slate-500 transition-colors">
+          <button class="p-2 rounded-xl hover:bg-white/80 text-slate-500 transition-colors" title="Redo">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3"/></svg>
           </button>
           <div class="w-px h-6 bg-slate-200 mx-0.5"></div>
+          <!-- Commit actions -->
           <button class="px-3 py-2 text-xs font-medium rounded-xl border border-slate-200 hover:bg-white/80 text-slate-600">Save Draft</button>
           <button class="px-3 py-2 text-xs font-bold rounded-xl text-white shadow-sm" style="background:#ff4815">Submit</button>
-          <button class="px-3 py-2 text-xs font-bold rounded-xl bg-green-600 text-white shadow-sm">Publish</button>
+          <div class="w-px h-6 bg-red-200 mx-1"></div>
+          <!-- Destructive: Remove (isolated, red-tinted) -->
+          <button class="flex items-center gap-1.5 px-3 py-2 text-xs font-bold rounded-xl hover:bg-red-50 text-red-600 border border-red-200 transition-colors" :class="selected ? '' : 'opacity-40 cursor-not-allowed'" title="Remove selected activity">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"/></svg>
+            Remove
+          </button>
         </div>
 
         <div x-show="!editMode" class="text-center py-6 text-slate-400 text-xs">
@@ -180,24 +214,24 @@
           <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Add</strong><br>New activity</div>
           <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Remove</strong><br>Delete selected</div>
           <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Duplicate</strong><br>Copy selected</div>
-          <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Move â†â†’</strong><br>Shift year</div>
+          <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Move â† â†’</strong><br>Shift year</div>
           <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Resize</strong><br>Change duration</div>
           <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Undo/Redo</strong><br>History stack</div>
         </div>
       </div>
     </div>
 
-    <!-- â•â•â•â•â•â•â• STEP 4: Detail Drawer + Edit Form â•â•â•â•â•â•â• -->
+    <!-- COMPONENT: Detail Drawer -->
     <div>
-      <div class="flex items-center gap-3 mb-3">
-        <span class="w-7 h-7 rounded-full bg-woah-500 text-white text-xs font-bold flex items-center justify-center">4</span>
+      <div class="flex items-center gap-3 mb-3 text-woah-600">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
         <h2 class="text-sm font-bold text-slate-800">Detail Drawer with Edit Form</h2>
       </div>
       <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
         <div class="flex">
           <!-- Left: Timeline preview (dimmed) -->
           <div class="flex-1 p-6 bg-slate-50/50 border-r border-slate-200 relative" style="min-height:600px">
-            <p class="text-xs text-slate-400 mb-4 font-medium">â† Timeline (dimmed when drawer is open)</p>
+            <p class="text-xs text-slate-400 mb-4 font-medium">â†  Timeline (dimmed when drawer is open)</p>
             <div class="space-y-3 opacity-50">
               <div class="h-10 rounded-lg bg-blue-50 border border-blue-200 flex items-center px-3"><span class="text-[11px] text-blue-800">PVS Evaluation â€” 2027</span></div>
               <div class="h-10 rounded-lg bg-blue-50 border border-blue-200 flex items-center px-3"><span class="text-[11px] text-blue-800">PVS Follow-up â€” 2027</span></div>
@@ -245,7 +279,7 @@
                 </div>
                 <div>
                   <h3 class="text-sm font-bold text-slate-900">Edit: Laboratory Mission</h3>
-                  <p class="text-[10px] text-amber-600 font-medium">AI-generated · Confidence: 93%</p>
+                  <p class="text-[10px] text-amber-600 font-medium">AI-generated Â· Confidence: 93%</p>
                 </div>
               </div>
               <button class="p-1.5 rounded-lg hover:bg-slate-100 text-slate-400"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
@@ -361,10 +395,10 @@
       </div>
     </div>
 
-    <!-- â•â•â•â•â•â•â• STEP 5: AI vs Manual Visual Distinction â•â•â•â•â•â•â• -->
+    <!-- COMPONENT: Visual Distinction -->
     <div>
-      <div class="flex items-center gap-3 mb-3">
-        <span class="w-7 h-7 rounded-full bg-woah-500 text-white text-xs font-bold flex items-center justify-center">5</span>
+      <div class="flex items-center gap-3 mb-3 text-woah-600">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
         <h2 class="text-sm font-bold text-slate-800">AI-Generated vs Manual â€” Visual Comparison</h2>
       </div>
       <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">

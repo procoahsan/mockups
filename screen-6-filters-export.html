@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -16,14 +16,42 @@
 .filter-chip.active{border-color:#ff4815;background:#fff7ed;color:#ea580c;font-weight:600}
 .fade-in{animation:fadeIn .3s ease-out}
 @keyframes fadeIn{0%{opacity:0;transform:translateY(4px)}100%{opacity:1;transform:translateY(0)}}
+/* ═══ RESPONSIVE: Sidebar ═══ */
+.sidebar{width:240px;transition:width .2s ease}
+.main-content{margin-left:240px;transition:margin-left .2s ease}
+.header-brand{width:240px;transition:width .2s ease}
+@media (max-width:1600px){
+  .sidebar{width:200px !important}
+  .main-content{margin-left:200px !important}
+  .header-brand{width:200px !important}
+  .header-brand .brand-title{font-size:12px}
+  .nav-screen{padding:4px 6px !important;font-size:10px !important}
+}
+@media (max-width:1500px){
+  .sidebar{width:64px !important;overflow:hidden !important}
+  .sidebar nav{padding-left:8px !important;padding-right:8px !important}
+  .sidebar .sidebar-text, .sidebar .sidebar-badge, .sidebar .sidebar-section-label{display:none !important}
+  .sidebar .sidebar-section-divider{margin:8px 0 !important}
+  .sidebar .sidebar-item{justify-content:center !important;padding:12px 0 !important;border-radius:8px;gap:0 !important}
+  .sidebar .sidebar-item svg{margin:0 !important;width:22px !important;height:22px !important}
+  .main-content{margin-left:64px !important}
+  .header-brand{width:64px !important;justify-content:center !important;padding-left:0 !important}
+  .header-brand .brand-text{display:none !important}
+}
+@media (max-width:1100px){
+  .sidebar{width:0 !important;display:none !important}
+  .main-content{margin-left:0 !important}
+  .header-brand{width:auto !important}
+  .header-brand .brand-text{display:none !important}
+}
 </style>
 </head>
 <body class="bg-slate-50 text-slate-800" x-data="filterState()" x-cloak>
 
 <!-- TOP NAV -->
 <header class="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-slate-200 flex items-center px-4 gap-3 shadow-sm">
-  <div class="flex items-center gap-2.5 w-[240px]">
-    <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:#ff4815"><svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3"/></svg></div>
+  <div class="header-brand flex items-center gap-2.5">
+    <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:#ff4815"><svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3"/></svg></div>
     <div class="flex flex-col leading-none"><span class="text-[10px] font-bold tracking-widest uppercase" style="color:#ff4815">WOAH</span><span class="text-[13px] font-semibold text-slate-800">PVS Information System</span></div>
   </div>
   <div class="h-6 w-px bg-slate-200"></div>
@@ -47,16 +75,16 @@
 </header>
 
 <!-- SIDEBAR -->
-<aside class="fixed top-14 left-0 bottom-0 w-[240px] z-40 flex flex-col overflow-y-auto text-white" style="background:#1e293b">
+<aside class="sidebar fixed top-14 left-0 bottom-0 z-40 flex flex-col overflow-y-auto text-white" style="background:#1e293b">
   <nav class="flex-1 py-4 px-3 space-y-0.5">
-    <p class="px-3 text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2">Navigation</p>
-    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6z"/></svg> Dashboard</a>
-    <a href="#" class="sidebar-item active flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-white font-semibold"><svg class="w-[18px] h-[18px]" style="color:#ff4815" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75"/></svg> Roadmaps</a>
+    <p class="sidebar-section-label px-3 text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2">Navigation</p>
+    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6z"/></svg> <span class="sidebar-text">Dashboard</span></a>
+    <a href="#" class="sidebar-item active flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-white font-semibold"><svg class="w-[18px] h-[18px]" style="color:#ff4815" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75"/></svg> <span class="sidebar-text">Roadmaps</span></a>
   </nav>
 </aside>
 
 <!-- MAIN -->
-<div class="ml-[240px] pt-14 min-h-screen">
+<div class="main-content pt-14 min-h-screen">
   <div class="px-8 pt-6 pb-4">
     <h1 class="text-2xl font-bold text-slate-900 mb-1">Screen 6 â€” Filter & Export Bar</h1>
     <p class="text-sm text-slate-500 max-w-3xl mb-6">Comprehensive filter bar with dropdowns for each dimension, toggle switches for quick filters, search, and multi-format export. Timeline and summary panel update dynamically when filters are applied.</p>
@@ -168,43 +196,11 @@
           <div class="p-3 font-medium border-r border-b">Support</div><div class="border-r border-b bg-slate-50"></div><div class="p-2 border-r border-b"><div class="rounded border-2 border-amber-400 border-l-4 border-l-orange-500 px-2 py-1.5 font-bold text-orange-900" style="background:linear-gradient(135deg,#fefce8,#fef3c7)">Laboratory · AI 93%</div></div><div class="border-r border-b bg-slate-100 opacity-45"></div><div class="border-r border-b bg-slate-100 opacity-45"></div><div class="border-b bg-slate-100 opacity-45"></div>
           <div class="p-3 font-medium border-r">Welfare</div><div class="border-r bg-slate-100 opacity-45"></div><div class="border-r bg-slate-100 opacity-45"></div><div class="p-2 border-r"><div class="rounded border-2 border-amber-400 border-l-4 border-l-teal-500 px-2 py-1.5 font-bold text-teal-900" style="background:linear-gradient(135deg,#fefce8,#fef3c7)">Animal Welfare · AI 89%</div></div><div class="border-r bg-slate-100 opacity-45"></div><div class="bg-slate-100 opacity-45"></div>
         </div>
-        <p class="text-[10px] text-slate-500 mb-3">Matching timeline items remain visible; non-matching items are retained as muted grid context.</p>
-        <div class="hidden space-y-3">
-          <!-- Filtered card 1 -->
-          <div class="flex items-center gap-4 p-3 rounded-lg border-2 border-amber-300" style="background:linear-gradient(135deg,#fefce8,#fef9c3)">
-            <div class="w-2 h-10 rounded bg-orange-500 flex-shrink-0"></div>
-            <div class="flex-1 min-w-0">
-              <div class="flex items-center gap-2">
-                <span class="text-sm font-bold text-slate-900">ðŸ§ª Laboratory Mission</span>
-                <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-amber-200 text-amber-800 flex items-center gap-0.5">
-                  <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 24 24"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
-                  AI 93%
-                </span>
-              </div>
-              <p class="text-[11px] text-slate-500 mt-0.5">2028 Â· Targeted Support</p>
-            </div>
-            <span class="text-[9px] font-bold px-2 py-1 rounded-full bg-purple-50 text-purple-700 border border-purple-200">Auto Generated</span>
-          </div>
-          <!-- Filtered card 2 -->
-          <div class="flex items-center gap-4 p-3 rounded-lg border-2 border-amber-300" style="background:linear-gradient(135deg,#fefce8,#fef9c3)">
-            <div class="w-2 h-10 rounded bg-teal-500 flex-shrink-0"></div>
-            <div class="flex-1 min-w-0">
-              <div class="flex items-center gap-2">
-                <span class="text-sm font-bold text-slate-900">ðŸ¾ Animal Welfare Mission</span>
-                <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-amber-200 text-amber-800 flex items-center gap-0.5">
-                  <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 24 24"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
-                  AI 89%
-                </span>
-              </div>
-              <p class="text-[11px] text-slate-500 mt-0.5">2029 Â· Animal Welfare</p>
-            </div>
-            <span class="text-[9px] font-bold px-2 py-1 rounded-full bg-purple-50 text-purple-700 border border-purple-200">Auto Generated</span>
-          </div>
-        </div>
+        <p class="text-[10px] text-slate-500 mb-3">Matching timeline items remain visible; non-matching items are retained as muted grid context (greyed-out cells, not detached cards).</p>
       </div>
     </div>
 
-    <!-- â•â•â•â•â•â•â• UPDATED SUMMARY SNIPPET â•â•â•â•â•â•â• -->
+    <!-- â• â• â• â• â• â• â•  UPDATED SUMMARY SNIPPET â• â• â• â• â• â• â•  -->
     <div class="fade-in">
       <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Summary Panel Updates Dynamically</h2>
       <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5">

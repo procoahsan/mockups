@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -13,13 +13,41 @@
 .nav-screen{transition:all .15s ease}.nav-screen:hover{background:#f1f5f9}.nav-screen.current{background:#fff7ed;color:#ea580c;font-weight:600;border:1px solid #fed7aa}
 @keyframes pulse-slow{0%,100%{opacity:1}50%{opacity:.5}}
 .pulse-slow{animation:pulse-slow 2s ease-in-out infinite}
+/* ═══ RESPONSIVE: Sidebar ═══ */
+.sidebar{width:240px;transition:width .2s ease}
+.main-content{margin-left:240px;transition:margin-left .2s ease}
+.header-brand{width:240px;transition:width .2s ease}
+@media (max-width:1600px){
+  .sidebar{width:200px !important}
+  .main-content{margin-left:200px !important}
+  .header-brand{width:200px !important}
+  .header-brand .brand-title{font-size:12px}
+  .nav-screen{padding:4px 6px !important;font-size:10px !important}
+}
+@media (max-width:1500px){
+  .sidebar{width:64px !important;overflow:hidden !important}
+  .sidebar nav{padding-left:8px !important;padding-right:8px !important}
+  .sidebar .sidebar-text, .sidebar .sidebar-badge, .sidebar .sidebar-section-label{display:none !important}
+  .sidebar .sidebar-section-divider{margin:8px 0 !important}
+  .sidebar .sidebar-item{justify-content:center !important;padding:12px 0 !important;border-radius:8px;gap:0 !important}
+  .sidebar .sidebar-item svg{margin:0 !important;width:22px !important;height:22px !important}
+  .main-content{margin-left:64px !important}
+  .header-brand{width:64px !important;justify-content:center !important;padding-left:0 !important}
+  .header-brand .brand-text{display:none !important}
+}
+@media (max-width:1100px){
+  .sidebar{width:0 !important;display:none !important}
+  .main-content{margin-left:0 !important}
+  .header-brand{width:auto !important}
+  .header-brand .brand-text{display:none !important}
+}
 </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
 
 <!-- TOP NAV -->
 <header class="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-slate-200 flex items-center px-4 gap-3 shadow-sm">
-  <div class="flex items-center gap-2.5 w-[240px]">
+  <div class="header-brand flex items-center gap-2.5">
     <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:#ff4815"><svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3"/></svg></div>
     <div class="flex flex-col leading-none"><span class="text-[10px] font-bold tracking-widest uppercase" style="color:#ff4815">WOAH</span><span class="text-[13px] font-semibold text-slate-800">PVS Information System</span></div>
   </div>
@@ -44,16 +72,16 @@
 </header>
 
 <!-- SIDEBAR -->
-<aside class="fixed top-14 left-0 bottom-0 w-[240px] z-40 flex flex-col overflow-y-auto text-white" style="background:#1e293b">
+<aside class="sidebar fixed top-14 left-0 bottom-0 z-40 flex flex-col overflow-y-auto text-white" style="background:#1e293b">
   <nav class="flex-1 py-4 px-3 space-y-0.5">
-    <p class="px-3 text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2">Navigation</p>
-    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6z"/></svg> Dashboard</a>
-    <a href="#" class="sidebar-item active flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-white font-semibold"><svg class="w-[18px] h-[18px]" style="color:#ff4815" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75"/></svg> Roadmaps</a>
+    <p class="sidebar-section-label px-3 text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2">Navigation</p>
+    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6z"/></svg> <span class="sidebar-text">Dashboard</span></a>
+    <a href="#" class="sidebar-item active flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-white font-semibold"><svg class="w-[18px] h-[18px]" style="color:#ff4815" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75"/></svg> <span class="sidebar-text">Roadmaps</span></a>
   </nav>
 </aside>
 
 <!-- MAIN -->
-<div class="ml-[240px] pt-14 min-h-screen">
+<div class="main-content pt-14 min-h-screen">
   <div class="px-8 pt-6 pb-4">
     <h1 class="text-2xl font-bold text-slate-900 mb-1">Screen 4 â€” Status Badges</h1>
     <p class="text-sm text-slate-500 max-w-3xl mb-8">Modern pill badges reflecting the roadmap lifecycle. Each status has a unique icon, background colour, and text colour for instant visual recognition.</p>
@@ -196,8 +224,7 @@
       <!-- Cancelled -->
       <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
         <div class="flex items-center justify-between mb-4">
-          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-gray-100 text-gray-500 border border-gray-300 relative">
-            <span class="absolute top-1/2 left-2 right-2 h-[2px] bg-gray-400 -translate-y-1/2"></span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-gray-100 text-gray-500 border border-gray-300">
             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
             Cancelled
           </span>
@@ -211,10 +238,10 @@
       </div>
     </div>
 
-    <!-- â•â•â•â•â•â•â• LIFECYCLE FLOW â•â•â•â•â•â•â• -->
     <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-5">Status Lifecycle Flow</h2>
     <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 mb-8">
-      <div class="flex items-center justify-center gap-2 flex-wrap">
+      <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3">Primary Path</p>
+      <div class="flex items-center justify-center gap-2 flex-wrap mb-5">
         <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-bold bg-purple-50 text-purple-700 border border-purple-200"><svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>Auto Generated</span>
         <svg class="w-5 h-5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
         <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200"><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M16.862 4.487L6.832 14.517 6 18l3.483-.832 10.03-10.03a1.875 1.875 0 00-2.651-2.651z"/></svg>Draft</span>
@@ -225,15 +252,26 @@
         <svg class="w-5 h-5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
         <div class="flex flex-col items-center gap-1">
           <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-bold bg-green-50 text-green-700 border border-green-200"><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4.5 12.75l6 6 9-13.5"/></svg>Approved</span>
-          <span class="text-[9px] text-slate-400">â€” or â€”</span>
+          <span class="text-[9px] text-slate-400">— or —</span>
           <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-bold bg-red-50 text-red-700 border border-red-200"><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>Rejected</span>
         </div>
         <svg class="w-5 h-5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
         <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200"><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4.5 12.75l6 6 9-13.5"/></svg>Completed</span>
       </div>
-      <div class="mt-4 flex items-center justify-center gap-4 text-[10px] text-slate-400">
-        <span class="flex items-center gap-1"><span class="inline-block w-3 h-3 rounded-full bg-red-100 border border-red-300"></span> Overdue = alert state on any active status</span>
-        <span class="flex items-center gap-1"><span class="inline-block w-3 h-3 rounded-full bg-gray-100 border border-gray-300"></span> Cancelled = terminal state from any status</span>
+      <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3">Side Branches (from any active status)</p>
+      <div class="flex items-center justify-center gap-6 flex-wrap">
+        <div class="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-red-50 border border-red-200">
+          <span class="text-[10px] text-red-600 font-medium">Any active status</span>
+          <svg class="w-4 h-4 text-red-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+          <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-bold bg-red-100 text-red-800 border border-red-300"><svg class="w-3 h-3 pulse-slow" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z"/></svg>Overdue</span>
+          <span class="text-[9px] text-red-500 italic">alert overlay, not a transition</span>
+        </div>
+        <div class="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gray-50 border border-gray-200">
+          <span class="text-[10px] text-gray-500 font-medium">Any status</span>
+          <svg class="w-4 h-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+          <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-bold bg-gray-100 text-gray-500 border border-gray-300"><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>Cancelled</span>
+          <span class="text-[9px] text-gray-400 italic">terminal, irreversible</span>
+        </div>
       </div>
     </div>
 
@@ -262,22 +300,23 @@
               Approved
             </span>
             <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-red-100 text-red-800 border border-red-300">
-              <svg class="w-3.5 h-3.5 pulse-slow" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z"/></svg>
+              <svg class="w-3.5 h-3.5 pulse-slow" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
               Overdue
             </span>
           </div>
         </div>
         <div>
-          <p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Small â€” Timeline Bar / Compact</p>
+          <p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Small — Timeline Bar / Compact (with mini icons for differentiation)</p>
           <div class="flex items-center gap-3 flex-wrap">
-            <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-green-100 text-green-700">Approved</span>
-            <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-amber-100 text-amber-700">Draft</span>
-            <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-blue-100 text-blue-700">Submitted</span>
-            <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-red-100 text-red-700">Overdue</span>
-            <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-slate-100 text-slate-600">CBD Edited</span>
-            <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-purple-100 text-purple-700">AI Generated</span>
-            <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-emerald-100 text-emerald-700">Completed</span>
-            <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-gray-100 text-gray-700 border border-gray-300">Cancelled</span>
+            <span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-purple-100 text-purple-700"><svg class="w-2 h-2" fill="currentColor" viewBox="0 0 24 24"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>AI Gen</span>
+            <span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-amber-100 text-amber-700"><svg class="w-2 h-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931z"/></svg>Draft</span>
+            <span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-slate-200 text-slate-700"><svg class="w-2 h-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487z"/></svg>CBD</span>
+            <span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-blue-100 text-blue-700"><svg class="w-2 h-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"/></svg>Submitted</span>
+            <span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-green-100 text-green-700"><svg class="w-2 h-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75"/></svg>Approved</span>
+            <span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-red-50 text-red-700"><svg class="w-2 h-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>Rejected</span>
+            <span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-red-100 text-red-800"><svg class="w-2 h-2 pulse-slow" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0 3.75h.008"/></svg>Overdue</span>
+            <span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-emerald-100 text-emerald-700"><svg class="w-2 h-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Done</span>
+            <span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-gray-100 text-gray-500 border border-gray-300"><svg class="w-2 h-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636"/></svg>Cancelled</span>
           </div>
         </div>
       </div>

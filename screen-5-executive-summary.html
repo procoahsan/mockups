@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -14,13 +14,41 @@
 .nav-screen{transition:all .15s ease}.nav-screen:hover{background:#f1f5f9}.nav-screen.current{background:#fff7ed;color:#ea580c;font-weight:600;border:1px solid #fed7aa}
 .progress-ring{transform:rotate(-90deg)}
 .stat-card{transition:all .2s ease}.stat-card:hover{transform:translateY(-1px);box-shadow:0 4px 10px -2px rgba(0,0,0,.05)}
+/* ═══ RESPONSIVE: Sidebar ═══ */
+.sidebar{width:240px;transition:width .2s ease}
+.main-content{margin-left:240px;transition:margin-left .2s ease}
+.header-brand{width:240px;transition:width .2s ease}
+@media (max-width:1600px){
+  .sidebar{width:200px !important}
+  .main-content{margin-left:200px !important}
+  .header-brand{width:200px !important}
+  .header-brand .brand-title{font-size:12px}
+  .nav-screen{padding:4px 6px !important;font-size:10px !important}
+}
+@media (max-width:1500px){
+  .sidebar{width:64px !important;overflow:hidden !important}
+  .sidebar nav{padding-left:8px !important;padding-right:8px !important}
+  .sidebar .sidebar-text, .sidebar .sidebar-badge, .sidebar .sidebar-section-label{display:none !important}
+  .sidebar .sidebar-section-divider{margin:8px 0 !important}
+  .sidebar .sidebar-item{justify-content:center !important;padding:12px 0 !important;border-radius:8px;gap:0 !important}
+  .sidebar .sidebar-item svg{margin:0 !important;width:22px !important;height:22px !important}
+  .main-content{margin-left:64px !important}
+  .header-brand{width:64px !important;justify-content:center !important;padding-left:0 !important}
+  .header-brand .brand-text{display:none !important}
+}
+@media (max-width:1100px){
+  .sidebar{width:0 !important;display:none !important}
+  .main-content{margin-left:0 !important}
+  .header-brand{width:auto !important}
+  .header-brand .brand-text{display:none !important}
+}
 </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
 
 <!-- TOP NAV -->
 <header class="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-slate-200 flex items-center px-4 gap-3 shadow-sm">
-  <div class="flex items-center gap-2.5 w-[240px]">
+  <div class="header-brand flex items-center gap-2.5">
     <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:#ff4815"><svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3"/></svg></div>
     <div class="flex flex-col leading-none"><span class="text-[10px] font-bold tracking-widest uppercase" style="color:#ff4815">WOAH</span><span class="text-[13px] font-semibold text-slate-800">PVS Information System</span></div>
   </div>
@@ -45,16 +73,16 @@
 </header>
 
 <!-- SIDEBAR LEFT (Navigation) -->
-<aside class="fixed top-14 left-0 bottom-0 w-[240px] z-40 flex flex-col overflow-y-auto text-white" style="background:#1e293b">
+<aside class="sidebar fixed top-14 left-0 bottom-0 z-40 flex flex-col overflow-y-auto text-white" style="background:#1e293b">
   <nav class="flex-1 py-4 px-3 space-y-0.5">
-    <p class="px-3 text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2">Navigation</p>
-    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6z"/></svg> Dashboard</a>
-    <a href="#" class="sidebar-item active flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-white font-semibold"><svg class="w-[18px] h-[18px]" style="color:#ff4815" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75"/></svg> Roadmaps</a>
+    <p class="sidebar-section-label px-3 text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2">Navigation</p>
+    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px] text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6z"/></svg> <span class="sidebar-text">Dashboard</span></a>
+    <a href="#" class="sidebar-item active flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-white font-semibold"><svg class="w-[18px] h-[18px]" style="color:#ff4815" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75"/></svg> <span class="sidebar-text">Roadmaps</span></a>
   </nav>
 </aside>
 
 <!-- MAIN CONTENT AREA (Placeholder to show sidebar context) -->
-<div class="ml-[240px] mr-[280px] pt-14 min-h-screen p-8">
+<div class="main-content mr-[280px] pt-14 min-h-screen p-8">
   <h1 class="text-2xl font-bold text-slate-900 mb-1">Screen 5 â€” Executive Summary Panel</h1>
   <p class="text-sm text-slate-500 max-w-3xl mb-6">The executive summary is now a 280px right-hand sidebar. This layout represents the production design where the timeline lives in the center and the summary pins to the right.</p>
   
