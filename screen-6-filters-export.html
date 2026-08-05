@@ -7,9 +7,9 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-<script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']},colors:{woah:{50:'#fff7ed',100:'#ffedd5',500:'#ff4815',600:'#ea580c',700:'#c2410c'}}}}}</script>
+<script>tailwind.config={theme:{extend:{fontFamily:{sans:['Söhne','Inter','Arial','sans-serif']},colors:{woah:{50:'#fff7ed',100:'#ffedd5',500:'#ff4815',600:'#ea580c',700:'#c2410c'}}}}}</script>
 <style>
-*,*::before,*::after{box-sizing:border-box}body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}[x-cloak]{display:none!important}
+*,*::before,*::after{box-sizing:border-box}body{font-family:'Söhne','Inter','Arial',sans-serif;-webkit-font-smoothing:antialiased;color:'#27282A'}[x-cloak]{display:none!important}
 .sidebar-item{transition:all .15s ease}.sidebar-item:hover{background:rgba(255,255,255,0.08)}.sidebar-item.active{background:rgba(255,72,21,0.15);border-right:3px solid #ff4815}
 .nav-screen{transition:all .15s ease}.nav-screen:hover{background:#f1f5f9}.nav-screen.current{background:#fff7ed;color:#ea580c;font-weight:600;border:1px solid #fed7aa}
 .filter-chip{transition:all .15s ease;cursor:pointer}.filter-chip:hover{border-color:#ff4815;background:#fff7ed}
@@ -46,13 +46,13 @@
 }
 </style>
 </head>
-<body class="bg-slate-50 text-slate-800" x-data="filterState()" x-cloak>
+<body class="bg-slate-50 text-woah-dark" x-data="filterState()" x-cloak>
 
 <!-- TOP NAV -->
 <header class="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-slate-200 flex items-center px-4 gap-3 shadow-sm">
   <div class="header-brand flex items-center gap-2.5">
     <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:#ff4815"><svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3"/></svg></div>
-    <div class="flex flex-col leading-none"><span class="text-[10px] font-bold tracking-widest uppercase" style="color:#ff4815">WOAH</span><span class="text-[13px] font-semibold text-slate-800">PVS Information System</span></div>
+    <div class="flex flex-col leading-none"><span class="text-[10px] font-bold tracking-widest uppercase" style="color:#ff4815">WOAH</span><span class="text-[13px] font-semibold text-woah-dark">PVS Information System</span></div>
   </div>
   <div class="h-6 w-px bg-slate-200"></div>
   <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-sm font-medium"><span class="w-5 h-4 rounded-sm bg-gradient-to-b from-blue-600 to-yellow-500 text-[7px] text-white font-bold flex items-center justify-center">SZ</span> Eswatini</div>
@@ -86,7 +86,7 @@
 <!-- MAIN -->
 <div class="main-content pt-14 min-h-screen">
   <div class="px-8 pt-6 pb-4">
-    <h1 class="text-2xl font-bold text-slate-900 mb-1">Screen 6 â€” Filter & Export Bar</h1>
+    <h1 class="text-2xl font-bold text-woah-dark mb-1">Screen 6 â€” Filter & Export Bar</h1>
     <p class="text-sm text-slate-500 max-w-3xl mb-6">Comprehensive filter bar with dropdowns for each dimension, toggle switches for quick filters, search, and multi-format export. Timeline and summary panel update dynamically when filters are applied.</p>
   </div>
 
@@ -102,11 +102,11 @@
             <span class="font-medium">Filters</span>
           </div>
           <div class="h-5 w-px bg-slate-200"></div>
-          <button class="filter-chip flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border border-slate-200 bg-white text-slate-600">Mission Type <svg class="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button>
-          <button class="filter-chip flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border border-slate-200 bg-white text-slate-600">Year <svg class="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button>
-          <button class="filter-chip flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border border-slate-200 bg-white text-slate-600">Region <svg class="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button>
-          <button class="filter-chip flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border border-slate-200 bg-white text-slate-600">Status <svg class="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button>
-          <button class="filter-chip flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border border-slate-200 bg-white text-slate-600">
+          <button class="filter-chip flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-xl border border-slate-200 bg-white text-slate-600">Mission Type <svg class="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button>
+          <button class="filter-chip flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-xl border border-slate-200 bg-white text-slate-600">Year <svg class="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button>
+          <button class="filter-chip flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-xl border border-slate-200 bg-white text-slate-600">Region <svg class="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button>
+          <button class="filter-chip flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-xl border border-slate-200 bg-white text-slate-600">Status <svg class="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button>
+          <button class="filter-chip flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-xl border border-slate-200 bg-white text-slate-600">
             <svg class="w-3 h-3 text-amber-500" fill="currentColor" viewBox="0 0 24 24"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
             AI Only
           </button>
@@ -123,12 +123,12 @@
           <div class="h-5 w-px bg-slate-200 mx-1"></div>
           <!-- Export -->
           <div class="relative" x-data="{ open: false }">
-            <button @click="open = !open" @click.outside="open = false" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-600">
+            <button @click="open = !open" @click.outside="open = false" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600">
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
               Export
               <svg class="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
             </button>
-            <div x-show="open" x-transition class="absolute right-0 top-full mt-1 w-48 bg-white rounded-xl shadow-lg border border-slate-200 py-1.5 z-40">
+            <div x-show="open" x-transition class="absolute right-0 top-full mt-1 w-48 bg-white rounded-xl shadow-sm border border-slate-200 py-1.5 z-40">
               <p class="px-3 pt-1 pb-1 text-[9px] font-bold uppercase tracking-wider text-slate-400">Data</p>
               <a href="#" class="flex items-center gap-2 px-3 py-2 text-xs hover:bg-slate-50"><svg class="w-4 h-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m.75 12l3 3m0 0l3-3m-3 3v-6m-1.5-9H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg> Export to PDF</a>
               <a href="#" class="flex items-center gap-2 px-3 py-2 text-xs hover:bg-slate-50"><svg class="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625"/></svg> Export to Excel</a>
@@ -207,22 +207,22 @@
         <div class="grid grid-cols-4 gap-4">
           <div class="bg-woah-50 rounded-lg p-3 border border-woah-100">
             <p class="text-[9px] font-bold text-slate-400 uppercase">Programme Estimate</p>
-            <p class="text-xl font-bold text-slate-900">$300K</p>
+            <p class="text-xl font-bold text-woah-dark">$300K</p>
             <p class="text-[10px] text-slate-500">of $1.42M total</p>
           </div>
-          <div class="bg-white rounded-lg p-3 border border-slate-200">
+          <div class="bg-white rounded-xl p-3 border border-slate-200">
             <p class="text-[9px] font-bold text-slate-400 uppercase">Filtered Missions</p>
-            <p class="text-xl font-bold text-slate-900">2</p>
+            <p class="text-xl font-bold text-woah-dark">2</p>
             <p class="text-[10px] text-slate-500">of 12 total</p>
           </div>
-          <div class="bg-white rounded-lg p-3 border border-slate-200">
+          <div class="bg-white rounded-xl p-3 border border-slate-200">
             <p class="text-[9px] font-bold text-slate-400 uppercase">AI Confidence</p>
             <p class="text-xl font-bold text-amber-600">91%</p>
             <p class="text-[10px] text-slate-500">avg. filtered</p>
           </div>
-          <div class="bg-white rounded-lg p-3 border border-slate-200">
+          <div class="bg-white rounded-xl p-3 border border-slate-200">
             <p class="text-[9px] font-bold text-slate-400 uppercase">Year Span</p>
-            <p class="text-xl font-bold text-slate-900">2 yrs</p>
+            <p class="text-xl font-bold text-woah-dark">2 yrs</p>
             <p class="text-[10px] text-slate-500">2028â€“2029</p>
           </div>
         </div>

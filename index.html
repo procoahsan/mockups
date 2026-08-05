@@ -7,16 +7,16 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 <script>
-tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']},colors:{woah:{50:'#fff7ed',100:'#ffedd5',200:'#fed7aa',300:'#fdba74',400:'#fb923c',500:'#ff4815',600:'#ea580c',700:'#c2410c',800:'#9a3412',900:'#7c2d12'}}}}}
+tailwind.config={theme:{extend:{fontFamily:{sans:['Söhne','Inter','Arial','sans-serif']},colors:{woah:{50:'#fff7ed',100:'#ffedd5',200:'#fed7aa',300:'#fdba74',400:'#fb923c',500:'#ff4815',600:'#ea580c',700:'#c2410c',800:'#9a3412',900:'#7c2d12',dark:'#27282A',beige:'#EFEEE8'},pastel:{blue:'#DCE9F4',green:'#DDF3E6',yellow:'#FFF2CE',pink:'#FFE7F0'}}}}}
 </script>
 <style>
 *,*::before,*::after{box-sizing:border-box}
-body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{font-family:'Söhne','Inter','Arial',sans-serif;-webkit-font-smoothing:antialiased;color:'#27282A'}
 .hub-card{transition:all .25s cubic-bezier(.16,1,.3,1)}
 .hub-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px -4px rgba(0,0,0,.1),0 4px 10px -4px rgba(0,0,0,.06);border-color:#ff4815}
 </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+<body class="bg-slate-50 text-woah-dark min-h-screen flex flex-col">
 
 <!-- TOP NAV -->
 <header class="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-slate-200 flex items-center px-4 gap-3 shadow-sm">
@@ -26,7 +26,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
     </div>
     <div class="flex flex-col leading-none">
       <span class="text-[10px] font-bold tracking-widest uppercase" style="color:#ff4815">WOAH</span>
-      <span class="text-[13px] font-semibold text-slate-800">PVS Information System</span>
+      <span class="text-[13px] font-semibold text-woah-dark">PVS Information System</span>
     </div>
   </div>
   <div class="flex-1"></div>
@@ -38,7 +38,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 <!-- MAIN CONTENT -->
 <main class="flex-1 pt-24 pb-12 px-8 max-w-7xl mx-auto w-full">
   <div class="mb-10 text-center max-w-2xl mx-auto">
-    <h1 class="text-3xl font-bold text-slate-900 mb-4">PVS Roadmap Planner</h1>
+    <h1 class="text-3xl font-bold text-woah-dark mb-4">PVS Roadmap Planner</h1>
     <p class="text-slate-500 text-sm leading-relaxed">
       Welcome to the HTML prototype for the World Organisation for Animal Health (WOAH). 
       This hub connects all 7 designed screens of the Roadmap Planner module. 
@@ -56,7 +56,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
       </div>
       <div class="p-5 flex-1 flex flex-col">
         <div class="flex items-center justify-between mb-2">
-          <h2 class="text-sm font-bold text-slate-900 group-hover:text-woah-600 transition-colors">1. Timeline Layout</h2>
+          <h2 class="text-sm font-bold text-woah-dark group-hover:text-woah-600 transition-colors">1. Timeline Layout</h2>
         </div>
         <p class="text-[11px] text-slate-500 mt-auto">The core horizontal timeline spanning five annual columns with activity cards.</p>
       </div>
@@ -70,7 +70,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
       </div>
       <div class="p-5 flex-1 flex flex-col">
         <div class="flex items-center justify-between mb-2">
-          <h2 class="text-sm font-bold text-slate-900 group-hover:text-woah-600 transition-colors">2. Activity Cards</h2>
+          <h2 class="text-sm font-bold text-woah-dark group-hover:text-woah-600 transition-colors">2. Activity Cards</h2>
         </div>
         <p class="text-[11px] text-slate-500 mt-auto">Designs for standard cards, AI-generated cards, and inline timeline bar variants.</p>
       </div>
@@ -89,7 +89,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
       </div>
       <div class="p-5 flex-1 flex flex-col">
         <div class="flex items-center justify-between mb-2">
-          <h2 class="text-sm font-bold text-slate-900 group-hover:text-woah-600 transition-colors">3. Colour Coding</h2>
+          <h2 class="text-sm font-bold text-woah-dark group-hover:text-woah-600 transition-colors">3. Colour Coding</h2>
           <span class="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded">Design System</span>
         </div>
         <p class="text-[11px] text-slate-500 mt-auto">Comprehensive colour scheme for mission types, source attribution, and WCAG compliance.</p>
@@ -104,7 +104,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
       </div>
       <div class="p-5 flex-1 flex flex-col">
         <div class="flex items-center justify-between mb-2">
-          <h2 class="text-sm font-bold text-slate-900 group-hover:text-woah-600 transition-colors">4. Status Badges</h2>
+          <h2 class="text-sm font-bold text-woah-dark group-hover:text-woah-600 transition-colors">4. Status Badges</h2>
           <span class="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded">Design System</span>
         </div>
         <p class="text-[11px] text-slate-500 mt-auto">Complete set of status badges across the roadmap lifecycle, in three size variants.</p>
@@ -119,7 +119,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
       </div>
       <div class="p-5 flex-1 flex flex-col">
         <div class="flex items-center justify-between mb-2">
-          <h2 class="text-sm font-bold text-slate-900 group-hover:text-woah-600 transition-colors">5. Executive Summary</h2>
+          <h2 class="text-sm font-bold text-woah-dark group-hover:text-woah-600 transition-colors">5. Executive Summary</h2>
           <span class="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded">Dashboard</span>
         </div>
         <p class="text-[11px] text-slate-500 mt-auto">At-a-glance analytics, budget projections, mission breakdowns, and cohort insights.</p>
@@ -134,7 +134,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
       </div>
       <div class="p-5 flex-1 flex flex-col">
         <div class="flex items-center justify-between mb-2">
-          <h2 class="text-sm font-bold text-slate-900 group-hover:text-woah-600 transition-colors">6. Filters & Export</h2>
+          <h2 class="text-sm font-bold text-woah-dark group-hover:text-woah-600 transition-colors">6. Filters & Export</h2>
         </div>
         <p class="text-[11px] text-slate-500 mt-auto">Comprehensive filter bar states, dropdown anatomy, and export menu interactions.</p>
       </div>
@@ -148,9 +148,10 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
       </div>
       <div class="p-5 flex-1 flex flex-col">
         <div class="flex items-center justify-between mb-2">
-          <h2 class="text-sm font-bold text-slate-900 group-hover:text-woah-600 transition-colors">7. Edit Flow</h2>
+          <h2 class="text-sm font-bold text-woah-dark group-hover:text-woah-600 transition-colors">7. Edit Flow</h2>
         </div>
         <p class="text-[11px] text-slate-500 mt-auto">Edit mode, floating toolbar, detail drawer, and AI vs manual visual distinction.</p>
+
       </div>
     </a>
 
@@ -162,7 +163,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
       </div>
       <div class="p-5 flex-1 flex flex-col">
         <div class="flex items-center justify-between mb-2">
-          <h2 class="text-sm font-bold text-slate-900 group-hover:text-woah-600 transition-colors">8. Generate Roadmap</h2>
+          <h2 class="text-sm font-bold text-woah-dark group-hover:text-woah-600 transition-colors">8. Generate Roadmap</h2>
           <span class="text-[10px] font-bold text-amber-700 bg-amber-100 px-2 py-1 rounded">AI Feature</span>
         </div>
         <p class="text-[11px] text-slate-500 mt-auto">LLM auto-generation of 5-year activity roadmap based on evaluation scores and mission history.</p>
@@ -177,7 +178,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
       </div>
       <div class="p-5 flex-1 flex flex-col">
         <div class="flex items-center justify-between mb-2">
-          <h2 class="text-sm font-bold text-slate-900 group-hover:text-woah-600 transition-colors">9. Approval Flow</h2>
+          <h2 class="text-sm font-bold text-woah-dark group-hover:text-woah-600 transition-colors">9. Approval Flow</h2>
           <span class="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded">Workflow</span>
         </div>
         <p class="text-[11px] text-slate-500 mt-auto">Whole-roadmap review process including CBD submission, Delegate review diff, and lock state.</p>
@@ -192,7 +193,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
       </div>
       <div class="p-5 flex-1 flex flex-col">
         <div class="flex items-center justify-between mb-2">
-          <h2 class="text-sm font-bold text-slate-900 group-hover:text-woah-600 transition-colors">10. Notifications</h2>
+          <h2 class="text-sm font-bold text-woah-dark group-hover:text-woah-600 transition-colors">10. Notifications</h2>
           <span class="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded">System</span>
         </div>
         <p class="text-[11px] text-slate-500 mt-auto">Dropdown alerts, inline timeline banners for overdue/milestones, and automated email templates.</p>
@@ -207,7 +208,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
       </div>
       <div class="p-5 flex-1 flex flex-col">
         <div class="flex items-center justify-between mb-2">
-          <h2 class="text-sm font-bold text-slate-900 group-hover:text-woah-600 transition-colors">11. Mobile Layout</h2>
+          <h2 class="text-sm font-bold text-woah-dark group-hover:text-woah-600 transition-colors">11. Mobile Layout</h2>
           <span class="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded">Responsive</span>
         </div>
         <p class="text-[11px] text-slate-500 mt-auto">375px viewport adaptation showing vertical timeline accordion, tabbed summary, and bottom sheet filters.</p>

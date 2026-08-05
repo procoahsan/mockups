@@ -7,9 +7,9 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-<script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']},colors:{woah:{50:'#fff7ed',100:'#ffedd5',500:'#ff4815',600:'#ea580c',700:'#c2410c'}}}}}</script>
+<script>tailwind.config={theme:{extend:{fontFamily:{sans:['Söhne','Inter','Arial','sans-serif']},colors:{woah:{50:'#fff7ed',100:'#ffedd5',500:'#ff4815',600:'#ea580c',700:'#c2410c'}}}}}</script>
 <style>
-*,*::before,*::after{box-sizing:border-box}body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}[x-cloak]{display:none!important}
+*,*::before,*::after{box-sizing:border-box}body{font-family:'Söhne','Inter','Arial',sans-serif;-webkit-font-smoothing:antialiased;color:'#27282A'}[x-cloak]{display:none!important}
 .sidebar-item{transition:all .15s ease}.sidebar-item:hover{background:rgba(255,255,255,0.08)}.sidebar-item.active{background:rgba(255,72,21,0.15);border-right:3px solid #ff4815}
 .nav-screen{transition:all .15s ease}.nav-screen:hover{background:#f1f5f9}.nav-screen.current{background:#fff7ed;color:#ea580c;font-weight:600;border:1px solid #fed7aa}
 .progress-ring{transform:rotate(-90deg)}
@@ -44,13 +44,13 @@
 }
 </style>
 </head>
-<body class="bg-slate-50 text-slate-800">
+<body class="bg-slate-50 text-woah-dark">
 
 <!-- TOP NAV -->
 <header class="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-slate-200 flex items-center px-4 gap-3 shadow-sm">
   <div class="header-brand flex items-center gap-2.5">
     <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:#ff4815"><svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3"/></svg></div>
-    <div class="flex flex-col leading-none"><span class="text-[10px] font-bold tracking-widest uppercase" style="color:#ff4815">WOAH</span><span class="text-[13px] font-semibold text-slate-800">PVS Information System</span></div>
+    <div class="flex flex-col leading-none"><span class="text-[10px] font-bold tracking-widest uppercase" style="color:#ff4815">WOAH</span><span class="text-[13px] font-semibold text-woah-dark">PVS Information System</span></div>
   </div>
   <div class="h-6 w-px bg-slate-200"></div>
   <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-sm font-medium"><span class="w-5 h-4 rounded-sm bg-gradient-to-b from-blue-600 to-yellow-500 text-[7px] text-white font-bold flex items-center justify-center">SZ</span> Eswatini</div>
@@ -83,7 +83,7 @@
 
 <!-- MAIN CONTENT AREA (Placeholder to show sidebar context) -->
 <div class="main-content mr-[280px] pt-14 min-h-screen p-8">
-  <h1 class="text-2xl font-bold text-slate-900 mb-1">Screen 5 â€” Executive Summary Panel</h1>
+  <h1 class="text-2xl font-bold text-woah-dark mb-1">Screen 5 â€” Executive Summary Panel</h1>
   <p class="text-sm text-slate-500 max-w-3xl mb-6">The executive summary is now a 280px right-hand sidebar. This layout represents the production design where the timeline lives in the center and the summary pins to the right.</p>
   
   <div class="bg-blue-50 border border-blue-200 rounded-xl p-5 max-w-2xl mt-8">
@@ -103,7 +103,7 @@
   
   <div class="p-4 border-b border-slate-100 flex items-center gap-2">
     <svg class="w-4 h-4 text-woah-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75z"/></svg>
-    <h2 class="text-sm font-bold text-slate-900">Roadmap Summary</h2>
+    <h2 class="text-sm font-bold text-woah-dark">Roadmap Summary</h2>
   </div>
 
   <div class="p-4 space-y-6">
@@ -116,7 +116,7 @@
           <circle cx="18" cy="18" r="15.5" fill="none" stroke="#ff4815" stroke-width="2.5" stroke-dasharray="25 75" stroke-linecap="round"></circle>
         </svg>
         <div class="absolute inset-0 flex flex-col items-center justify-center">
-          <span class="text-2xl font-bold text-slate-900">25%</span>
+          <span class="text-2xl font-bold text-woah-dark">25%</span>
           <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Approved</span>
         </div>
       </div>
@@ -124,7 +124,7 @@
     </div>
 
     <!-- KPI hierarchy: roadmap total is primary; supporting metrics are secondary -->
-    <div class="stat-card bg-slate-900 rounded-lg p-4 text-center">
+    <div class="stat-card bg-woah-dark rounded-lg p-4 text-center">
       <p class="text-[9px] font-bold text-slate-300 uppercase tracking-wider mb-1">5-Year Activities Planned</p>
       <p class="text-3xl font-bold text-white">12</p>
       <p class="text-[10px] text-slate-300 mt-1">Across 2027–2031</p>
@@ -148,10 +148,10 @@
 
     <!-- Budget Programme Totals -->
     <div>
-      <h3 class="text-xs font-bold text-slate-900 mb-2">Estimated Programme Cost</h3>
+      <h3 class="text-xs font-bold text-woah-dark mb-2">Estimated Programme Cost</h3>
       <div class="stat-card bg-gradient-to-br from-woah-50 to-orange-50 rounded-lg p-4 border border-woah-100 text-center mb-3">
         <p class="text-[9px] font-bold text-woah-600 uppercase tracking-wider mb-1">5-Year Total</p>
-        <p class="text-2xl font-bold text-slate-900">$1.42M</p>
+        <p class="text-2xl font-bold text-woah-dark">$1.42M</p>
       </div>
       <p class="text-[9px] text-slate-500 leading-tight bg-slate-50 p-2 rounded border border-slate-100">
         Estimates based on historical mission-type averages. Not calculated from individual activities.
@@ -160,7 +160,7 @@
 
     <!-- Annual Spending Chart -->
     <div>
-      <h3 class="text-xs font-bold text-slate-900 mb-4">Annual Spending</h3>
+      <h3 class="text-xs font-bold text-woah-dark mb-4">Annual Spending</h3>
       <div class="flex items-end gap-2 h-32">
         <div class="flex-1 flex flex-col items-center justify-end gap-1">
           <span class="text-[8px] font-bold text-slate-500 mb-1">$270K</span>
@@ -192,27 +192,27 @@
 
     <!-- Mission-Type Breakdown -->
     <div>
-      <h3 class="text-xs font-bold text-slate-900 mb-3">Mission-Type Breakdown</h3>
+      <h3 class="text-xs font-bold text-woah-dark mb-3">Mission-Type Breakdown</h3>
       <div class="space-y-2.5">
         <div class="flex items-center justify-between text-xs">
           <div class="flex items-center gap-2 text-slate-600"><span class="w-2.5 h-2.5 rounded bg-blue-500"></span>Evaluation</div>
-          <span class="font-bold text-slate-900">3</span>
+          <span class="font-bold text-woah-dark">3</span>
         </div>
         <div class="flex items-center justify-between text-xs">
           <div class="flex items-center gap-2 text-slate-600"><span class="w-2.5 h-2.5 rounded bg-purple-500"></span>Gap Analysis</div>
-          <span class="font-bold text-slate-900">2</span>
+          <span class="font-bold text-woah-dark">2</span>
         </div>
         <div class="flex items-center justify-between text-xs">
           <div class="flex items-center gap-2 text-slate-600"><span class="w-2.5 h-2.5 rounded bg-green-600"></span>Targeted Support</div>
-          <span class="font-bold text-slate-900">3</span>
+          <span class="font-bold text-woah-dark">3</span>
         </div>
         <div class="flex items-center justify-between text-xs">
           <div class="flex items-center gap-2 text-slate-600"><span class="w-2.5 h-2.5 rounded bg-orange-500"></span>Laboratory</div>
-          <span class="font-bold text-slate-900">2</span>
+          <span class="font-bold text-woah-dark">2</span>
         </div>
         <div class="flex items-center justify-between text-xs">
           <div class="flex items-center gap-2 text-slate-600"><span class="w-2.5 h-2.5 rounded bg-teal-500"></span>Animal Welfare + Planning</div>
-          <span class="font-bold text-slate-900">2</span>
+          <span class="font-bold text-woah-dark">2</span>
         </div>
       </div>
     </div>

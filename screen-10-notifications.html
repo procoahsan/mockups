@@ -7,22 +7,22 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-<script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']},colors:{woah:{50:'#fff7ed',100:'#ffedd5',500:'#ff4815',600:'#ea580c',700:'#c2410c'}}}}}</script>
+<script>tailwind.config={theme:{extend:{fontFamily:{sans:['Söhne','Inter','Arial','sans-serif']},colors:{woah:{50:'#fff7ed',100:'#ffedd5',500:'#ff4815',600:'#ea580c',700:'#c2410c'}}}}}</script>
 <style>
-*,*::before,*::after{box-sizing:border-box}body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}[x-cloak]{display:none!important}
+*,*::before,*::after{box-sizing:border-box}body{font-family:'Söhne','Inter','Arial',sans-serif;-webkit-font-smoothing:antialiased;color:'#27282A'}[x-cloak]{display:none!important}
 .sidebar-item{transition:all .15s ease}.sidebar-item:hover{background:rgba(255,255,255,0.08)}.sidebar-item.active{background:rgba(255,72,21,0.15);border-right:3px solid #ff4815}
 .nav-screen{transition:all .15s ease}.nav-screen:hover{background:#f1f5f9}.nav-screen.current{background:#fff7ed;color:#ea580c;font-weight:600;border:1px solid #fed7aa}
 @keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.4}}
 .pulse-dot{animation:pulse-dot 1.5s ease-in-out infinite}
 </style>
 </head>
-<body class="bg-slate-50 text-slate-800">
+<body class="bg-slate-50 text-woah-dark">
 
 <!-- TOP NAV -->
 <header class="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-slate-200 flex items-center px-4 gap-3 shadow-sm">
   <div class="flex items-center gap-2.5 w-[240px]">
     <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:#ff4815"><svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3"/></svg></div>
-    <div class="flex flex-col leading-none"><span class="text-[10px] font-bold tracking-widest uppercase" style="color:#ff4815">WOAH</span><span class="text-[13px] font-semibold text-slate-800">PVS Information System</span></div>
+    <div class="flex flex-col leading-none"><span class="text-[10px] font-bold tracking-widest uppercase" style="color:#ff4815">WOAH</span><span class="text-[13px] font-semibold text-woah-dark">PVS Information System</span></div>
   </div>
   <div class="h-6 w-px bg-slate-200"></div>
   <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-sm font-medium"><span class="w-5 h-4 rounded-sm bg-gradient-to-b from-blue-600 to-yellow-500 text-[7px] text-white font-bold flex items-center justify-center">SZ</span> Eswatini</div>
@@ -56,7 +56,7 @@
 <!-- MAIN -->
 <div class="ml-[240px] pt-14 min-h-screen">
   <div class="px-8 pt-6 pb-4">
-    <h1 class="text-2xl font-bold text-slate-900 mb-1">Screen 10 â€” Notifications & Reminders</h1>
+    <h1 class="text-2xl font-bold text-woah-dark mb-1">Screen 10 â€” Notifications & Reminders</h1>
     <p class="text-sm text-slate-500 max-w-3xl mb-6">Three notification channels: bell dropdown in the header, inline timeline banners, and automated email templates for Delegates.</p>
   </div>
 
@@ -77,7 +77,7 @@
           <!-- Dropdown -->
           <div class="bg-white rounded-xl border border-slate-200 shadow-xl overflow-hidden">
             <div class="px-4 py-3 border-b border-slate-100 flex items-center justify-between">
-              <span class="text-sm font-bold text-slate-900">Notifications</span>
+              <span class="text-sm font-bold text-woah-dark">Notifications</span>
               <button class="text-[10px] text-woah-600 font-semibold hover:text-woah-700">Mark all read</button>
             </div>
             <div class="divide-y divide-slate-100 max-h-80 overflow-y-auto">
@@ -98,7 +98,7 @@
                 <div class="flex items-start gap-3">
                   <div class="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center flex-shrink-0 mt-0.5"><svg class="w-4 h-4 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
                   <div class="flex-1 min-w-0">
-                    <p class="text-xs font-bold text-slate-900">Milestone: Year 1 Review</p>
+                    <p class="text-xs font-bold text-woah-dark">Milestone: Year 1 Review</p>
                     <p class="text-[11px] text-slate-500 mt-0.5">Year 1 Review checkpoint is due in 30 days.</p>
                     <p class="text-[10px] text-slate-400 mt-1">Yesterday</p>
                   </div>
@@ -110,7 +110,7 @@
                 <div class="flex items-start gap-3">
                   <div class="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5"><svg class="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
                   <div class="flex-1 min-w-0">
-                    <p class="text-xs font-bold text-slate-900">Roadmap Approved</p>
+                    <p class="text-xs font-bold text-woah-dark">Roadmap Approved</p>
                     <p class="text-[11px] text-slate-500 mt-0.5">Dr. M. Nkosi approved the Eswatini roadmap v2.1.</p>
                     <p class="text-[10px] text-slate-400 mt-1">3 days ago</p>
                   </div>
@@ -131,7 +131,7 @@
       <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
         <p class="text-xs text-slate-500 mb-4">Banners positioned within the relevant year column on the timeline.</p>
         <div class="grid grid-cols-5 gap-3">
-          <div class="rounded-lg border border-slate-200 p-3 text-center"><span class="text-xs font-bold text-slate-800">2027</span>
+          <div class="rounded-lg border border-slate-200 p-3 text-center"><span class="text-xs font-bold text-woah-dark">2027</span>
             <!-- Overdue banner -->
             <div class="mt-3 bg-red-50 border border-red-200 rounded-lg p-2">
               <div class="flex items-center gap-1.5 justify-center mb-1">
@@ -141,7 +141,7 @@
               <p class="text-[9px] text-red-600">PVS Follow-up Â· 14 days late</p>
             </div>
           </div>
-          <div class="rounded-lg border border-slate-200 p-3 text-center"><span class="text-xs font-bold text-slate-800">2028</span>
+          <div class="rounded-lg border border-slate-200 p-3 text-center"><span class="text-xs font-bold text-woah-dark">2028</span>
             <!-- Milestone banner -->
             <div class="mt-3 bg-indigo-50 border border-indigo-200 rounded-lg p-2">
               <div class="flex items-center gap-1.5 justify-center mb-1">
@@ -162,7 +162,7 @@
     <div>
       <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Channel 3 â€” Automated Email Template</h2>
       <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden max-w-2xl">
-        <div class="bg-slate-800 px-6 py-4 flex items-center gap-3">
+        <div class="bg-woah-dark px-6 py-4 flex items-center gap-3">
           <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:#ff4815"><svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3"/></svg></div>
           <span class="text-sm font-semibold text-white">WOAH PVS Information System</span>
         </div>
