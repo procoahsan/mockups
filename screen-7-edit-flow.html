@@ -103,14 +103,14 @@
           <!-- Unselected card -->
           <div class="card-manual rounded-lg h-12 flex items-center px-4 gap-2 cursor-pointer" style="width:240px" @click="selected = (selected === 'eval' ? null : 'eval')" :class="selected === 'eval' ? 'card-selected' : ''">
             <div class="w-1.5 h-full rounded-l bg-blue-500 absolute left-0"></div>
-            <span class="text-[11px] font-medium text-blue-800 pl-2">ðŸ” PVS Evaluation</span>
+            <span class="text-[11px] font-medium text-blue-800 pl-2">PVS Evaluation</span>
             <span class="ml-auto text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700">Draft</span>
           </div>
 
           <!-- AI card (visually different) -->
           <div class="card-ai rounded-lg h-12 flex items-center px-4 gap-2 cursor-pointer" style="width:260px" @click="selected = (selected === 'lab' ? null : 'lab')" :class="selected === 'lab' ? 'card-selected' : ''">
             <div class="w-1.5 h-full rounded-l bg-orange-500 absolute left-0"></div>
-            <span class="text-[11px] font-medium text-orange-800 pl-2">ðŸ§ª Laboratory Mission</span>
+            <span class="text-[11px] font-medium text-orange-800 pl-2">Laboratory Mission</span>
             <span class="ml-auto text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-amber-200 text-amber-800 flex items-center gap-0.5">
               <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 24 24"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
               AI 93%
@@ -180,7 +180,7 @@
           <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Add</strong><br>New activity</div>
           <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Remove</strong><br>Delete selected</div>
           <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Duplicate</strong><br>Copy selected</div>
-          <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Move â†â†’</strong><br>Shift quarters</div>
+          <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Move â†â†’</strong><br>Shift year</div>
           <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Resize</strong><br>Change duration</div>
           <div class="bg-slate-50 rounded-lg p-2 text-center"><strong>Undo/Redo</strong><br>History stack</div>
         </div>
@@ -199,17 +199,17 @@
           <div class="flex-1 p-6 bg-slate-50/50 border-r border-slate-200 relative" style="min-height:600px">
             <p class="text-xs text-slate-400 mb-4 font-medium">â† Timeline (dimmed when drawer is open)</p>
             <div class="space-y-3 opacity-50">
-              <div class="h-10 rounded-lg bg-blue-50 border border-blue-200 flex items-center px-3"><span class="text-[11px] text-blue-800">ðŸ” PVS Evaluation â€” 2027 Q1</span></div>
-              <div class="h-10 rounded-lg bg-blue-50 border border-blue-200 flex items-center px-3"><span class="text-[11px] text-blue-800">ðŸ”„ PVS Follow-up â€” 2027 Q3</span></div>
-              <div class="h-10 rounded-lg border-2 border-amber-400 flex items-center px-3" style="background:linear-gradient(135deg,#fefce8,#fef9c3)"><span class="text-[11px] text-purple-800">ðŸ“Š Gap Analysis â€” 2027 Q4</span></div>
-              <div class="h-10 rounded-lg border-2 border-amber-400 flex items-center px-3 card-selected" style="background:linear-gradient(135deg,#fefce8,#fef9c3)"><span class="text-[11px] text-orange-800 font-bold">ðŸ§ª Laboratory Mission â€” 2028 Q2</span></div>
-              <div class="h-10 rounded-lg bg-indigo-50 border border-indigo-200 flex items-center px-3"><span class="text-[11px] text-indigo-800">ðŸ“‹ Strategic Planning â€” 2028 Q4</span></div>
+              <div class="h-10 rounded-lg bg-blue-50 border border-blue-200 flex items-center px-3"><span class="text-[11px] text-blue-800">PVS Evaluation â€” 2027</span></div>
+              <div class="h-10 rounded-lg bg-blue-50 border border-blue-200 flex items-center px-3"><span class="text-[11px] text-blue-800">PVS Follow-up â€” 2027</span></div>
+              <div class="h-10 rounded-lg border-2 border-amber-400 flex items-center px-3" style="background:linear-gradient(135deg,#fefce8,#fef9c3)"><span class="text-[11px] text-purple-800">Gap Analysis â€” 2027</span></div>
+              <div class="h-10 rounded-lg border-2 border-amber-400 flex items-center px-3 card-selected" style="background:linear-gradient(135deg,#fefce8,#fef9c3)"><span class="text-[11px] text-orange-800 font-bold">Laboratory Mission â€” 2028</span></div>
+              <div class="h-10 rounded-lg bg-indigo-50 border border-indigo-200 flex items-center px-3"><span class="text-[11px] text-indigo-800">Strategic Planning â€” 2028</span></div>
             </div>
             <div class="absolute inset-0 bg-white/30 pointer-events-none"></div>
           </div>
 
           <!-- Right: Edit Drawer -->
-          <div class="w-[40vw] flex flex-col relative" style="min-height:600px">
+          <div class="w-[360px] flex flex-col relative" style="min-height:600px">
             
             <!-- CONFIRMATION OVERLAYS -->
             <div x-show="showDeleteConfirm" class="absolute inset-0 bg-white/95 backdrop-blur-sm z-10 flex flex-col items-center justify-center p-8 text-center" x-transition>
@@ -240,12 +240,12 @@
             <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
               <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center text-lg relative">
-                  ðŸ§ª
+                  <svg class="w-5 h-5 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5m4.75-11.396a24.301 24.301 0 014.5 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3m0 0l1.402 5.608a.75.75 0 01-.728.932H3.526a.75.75 0 01-.728-.932L5 14.5"/></svg>
                   <div class="absolute -top-1 -right-1 w-5 h-5 bg-amber-400 rounded-full flex items-center justify-center"><svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg></div>
                 </div>
                 <div>
                   <h3 class="text-sm font-bold text-slate-900">Edit: Laboratory Mission</h3>
-                  <p class="text-[10px] text-amber-600 font-medium">ðŸ¤– AI-Generated Â· Confidence: 93%</p>
+                  <p class="text-[10px] text-amber-600 font-medium">AI-generated · Confidence: 93%</p>
                 </div>
               </div>
               <button class="p-1.5 rounded-lg hover:bg-slate-100 text-slate-400"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
@@ -309,10 +309,6 @@
                   </select>
                 </div>
               </div>
-              <div class="hidden">
-                <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Estimated Budget (USD)</label>
-                <input type="number" value="180000" class="w-full mt-1 px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-woah-400">
-              </div>
               <div>
                 <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Description</label>
                 <textarea rows="3" class="w-full mt-1 px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-woah-400 resize-none">Targeted laboratory strengthening mission focused on diagnostic capacity, quality management systems, and biosafety/biosecurity protocols.</textarea>
@@ -323,10 +319,15 @@
               </div>
             </div>
 
+            <!-- Role switch prevents Delegate approval and CBD editing controls from being mixed -->
+            <div class="px-6 pt-4 bg-slate-50 border-t border-slate-200 flex gap-2">
+              <button @click="role='delegate'" :class="role === 'delegate' ? 'bg-slate-900 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="flex-1 py-1.5 text-[10px] font-bold rounded-lg">Delegate review</button>
+              <button @click="role='cbd'" :class="role === 'cbd' ? 'bg-woah-500 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="flex-1 py-1.5 text-[10px] font-bold rounded-lg">CBD edit</button>
+            </div>
             <!-- Footer Actions -->
             <div class="px-6 py-4 border-t border-slate-200 bg-slate-50 space-y-4">
               <!-- Delegate Actions -->
-              <div>
+              <div x-show="role === 'delegate'">
                 <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Delegate Actions</p>
                 <div class="flex items-center gap-2">
                   <button class="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-bold rounded-lg bg-green-600 text-white hover:bg-green-700 shadow-sm">
@@ -341,7 +342,7 @@
               </div>
               
               <!-- CBD Actions -->
-              <div>
+              <div x-show="role === 'cbd'">
                 <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">CBD Actions</p>
                 <div class="flex items-center gap-2">
                   <button class="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-semibold rounded-lg text-white shadow-sm" style="background:#ff4815">
@@ -374,11 +375,11 @@
             <div class="card-manual rounded-xl p-4 space-y-3">
               <div class="h-1.5 w-full bg-blue-500 rounded-t -mt-4 -mx-4" style="width:calc(100% + 2rem)"></div>
               <div class="flex items-center gap-2 mt-2">
-                <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">ðŸ”</div>
+                <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center"><svg class="w-4 h-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-5.2-5.2m0 0a7.5 7.5 0 10-10.6-10.6 7.5 7.5 0 0010.6 10.6z"/></svg></div>
                 <div><p class="text-sm font-bold">PVS Evaluation</p><p class="text-[10px] text-slate-400">Evaluation</p></div>
               </div>
               <div class="text-[10px] text-slate-500">Clean white card, solid top accent bar, no sparkle or gradient.</div>
-              <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[9px] font-bold bg-amber-50 text-amber-700 border border-amber-200">âœï¸ Draft</span>
+              <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[9px] font-bold bg-amber-50 text-amber-700 border border-amber-200">Draft</span>
             </div>
             <div class="mt-3 flex items-center gap-2 text-[10px] text-slate-500">
               <span class="w-3 h-3 rounded bg-white border border-slate-200"></span> White background
@@ -393,18 +394,18 @@
               <div class="h-1.5 w-full bg-orange-500 rounded-t -mt-4 -mx-4" style="width:calc(100% + 2rem)"></div>
               <div class="flex items-center gap-2 mt-2">
                 <div class="w-8 h-8 rounded-lg bg-orange-100 flex items-center justify-center relative">
-                  ðŸ§ª
+                  <svg class="w-4 h-4 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5m4.75-11.396a24.301 24.301 0 014.5 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3"/></svg>
                   <div class="absolute -top-1 -right-1 w-4 h-4 bg-amber-400 rounded-full flex items-center justify-center"><svg class="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg></div>
                 </div>
                 <div><p class="text-sm font-bold">Laboratory Mission</p><p class="text-[10px] text-amber-700 font-medium">AI Confidence: 93%</p></div>
               </div>
               <div class="text-[10px] text-amber-900/70">Amber gradient background, gold border, sparkle badge, confidence score, and rationale visible.</div>
-              <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[9px] font-bold bg-amber-200 text-amber-800 border border-amber-300">âœ¨ Auto Generated</span>
+              <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[9px] font-bold bg-amber-200 text-amber-800 border border-amber-300">Auto Generated</span>
             </div>
             <div class="mt-3 flex items-center gap-2 text-[10px] text-slate-500">
               <span class="w-3 h-3 rounded border-2 border-amber-400 bg-amber-50"></span> Amber gradient
               <span class="w-3 h-3 rounded bg-amber-400"></span> Gold border
-              <span>âœ¨ Sparkle icon</span>
+              <span>Sparkle icon</span>
             </div>
           </div>
         </div>
@@ -434,6 +435,7 @@ function editFlow() {
     selected: 'lab',
     showDeleteConfirm: false,
     showRejectConfirm: false,
+    role: 'cbd',
   };
 }
 </script>

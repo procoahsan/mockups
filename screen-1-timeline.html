@@ -78,13 +78,11 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
   .year-col .year-header{padding:8px}
   .year-col .year-label{font-size:12px}
   .year-col .conf-label{font-size:8px}
-  .year-col .budget-row{padding:6px 8px}
   .year-col .cards-container{padding:8px}
   .activity-card{padding:8px !important}
   .activity-card .card-title{font-size:10px}
   .activity-card .card-category{font-size:9px}
   .activity-card .card-status{font-size:8px}
-  .activity-card .card-budget{font-size:8px}
   .legend-bar{padding:10px}
   .legend-bar .legend-label{font-size:8px}
   .legend-bar .legend-item{font-size:10px}
@@ -123,11 +121,9 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
   .activity-card .card-title{font-size:9px !important}
   .activity-card .card-category{font-size:8px !important}
   .activity-card .card-status{font-size:7px !important}
-  .activity-card .card-budget{font-size:7px !important}
   .year-col .year-header{padding:6px}
   .year-col .year-label{font-size:11px}
   .year-col .conf-label{font-size:7px}
-  .year-col .budget-row{padding:4px 6px}
   .year-col .cards-container{padding:6px}
 }
 
@@ -390,10 +386,9 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
       <ul class="text-xs text-blue-700 space-y-1 list-disc ml-5">
         <li><strong>#1 Baseline label:</strong> "Ref" renamed to "Baseline" with a tooltip explaining it's the most recent PVS Evaluation year used as the starting reference.</li>
         <li><strong>#2 Confidence gradient:</strong> Each year column has a tinted header â€” green (high certainty) fading to amber/red (speculative) â€” communicating that planning reliability decreases over the horizon.</li>
-        <li><strong>#3 Budget row:</strong> Each year column shows explicit dollar figures ($385K, $280K, etc.) inline so values are readable in print and screenshots without hover.</li>
         <li><strong>#4 Milestones:</strong> Diamond markers now have inline text labels ("Year 1 Review", "Mid-Plan Checkpoint") visible directly in the column header.</li>
         <li><strong>#5 Today marker:</strong> A red bottom-border highlights the current year column. When the roadmap is entirely in the future, it shows a "Pre-roadmap" state instead of a cramped edge marker.</li>
-        <li><strong>#6 Card labels:</strong> Each card shows the activity name, category, and budget. Cards are ordered chronologically within each year column.</li>
+        <li><strong>#6 Card labels:</strong> Each card shows the activity name, category, status, and source. Cards are ordered chronologically within each year column.</li>
         <li><strong>#8 Legend grouping:</strong> The legend is split into three labelled sections â€” Mission Types, Overlays, and Confidence â€” instead of a flat row.</li>
         <li><strong>#9 Collisions:</strong> Activities in the same year stack vertically as individual cards, eliminating overlap. The kanban layout handles collisions inherently.</li>
         <li><strong>#10 AI toggle:</strong> A toggle button in both the sidebar and the main toolbar lets users show/hide AI-recommended activities. Hidden AI cards fade out; the count badge stays visible.</li>
@@ -422,11 +417,11 @@ function timeline() {
     ],
     // FIX #2: confidence bands per year
     yearColumns: [
-      { year:2027, headerBg:'rgba(34,197,94,0.08)', confLabel:'High Certainty', confColor:'#16a34a', milestone:null, budget:385 },
-      { year:2028, headerBg:'rgba(34,197,94,0.04)', confLabel:'Planned', confColor:'#65a30d', milestone:'Year 1 Review', budget:280 },
-      { year:2029, headerBg:'rgba(250,204,21,0.06)', confLabel:'Projected', confColor:'#ca8a04', milestone:null, budget:165 },
-      { year:2030, headerBg:'rgba(250,204,21,0.04)', confLabel:'Indicative', confColor:'#d97706', milestone:'Mid-Plan Checkpoint', budget:310 },
-      { year:2031, headerBg:'rgba(239,68,68,0.04)', confLabel:'Speculative', confColor:'#dc2626', milestone:null, budget:175 },
+      { year:2027, headerBg:'rgba(34,197,94,0.08)', confLabel:'High Certainty', confColor:'#16a34a', milestone:null },
+      { year:2028, headerBg:'rgba(34,197,94,0.04)', confLabel:'Planned', confColor:'#65a30d', milestone:'Year 1 Review' },
+      { year:2029, headerBg:'rgba(250,204,21,0.06)', confLabel:'Projected', confColor:'#ca8a04', milestone:null },
+      { year:2030, headerBg:'rgba(250,204,21,0.04)', confLabel:'Indicative', confColor:'#d97706', milestone:'Mid-Plan Checkpoint' },
+      { year:2031, headerBg:'rgba(239,68,68,0.04)', confLabel:'Speculative', confColor:'#dc2626', milestone:null },
     ],
     activities: [
       { id:1, name:'PVS Evaluation', category:'Evaluation', color:'#2563eb', year:2027, status:'Draft', statusBg:'#fef3c7', statusColor:'#92400e', ai:false, source:'CBD Planned', order:1 },
