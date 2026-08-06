@@ -40,6 +40,11 @@
   <button @click="tab = 'budget'" class="flex-1 py-3 text-xs font-bold border-b-2 transition-colors" :class="tab === 'budget' ? 'border-woah-500 text-woah-600' : 'border-transparent text-slate-500'">Costing</button>
 </div>
 
+<div class="bg-white border-b border-slate-200 flex px-4 py-2 gap-2 overflow-x-auto">
+  <a href="screen-12-cohort-analytics.html" class="px-3 py-1.5 rounded-lg border border-slate-200 text-[10px] font-bold text-slate-600 whitespace-nowrap">12 Cohort</a>
+  <a href="screen-13-role-annotations.html" class="px-3 py-1.5 rounded-lg border border-slate-200 text-[10px] font-bold text-slate-600 whitespace-nowrap">13 Roles</a>
+</div>
+
 <!-- TAB CONTENT: TIMELINE -->
 <div x-show="tab === 'timeline'" class="p-4 space-y-4">
   <div class="flex justify-between items-center mb-2">

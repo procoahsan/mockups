@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Screen 13 - Role-Based View Annotations Design Mockup</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config={theme:{extend:{fontFamily:{sans:['Sohne','Inter','Arial','sans-serif']},colors:{woah:{50:'#fff7ed',100:'#ffedd5',200:'#fed7aa',500:'#ff4815',600:'#ea580c',700:'#c2410c'},pvs:{blue:'#2563eb',purple:'#7c3aed',green:'#16a34a',orange:'#ea580c',teal:'#0d9488'}}}}}
+</script>
+<style>
+*,*:before,*:after{box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;color:#27282a}
+[x-cloak]{display:none!important}
+.sidebar{width:280px}.main-content{margin-left:280px}.header-brand{width:280px}
+.sidebar-item{transition:all .15s ease}.sidebar-item:hover{background:rgba(255,255,255,.08)}.sidebar-item.active{background:rgba(255,72,21,.15);border-right:3px solid #ff4815}
+.nav-screen{transition:all .15s ease}.nav-screen:hover{background:#f1f5f9}.nav-screen.current{background:#fff7ed;color:#ea580c;font-weight:700;border:1px solid #fed7aa}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;box-shadow:0 1px 2px rgba(15,23,42,.05)}
+.role-badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 11px;font-size:11px;font-weight:900;border:1px solid transparent;text-transform:uppercase}
+.status-pill{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:5px 10px;font-size:10px;font-weight:900;border:1px solid transparent}
+.toggle{width:42px;height:22px;border-radius:999px;background:#cbd5e1;padding:2px;transition:.15s}.toggle.on{background:#16a34a}.knob{width:18px;height:18px;border-radius:999px;background:#fff;transition:.15s}.toggle.on .knob{transform:translateX(20px)}
+.timeline-grid{grid-template-columns:105px repeat(5,minmax(105px,1fr))}
+.bar{cursor:pointer;transition:transform .15s ease,box-shadow .15s ease}.bar:hover{transform:translateY(-1px);box-shadow:0 8px 16px rgba(15,23,42,.14)}
+.matrix-row{transition:background .15s ease}.matrix-row:hover{background:#fff7ed}
+.matrix-row:hover .tip:after{content:attr(data-tip);position:absolute;z-index:40;left:50%;bottom:130%;transform:translateX(-50%);width:170px;background:#0f172a;color:#fff;border-radius:8px;padding:7px 9px;font-size:10px;line-height:1.3}
+.callout{box-shadow:0 12px 26px rgba(15,23,42,.12)}
+.arrow-layer{position:absolute;inset:0;pointer-events:none;z-index:10}
+@media(max-width:1500px){.sidebar{width:72px;overflow:hidden}.main-content{margin-left:72px}.header-brand{width:72px}.brand-text,.sidebar-text,.sidebar-section-label{display:none}.sidebar-item{justify-content:center;padding:12px 0}.work-grid,.admin-grid,.matrix-layout{grid-template-columns:1fr!important}.compare-grid{grid-template-columns:1fr!important}}
+@media(max-width:900px){.sidebar{display:none}.main-content{margin-left:0}.header-brand{width:auto}.timeline-grid{grid-template-columns:100px repeat(5,110px)}}
+</style>
+</head>
+<body class="bg-slate-50 text-slate-900" x-data="screen13()" x-cloak>
+<header class="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-slate-200 flex items-center pr-4 gap-3 shadow-sm">
+  <div class="header-brand flex items-center gap-2.5 px-4"><div class="w-8 h-8 rounded-lg flex items-center justify-center text-white font-extrabold" style="background:#ff4815">W</div><div class="brand-text flex flex-col leading-none"><span class="text-[10px] font-bold tracking-widest uppercase" style="color:#ff4815">WOAH</span><span class="text-[13px] font-semibold">PVS Information System</span></div></div>
+  <div class="h-6 w-px bg-slate-200"></div>
+  <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-sm font-medium">🧭 Role Annotations</div>
+  <div class="flex-1"></div>
+  <div class="hidden xl:flex items-center gap-1 text-xs"><a href="screen-12-design-mockup.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Cohort</a><span class="nav-screen current px-2.5 py-1 rounded-md">Roles</span></div>
+  <div class="w-7 h-7 rounded-full bg-gradient-to-br from-woah-500 to-woah-700 flex items-center justify-center text-white text-xs font-semibold" x-text="roleInitials(role)"></div>
+</header>
+
+<aside class="sidebar fixed top-14 left-0 bottom-0 z-40 flex flex-col overflow-y-auto text-white" style="background:#1e293b">
+  <nav class="flex-1 py-4 px-3 space-y-1">
+    <p class="sidebar-section-label px-3 text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2">Role-Based Sidebar</p>
+    <template x-for="item in sidebarItems(role)" :key="item"><a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300" :class="item==='Timeline'?'active text-white font-semibold':''"><span x-text="navIcon(item)"></span><span class="sidebar-text" x-text="item"></span></a></template>
+  </nav>
+</aside>
+
+<main class="main-content pt-14 min-h-screen">
+  <section class="p-6 space-y-5">
+    <div class="flex flex-wrap items-end gap-4">
+      <div><h1 class="text-2xl font-bold">Screen 13 - Role-Based View Annotations</h1><p class="text-sm text-slate-500 mt-1">Visual mockup showing role-specific sidebars, controls, comments, admin panels, and compare mode.</p></div>
+      <div class="ml-auto flex items-center gap-2 flex-wrap">
+        <div class="rounded-xl border border-slate-200 bg-white p-1 text-xs font-bold"><button @click="compare=false" class="px-3 py-1.5 rounded-lg" :class="!compare?'bg-woah-50 text-woah-700':'text-slate-500'">Single View</button><button @click="compare=true" class="px-3 py-1.5 rounded-lg" :class="compare?'bg-woah-50 text-woah-700':'text-slate-500'">Compare View</button></div>
+        <select x-model="role" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-bold"><option>Delegate</option><option>CBD Staff</option><option>Admin</option></select>
+        <select x-model="status" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-bold"><option>Not Started</option><option>Draft</option><option>Submitted</option><option>Approved</option><option>Rejected</option></select>
+      </div>
+    </div>
+
+    <!-- Side-by-side role comparison view. -->
+    <div x-show="compare" x-transition class="compare-grid grid grid-cols-3 gap-4">
+      <template x-for="r in roles" :key="r">
+        <div class="card overflow-hidden">
+          <div class="p-3 border-b border-slate-100 flex items-center justify-between"><span class="role-badge" :class="roleClass(r)" x-text="r"></span><span class="status-pill" :class="statusClass(status)" x-text="status"></span></div>
+          <div class="p-3">
+            <mini-role-card :role="r"></mini-role-card>
+            <div class="mt-3 rounded-lg bg-slate-50 border border-slate-200 p-3 text-[11px]">
+              <p class="font-bold mb-2">Visible navigation</p>
+              <div class="flex flex-wrap gap-1"><template x-for="item in sidebarItems(r)"><span class="rounded-full bg-white border border-slate-200 px-2 py-1" x-text="item"></span></template></div>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+
+    <div x-show="!compare" x-transition class="space-y-5">
+      <div class="grid grid-cols-3 gap-4">
+        <template x-for="r in roles" :key="r"><button @click="role=r" class="card p-4 text-left" :class="role===r?'ring-2 ring-woah-200 border-woah-200':''"><span class="role-badge" :class="roleClass(r)" x-text="r"></span><p class="mt-3 text-xs text-slate-500" x-text="roleSummary(r)"></p></button></template>
+      </div>
+
+      <div class="work-grid grid grid-cols-[1fr_360px] gap-5">
+        <div class="card overflow-hidden relative">
+          <!-- SVG callout arrows connect role annotations to specific controls. -->
+          <svg class="arrow-layer" viewBox="0 0 1000 640" preserveAspectRatio="none">
+            <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#64748b"/></marker></defs>
+            <path x-show="role==='Delegate'" d="M820 160 C760 155 720 145 650 130" stroke="#9a3412" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="5 4"/>
+            <path x-show="role==='CBD Staff'" d="M805 200 C750 185 690 175 610 158" stroke="#1e40af" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="5 4"/>
+            <path x-show="role==='Admin'" d="M830 245 C745 240 675 242 600 250" stroke="#166534" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="5 4"/>
+          </svg>
+
+          <div class="p-4 border-b border-slate-100 flex flex-wrap items-center gap-3">
+            <span class="role-badge" :class="roleClass(role)" x-text="role"></span>
+            <span class="status-pill" :class="statusClass(status)" x-text="status"></span>
+            <div x-show="canSwitchCountry(role)" class="relative" @click="countryMenu=!countryMenu" @click.outside="countryMenu=false">
+              <button class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-bold">Country: Eswatini ⌄</button>
+              <div x-show="countryMenu" class="absolute top-full left-0 mt-1 w-64 bg-white border border-slate-200 rounded-xl shadow-lg p-3 z-30">
+                <input class="w-full rounded-lg border border-slate-200 px-2 py-1.5 text-xs mb-2" placeholder="Search countries..."/>
+                <template x-for="c in ['Eswatini','Kenya','Jordan','Rwanda','Namibia']"><div class="px-2 py-1.5 rounded hover:bg-slate-50 text-xs cursor-pointer" x-text="c"></div></template>
+              </div>
+            </div>
+            <div class="ml-auto flex items-center gap-2 flex-wrap">
+              <button x-show="showGenerate(role)" class="rounded-lg bg-amber-500 text-white px-3 py-1.5 text-xs font-bold">Generate Roadmap</button>
+              <button x-show="showSubmit(role)" class="rounded-lg bg-woah-500 text-white px-3 py-1.5 text-xs font-bold">Submit to Delegate</button>
+              <button x-show="showApprove(role)" class="rounded-lg bg-green-600 text-white px-3 py-1.5 text-xs font-bold">Approve</button>
+              <button x-show="showApprove(role)" class="rounded-lg bg-red-600 text-white px-3 py-1.5 text-xs font-bold">Reject</button>
+            </div>
+          </div>
+
+          <div class="p-5">
+            <template x-if="status==='Not Started'">
+              <div class="h-80 rounded-xl border border-dashed border-slate-300 bg-slate-50 flex items-center justify-center text-center">
+                <div><div class="mx-auto mb-3 h-20 w-80 rounded-lg bg-slate-200 opacity-60"></div><p class="text-sm font-bold text-slate-500">No roadmap timeline yet</p><p class="text-xs text-slate-500 mt-1">Generate a roadmap to create the first editable draft.</p><button x-show="showGenerate(role)" class="mt-3 rounded-lg bg-amber-500 text-white px-4 py-2 text-xs font-bold">Generate Roadmap</button></div>
+              </div>
+            </template>
+
+            <template x-if="status!=='Not Started'">
+              <div class="overflow-auto">
+                <div class="grid timeline-grid rounded-lg border border-slate-200 overflow-hidden min-w-[720px]">
+                  <div class="bg-slate-50 p-3 text-[10px] font-bold text-slate-500 border-r border-b">Mission</div><template x-for="year in years"><div class="bg-slate-50 p-3 text-center text-[10px] font-bold text-slate-500 border-r border-b" x-text="year"></div></template>
+                  <div class="p-3 text-xs font-semibold border-r border-b">Evaluation</div>
+                  <div class="p-2 border-r border-b relative"><div class="bar rounded-md bg-pvs-blue text-white px-2 py-2 text-[10px] font-bold">PVS Evaluation <span class="ml-1">💬 3</span></div><button x-show="showEdit(role)" class="absolute -left-1 top-3 rounded bg-white border border-slate-300 px-1 text-[10px] cursor-grab">⋮⋮</button></div>
+                  <div class="border-r border-b bg-slate-50"></div><div class="border-r border-b bg-slate-50"></div><div class="border-r border-b bg-slate-50"></div><div class="border-b bg-slate-50"></div>
+                  <div class="p-3 text-xs font-semibold border-r border-b">Support</div>
+                  <div class="border-r border-b bg-slate-50"></div><div class="p-2 border-r border-b relative"><div class="bar rounded-md bg-pvs-purple text-white px-2 py-2 text-[10px] font-bold">Gap Analysis <span class="ml-1">💬 1</span></div><button x-show="showEdit(role)" class="absolute top-1 right-1 bg-white/90 rounded px-1 text-[9px]">+</button></div>
+                  <div class="p-2 border-r border-b relative"><div class="bar rounded-md bg-pvs-orange text-white px-2 py-2 text-[10px] font-bold" :class="status==='Rejected'?'ring-2 ring-red-400':''">Laboratory <span class="ml-1">💬 2</span></div><button x-show="showEdit(role)" class="absolute top-1 right-1 bg-white/90 rounded px-1 text-[9px]">−</button></div><div class="border-r border-b bg-slate-50"></div><div class="border-b bg-slate-50"></div>
+                  <div class="p-3 text-xs font-semibold border-r">Workforce</div><div class="border-r bg-slate-50"></div><div class="border-r bg-slate-50"></div><div class="border-r bg-slate-50"></div><div class="p-2 border-r relative"><div class="bar rounded-md bg-pvs-teal text-white px-2 py-2 text-[10px] font-bold">Workforce Assessment</div></div><div class="bg-slate-50"></div>
+                </div>
+              </div>
+            </template>
+
+            <div x-show="status!=='Not Started'" class="mt-4 flex flex-wrap items-center gap-2">
+              <span x-show="status==='Submitted'" class="rounded-lg bg-slate-100 text-slate-600 px-3 py-2 text-xs font-bold">🔒 Read-only submitted</span>
+              <span x-show="status==='Approved'" class="rounded-lg bg-green-50 text-green-700 border border-green-200 px-3 py-2 text-xs font-bold">👁 View-only approved</span>
+              <span x-show="status==='Rejected'" class="rounded-lg bg-red-50 text-red-700 border border-red-200 px-3 py-2 text-xs font-bold">Edit controls enabled for revision</span>
+              <button x-show="showEdit(role)" class="rounded-lg border border-slate-200 px-3 py-2 text-xs font-bold">Add Activity</button>
+              <button class="rounded-lg border border-blue-200 bg-blue-50 text-blue-700 px-3 py-2 text-xs font-bold relative" @click="commentTip=!commentTip">💬 Comments <span class="absolute -top-2 -right-2 bg-blue-600 text-white rounded-full px-1.5 text-[10px]">6</span></button>
+              <div x-show="commentTip" @click.outside="commentTip=false" class="absolute right-8 top-80 z-30 w-72 rounded-xl bg-slate-900 text-white p-3 text-xs shadow-xl"><p class="font-bold mb-1">Sample comments</p><p>Delegate: clarify lab mission timing.</p><p>CBD: updated budget rationale.</p></div>
+            </div>
+
+            <div x-show="status==='Rejected'" class="mt-4 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">
+              <p class="font-bold">Rejected by: Delegate Name, 2026-08-05</p>
+              <p class="mt-1 text-xs">Please revise the Laboratory mission timing and add justification for regional sequencing.</p>
+            </div>
+
+            <div class="mt-4 grid grid-cols-3 gap-3">
+              <div class="callout rounded-lg border p-3" :class="calloutClass(role)"><p class="text-[10px] font-bold uppercase">Delegate callout</p><p class="text-xs mt-1">Points to Approve/Reject buttons in Submitted status.</p></div>
+              <div class="callout rounded-lg border p-3" :class="calloutClass(role)"><p class="text-[10px] font-bold uppercase">CBD callout</p><p class="text-xs mt-1">Points to Submit to Delegate button.</p></div>
+              <div class="callout rounded-lg border p-3" :class="calloutClass(role)"><p class="text-[10px] font-bold uppercase">Admin callout</p><p class="text-xs mt-1">Points to expanded admin sidebar navigation.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="space-y-4">
+          <!-- Notification preferences visual panel. -->
+          <div class="card p-4">
+            <div class="flex items-center justify-between mb-3"><h2 class="text-sm font-bold">Notification Preferences</h2><span class="relative">🔔<b class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full px-1 text-[9px]">4</b></span></div>
+            <div class="space-y-3 text-xs">
+              <div class="flex items-center justify-between"><span>Email notifications</span><span class="flex items-center gap-2"><span class="text-green-700 font-bold">Enabled</span><span class="toggle on"><span class="knob block"></span></span></span></div>
+              <div class="flex items-center justify-between"><span>In-app notifications</span><span class="flex items-center gap-2"><span class="text-green-700 font-bold">Enabled</span><span class="toggle on"><span class="knob block"></span></span></span></div>
+              <div class="flex items-center justify-between"><span>Weekly digest</span><span class="flex items-center gap-2"><span class="text-slate-500 font-bold">Disabled</span><span class="toggle"><span class="knob block"></span></span></span></div>
+            </div>
+          </div>
+
+          <div x-show="role==='Admin'" class="admin-grid grid grid-cols-1 gap-4">
+            <div class="card p-4"><h2 class="text-sm font-bold mb-3">Audit Trail Viewer</h2><div class="space-y-2 text-xs"><template x-for="a in audit"><div class="border-l-2 border-slate-200 pl-3"><p class="font-bold" x-text="a.action"></p><p class="text-slate-500" x-text="a.meta"></p></div></template></div></div>
+            <div class="card p-4"><h2 class="text-sm font-bold mb-3">Algorithm Configuration</h2><table class="w-full text-[11px] mb-3"><tr class="text-slate-400"><th class="text-left">From</th><th class="text-left">Peer</th><th>Weight</th></tr><template x-for="m in mappings"><tr class="border-t border-slate-100"><td class="py-1" x-text="m.from"></td><td x-text="m.to"></td><td class="text-center" x-text="m.weight"></td></tr></template></table><label class="text-[10px] font-bold text-slate-400">Similarity threshold</label><input type="range" value="72" class="w-full accent-green-600"><div class="grid grid-cols-2 gap-2 mt-2"><input class="rounded border border-slate-200 px-2 py-1 text-xs" value="12 months"><input class="rounded border border-slate-200 px-2 py-1 text-xs" value="Quarterly"></div></div>
+            <div class="card p-4"><h2 class="text-sm font-bold mb-3">User Management</h2><div class="space-y-2 text-xs"><template x-for="u in users"><div class="flex items-center justify-between rounded-lg border border-slate-200 p-2"><span><b x-text="u.name"></b><span class="ml-2 role-badge !py-1 !px-2 !text-[9px]" :class="roleClass(u.role)" x-text="u.role"></span></span><span :class="u.active?'text-green-600':'text-slate-400'" class="font-bold" x-text="u.active?'Active':'Inactive'"></span></div></template></div></div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="matrix-layout grid grid-cols-2 gap-5">
+        <div class="card overflow-hidden">
+          <div class="p-4 border-b border-slate-100"><h2 class="text-sm font-bold">Permission Matrix Highlights</h2></div>
+          <table class="w-full text-xs"><thead class="bg-slate-50 text-[10px] uppercase text-slate-500"><tr><th class="p-3 text-left">Permission</th><th>Delegate</th><th>CBD</th><th>Admin</th></tr></thead><tbody class="divide-y divide-slate-100"><template x-for="row in matrix"><tr class="matrix-row"><td class="p-3 font-semibold" x-text="row.item"></td><template x-for="v in [row.delegate,row.cbd,row.admin]"><td class="p-3 text-center relative tip" data-tip="Role permission visual tooltip"><span :class="v?'text-green-600':'text-slate-300'" x-text="v?'✓':'—'"></span></td></template></tr></template></tbody></table>
+        </div>
+        <div class="card overflow-hidden">
+          <div class="p-4 border-b border-slate-100"><h2 class="text-sm font-bold">Role Sidebar Rules</h2></div>
+          <div class="p-4 grid grid-cols-3 gap-3 text-xs"><template x-for="r in roles"><div class="rounded-xl border border-slate-200 p-3"><span class="role-badge mb-3" :class="roleClass(r)" x-text="r"></span><template x-for="item in sidebarItems(r)"><p class="py-1 font-semibold" x-text="navIcon(item)+' '+item"></p></template></div></template></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+document.addEventListener('alpine:init',()=>{Alpine.data('miniRoleCard',()=>({}))});
+function screen13(){
+  return {
+    compare:false,role:'Delegate',status:'Submitted',countryMenu:false,commentTip:false,roles:['Delegate','CBD Staff','Admin'],years:['2027','2028','2029','2030','2031'],
+    audit:[{action:'Delegate approved Kenya roadmap',meta:'2026-08-06 09:42 - Amina D.'},{action:'CBD submitted Eswatini revision',meta:'2026-08-05 16:20 - Marco R.'},{action:'Admin changed threshold',meta:'2026-08-05 11:05 - System Admin'}],
+    mappings:[{from:'Eswatini',to:'Namibia',weight:'82%'},{from:'Kenya',to:'Rwanda',weight:'76%'},{from:'Jordan',to:'Lebanon',weight:'69%'}],
+    users:[{name:'Delegate Name',role:'Delegate',active:true},{name:'CBD Reviewer',role:'CBD Staff',active:true},{name:'System Admin',role:'Admin',active:true},{name:'Former User',role:'CBD Staff',active:false}],
+    matrix:[{item:'Timeline',delegate:true,cbd:true,admin:true},{item:'All Countries',delegate:false,cbd:true,admin:true},{item:'Cohort Analytics',delegate:false,cbd:false,admin:true},{item:'Admin Config',delegate:false,cbd:false,admin:true},{item:'Approve / Reject',delegate:true,cbd:false,admin:false},{item:'Submit to Delegate',delegate:false,cbd:true,admin:true}],
+    roleInitials(r){return r==='Delegate'?'DL':r==='CBD Staff'?'CB':'AD'},
+    roleClass(r){return r==='Delegate'?'bg-orange-100 text-orange-800 border-orange-200':r==='CBD Staff'?'bg-blue-100 text-blue-800 border-blue-200':'bg-green-100 text-green-800 border-green-200'},
+    calloutClass(r){return r==='Delegate'?'bg-orange-50 border-orange-200 text-orange-800':r==='CBD Staff'?'bg-blue-50 border-blue-200 text-blue-800':'bg-green-50 border-green-200 text-green-800'},
+    statusClass(s){return {'Draft':'bg-amber-50 text-amber-700 border-amber-200','Submitted':'bg-blue-50 text-blue-700 border-blue-200','Approved':'bg-green-50 text-green-700 border-green-200','Rejected':'bg-red-50 text-red-700 border-red-200','Not Started':'bg-gray-100 text-gray-600 border-gray-200'}[s]},
+    sidebarItems(r){return r==='Delegate'?['Timeline']:r==='CBD Staff'?['Timeline','All Countries']:['Timeline','All Countries','Cohort Analytics','Admin Config']},
+    navIcon(i){return {'Timeline':'📅','All Countries':'🌍','Cohort Analytics':'📊','Admin Config':'⚙'}[i]},
+    roleSummary(r){return r==='Delegate'?'Own country review only. Approve/reject visible in Submitted.':r==='CBD Staff'?'Can switch countries, edit drafts/rejections, and submit to Delegate.':'Full system view with analytics, config, audit, and user management.'},
+    canSwitchCountry(r){return r!=='Delegate'},
+    showGenerate(r){return r!=='Delegate'&&this.status==='Not Started'},
+    showSubmit(r){return r!=='Delegate'&&(this.status==='Draft'||this.status==='Rejected')},
+    showApprove(r){return r==='Delegate'&&this.status==='Submitted'},
+    showEdit(r){return (this.status==='Draft'||this.status==='Rejected')&&(r==='CBD Staff'||r==='Admin'||r==='Delegate')}
+  }
+}
+</script>
+</body>
+</html>

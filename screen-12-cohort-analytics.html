@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Screen 12 - Cohort Analytics | PVS Roadmap Planner</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config={theme:{extend:{fontFamily:{sans:['Sohne','Inter','Arial','sans-serif']},colors:{woah:{50:'#fff7ed',100:'#ffedd5',200:'#fed7aa',500:'#ff4815',600:'#ea580c',700:'#c2410c'},pvs:{blue:'#2563eb',purple:'#7c3aed',green:'#16a34a',orange:'#ea580c',teal:'#0d9488',cyan:'#0369A1'}}}}}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;color:#27282A}
+[x-cloak]{display:none!important}
+::-webkit-scrollbar{width:6px;height:8px}
+::-webkit-scrollbar-track{background:#f1f5f9;border-radius:4px}
+::-webkit-scrollbar-thumb{background:#94a3b8;border-radius:4px}
+.sidebar{width:240px;transition:width .2s ease}
+.main-content{margin-left:240px;transition:margin-left .2s ease}
+.header-brand{width:240px;transition:width .2s ease}
+.sidebar-item{transition:all .15s ease}.sidebar-item:hover{background:rgba(255,255,255,.08)}.sidebar-item.active{background:rgba(255,72,21,.15);border-right:3px solid #ff4815}
+.nav-screen{transition:all .15s ease}.nav-screen:hover{background:#f1f5f9}.nav-screen.current{background:#fff7ed;color:#ea580c;font-weight:700;border:1px solid #fed7aa}
+.filter-chip{border:1px solid #e2e8f0;background:#fff;color:#475569;transition:all .15s ease}.filter-chip:hover,.filter-chip.active{border-color:#ff4815;background:#fff7ed;color:#ea580c}
+.filter-menu{box-shadow:0 20px 40px rgba(15,23,42,.14)}
+.gantt-grid{grid-template-columns:180px repeat(5,minmax(150px,1fr))}
+@media (max-width:1500px){.sidebar{width:64px!important;overflow:hidden}.main-content{margin-left:64px!important}.header-brand{width:64px!important;justify-content:center!important}.brand-text,.sidebar-text,.sidebar-section-label,.sidebar-badge{display:none!important}.sidebar-item{justify-content:center!important;padding:12px 0!important}.nav-list{overflow-x:auto;max-width:48vw;white-space:nowrap}.nav-screen{font-size:10px!important;padding:4px 6px!important}.analytics-grid{grid-template-columns:1fr!important}.kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media (max-width:1100px){.sidebar{display:none!important}.main-content{margin-left:0!important}.header-brand{width:auto!important}.nav-list{max-width:52vw}.kpi-grid{grid-template-columns:1fr!important}.gantt-grid{grid-template-columns:150px repeat(5,150px)}}
+</style>
+</head>
+<body class="bg-slate-50 text-slate-900" x-data="cohortAnalytics()" x-cloak>
+
+<header class="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-slate-200 flex items-center pr-4 gap-3 shadow-sm">
+  <div class="header-brand flex items-center gap-2.5 flex-shrink-0 px-4">
+    <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:#ff4815">
+      <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18zM3.6 9h16.8M3.6 15h16.8M12 3c2.4 2.5 3.6 5.5 3.6 9s-1.2 6.5-3.6 9M12 3C9.6 5.5 8.4 8.5 8.4 12s1.2 6.5 3.6 9"/></svg>
+    </div>
+    <div class="brand-text flex flex-col leading-none"><span class="text-[10px] font-bold tracking-widest uppercase" style="color:#ff4815">WOAH</span><span class="text-[13px] font-semibold">PVS Information System</span></div>
+  </div>
+  <div class="h-6 w-px bg-slate-200"></div>
+  <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-sm font-medium">
+    <svg class="w-4 h-4 text-woah-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.1C3 12.5 3.5 12 4.1 12h2.3c.6 0 1.1.5 1.1 1.1v6.8c0 .6-.5 1.1-1.1 1.1H4.1c-.6 0-1.1-.5-1.1-1.1v-6.8zM9.8 8.6c0-.6.5-1.1 1.1-1.1h2.3c.6 0 1.1.5 1.1 1.1v11.3c0 .6-.5 1.1-1.1 1.1h-2.3c-.6 0-1.1-.5-1.1-1.1V8.6zM16.5 4.1c0-.6.5-1.1 1.1-1.1h2.3c.6 0 1.1.5 1.1 1.1v15.8c0 .6-.5 1.1-1.1 1.1h-2.3c-.6 0-1.1-.5-1.1-1.1V4.1z"/></svg>
+    Cohort Analytics
+  </div>
+  <div class="flex-1"></div>
+  <div class="nav-list flex items-center gap-1 text-xs">
+    <a href="screen-1-timeline.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Timeline</a>
+    <a href="screen-6-filters-export.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Filters</a>
+    <a href="screen-11-mobile.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Mobile</a>
+    <span class="nav-screen current px-2.5 py-1 rounded-md">Cohort</span>
+    <a href="screen-13-role-annotations.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Roles</a>
+  </div>
+  <select x-model="role" class="ml-2 rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-xs font-semibold">
+    <option>Admin</option>
+    <option>CBD Staff</option>
+    <option>Delegate</option>
+  </select>
+  <div class="w-7 h-7 rounded-full bg-gradient-to-br from-woah-500 to-woah-700 flex items-center justify-center text-white text-xs font-semibold">AD</div>
+</header>
+
+<aside class="sidebar fixed top-14 left-0 bottom-0 z-40 flex flex-col overflow-y-auto text-white" style="background:#1e293b">
+  <nav class="flex-1 py-4 px-3 space-y-0.5">
+    <p class="sidebar-section-label px-3 text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2">Navigation</p>
+    <a href="screen-1-timeline.html" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.8 3v2.3M17.3 3v2.3M3 18.8V7.5a2.3 2.3 0 012.3-2.3h13.5A2.3 2.3 0 0121 7.5v11.3A2.3 2.3 0 0118.8 21H5.3A2.3 2.3 0 013 18.8z"/></svg><span class="sidebar-text">Roadmaps</span></a>
+    <a href="screen-12-cohort-analytics.html" class="sidebar-item active flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-white font-semibold"><svg class="w-[18px] h-[18px]" style="color:#ff4815" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.1C3 12.5 3.5 12 4.1 12h2.3c.6 0 1.1.5 1.1 1.1v6.8c0 .6-.5 1.1-1.1 1.1H4.1c-.6 0-1.1-.5-1.1-1.1v-6.8zM9.8 8.6c0-.6.5-1.1 1.1-1.1h2.3c.6 0 1.1.5 1.1 1.1v11.3c0 .6-.5 1.1-1.1 1.1h-2.3c-.6 0-1.1-.5-1.1-1.1V8.6zM16.5 4.1c0-.6.5-1.1 1.1-1.1h2.3c.6 0 1.1.5 1.1 1.1v15.8c0 .6-.5 1.1-1.1 1.1h-2.3c-.6 0-1.1-.5-1.1-1.1V4.1z"/></svg><span class="sidebar-text">Cohort Analytics</span><span class="sidebar-badge ml-auto text-[9px] font-bold bg-woah-500 text-white px-1.5 py-0.5 rounded-full">Admin</span></a>
+    <a href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.6 3.9c.1-.5.6-.9 1.1-.9h2.6c.5 0 1 .4 1.1.9l.2 1.3c.1.4.3.7.6.9l1.2-.5c.5-.2 1.1 0 1.4.5l1.3 2.2c.3.5.2 1.1-.3 1.4l-1 .8c-.3.2-.4.6-.4 1v1c0 .4.1.7.4 1l1 .8c.4.4.6 1 .3 1.4l-1.3 2.2c-.3.5-.9.7-1.4.5l-1.2-.5c-.3.2-.6.4-.9.5l-.2 1.3c-.1.5-.6.9-1.1.9h-2.6c-.5 0-1-.4-1.1-.9l-.2-1.3c-.3-.1-.6-.3-.9-.5l-1.2.5c-.5.2-1.1 0-1.4-.5l-1.3-2.2c-.3-.5-.2-1.1.3-1.4l1-.8c.3-.2.4-.6.4-1v-1c0-.4-.1-.7-.4-1l-1-.8c-.4-.4-.6-1-.3-1.4l1.3-2.2c.3-.5.9-.7 1.4-.5l1.2.5c.3-.2.6-.4.9-.5l.3-1.3z"/></svg><span class="sidebar-text">Admin Config</span></a>
+  </nav>
+</aside>
+
+<main class="main-content pt-14 min-h-screen">
+  <template x-if="role === 'Delegate'">
+    <section class="p-8">
+      <div class="max-w-xl mx-auto mt-24 bg-white border border-red-200 rounded-xl shadow-sm p-8 text-center">
+        <div class="mx-auto w-12 h-12 rounded-full bg-red-50 text-red-600 flex items-center justify-center mb-4">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.8a4.5 4.5 0 10-9 0v3.7M6.8 21h10.5A2.3 2.3 0 0019.5 18.8v-6A2.3 2.3 0 0017.3 10.5H6.8A2.3 2.3 0 004.5 12.8v6A2.3 2.3 0 006.8 21z"/></svg>
+        </div>
+        <h1 class="text-xl font-bold mb-2">Access denied</h1>
+        <p class="text-sm text-slate-500">Cohort analytics are visible to CBD Administrators and authorised staff only. Delegates can access their own country roadmap, comments, and notification preferences.</p>
+      </div>
+    </section>
+  </template>
+
+  <template x-if="role !== 'Delegate'">
+    <section class="p-6 space-y-5">
+      <div class="flex flex-wrap items-end gap-4">
+        <div>
+          <h1 class="text-2xl font-bold">Screen 12 - Cohort / Programme-Level Analytics Dashboard</h1>
+          <p class="text-sm text-slate-500 mt-1">One shared filter state drives country aggregation, budget chart, activity summary, request projections, Gantt timeline, coverage gaps, and export output.</p>
+        </div>
+        <div class="ml-auto flex items-center gap-2">
+          <span class="px-2.5 py-1 rounded-md bg-green-50 text-green-700 border border-green-200 text-[10px] font-bold uppercase">Authorised</span>
+          <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 text-[10px] font-bold uppercase">Under 3s / 200 roadmaps</span>
+        </div>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-4">
+        <div class="flex items-center gap-2 flex-wrap">
+          <div class="flex items-center gap-1.5 text-xs text-woah-600 mr-1 font-bold">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.8 0 5.5.2 8.1.7.5.1.9.6.9 1.1v1a2.3 2.3 0 01-.7 1.6l-5.4 5.4a2.3 2.3 0 00-.7 1.6v2.9a2.3 2.3 0 01-1.2 2L9.8 21v-6.6a2.3 2.3 0 00-.7-1.6L3.7 7.4A2.3 2.3 0 013 5.8v-1c0-.5.4-1 .9-1.1C6.5 3.2 9.2 3 12 3z"/></svg>
+            <span x-text="activeFilterCount + ' filters active'"></span>
+          </div>
+
+          <div class="relative">
+            <button @click="openFilter=openFilter==='region'?null:'region'" class="filter-chip flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg" :class="filters.regions.length ? 'active' : ''">Cohort/Region <span x-text="filters.regions.length || 'All'"></span></button>
+            <div x-show="openFilter==='region'" @click.outside="openFilter=null" class="filter-menu absolute left-0 top-full mt-1 w-56 bg-white border border-slate-200 rounded-xl p-3 z-50">
+              <template x-for="region in regionOptions" :key="region"><label class="flex items-center gap-2 py-1.5 text-xs"><input type="checkbox" :checked="filters.regions.includes(region)" @change="toggleFilter('regions', region)" class="rounded text-woah-500"><span x-text="region"></span></label></template>
+            </div>
+          </div>
+
+          <div class="relative">
+            <button @click="openFilter=openFilter==='years'?null:'years'" class="filter-chip active flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg">Years <span x-text="yearLabel"></span></button>
+            <div x-show="openFilter==='years'" @click.outside="openFilter=null" class="filter-menu absolute left-0 top-full mt-1 w-56 bg-white border border-slate-200 rounded-xl p-3 z-50">
+              <div class="grid grid-cols-2 gap-2">
+                <label class="text-[10px] font-bold text-slate-400 uppercase">Start<select x-model="filters.startYear" class="mt-1 w-full rounded border border-slate-200 px-2 py-1.5 text-xs text-slate-700"><template x-for="year in years" :key="year"><option x-text="year"></option></template></select></label>
+                <label class="text-[10px] font-bold text-slate-400 uppercase">End<select x-model="filters.endYear" class="mt-1 w-full rounded border border-slate-200 px-2 py-1.5 text-xs text-slate-700"><template x-for="year in years" :key="year"><option x-text="year"></option></template></select></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative">
+            <button @click="openFilter=openFilter==='mission'?null:'mission'" class="filter-chip flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg" :class="filters.missionTypes.length ? 'active' : ''">Mission Type <span x-text="filters.missionTypes.length || 'All'"></span></button>
+            <div x-show="openFilter==='mission'" @click.outside="openFilter=null" class="filter-menu absolute left-0 top-full mt-1 w-60 bg-white border border-slate-200 rounded-xl p-3 z-50">
+              <template x-for="type in missionOptions" :key="type"><label class="flex items-center gap-2 py-1.5 text-xs"><input type="checkbox" :checked="filters.missionTypes.includes(type)" @change="toggleFilter('missionTypes', type)" class="rounded text-woah-500"><span class="w-2.5 h-2.5 rounded" :class="missionClass(type)"></span><span x-text="type"></span></label></template>
+            </div>
+          </div>
+
+          <div class="relative">
+            <button @click="openFilter=openFilter==='countries'?null:'countries'" class="filter-chip flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg" :class="filters.countries.length ? 'active' : ''">Country <span x-text="filters.countries.length || 'All'"></span></button>
+            <div x-show="openFilter==='countries'" @click.outside="openFilter=null" class="filter-menu absolute left-0 top-full mt-1 w-60 bg-white border border-slate-200 rounded-xl p-3 z-50 max-h-72 overflow-auto">
+              <template x-for="country in countryOptions" :key="country"><label class="flex items-center gap-2 py-1.5 text-xs"><input type="checkbox" :checked="filters.countries.includes(country)" @change="toggleFilter('countries', country)" class="rounded text-woah-500"><span x-text="country"></span></label></template>
+            </div>
+          </div>
+
+          <div class="relative">
+            <button @click="openFilter=openFilter==='status'?null:'status'" class="filter-chip flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg" :class="filters.statuses.length ? 'active' : ''">Status <span x-text="filters.statuses.length || 'All'"></span></button>
+            <div x-show="openFilter==='status'" @click.outside="openFilter=null" class="filter-menu absolute left-0 top-full mt-1 w-52 bg-white border border-slate-200 rounded-xl p-3 z-50">
+              <template x-for="status in statusOptions" :key="status"><label class="flex items-center gap-2 py-1.5 text-xs"><input type="checkbox" :checked="filters.statuses.includes(status)" @change="toggleFilter('statuses', status)" class="rounded text-woah-500"><span x-text="status"></span></label></template>
+            </div>
+          </div>
+
+          <button @click="clearFilters()" class="text-xs font-bold text-woah-600 hover:text-woah-700">Clear All</button>
+          <span class="text-[11px] text-slate-400">Session filter state modeled in Alpine</span>
+
+          <div class="ml-auto relative">
+            <button @click="openExport=!openExport" @click.outside="openExport=false" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 bg-white hover:bg-slate-50">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.3A2.3 2.3 0 005.3 21h13.5a2.3 2.3 0 002.2-2.3v-2.2M16.5 12L12 16.5 7.5 12M12 16.5V3"/></svg>
+              Export
+            </button>
+            <div x-show="openExport" x-transition class="absolute right-0 top-full mt-1 w-80 bg-white border border-slate-200 rounded-xl shadow-lg py-2 z-50">
+              <p class="px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-slate-400">Download tables</p>
+              <button @click="exportType='tables'" class="block w-full text-left px-3 py-2 text-xs hover:bg-slate-50">CSV / Excel - <span x-text="filteredCountries.length"></span> countries, <span x-text="filteredRequests.length"></span> requests</button>
+              <p class="px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-slate-400 border-t border-slate-100 mt-1">Capture charts</p>
+              <button @click="exportType='charts'" class="block w-full text-left px-3 py-2 text-xs hover:bg-slate-50">PNG / PDF - Budget projection and Gantt timeline</button>
+              <p class="px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-slate-400 border-t border-slate-100 mt-1">Full report</p>
+              <button @click="exportType='workbook'" class="block w-full text-left px-3 py-2 text-xs hover:bg-slate-50">Excel workbook with all filtered tables and embedded charts</button>
+              <p class="px-3 pt-2 text-[10px] text-slate-500 border-t border-slate-100">Preview below updates to the active filter state.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-3 flex gap-2 flex-wrap">
+          <template x-for="chip in activeChips" :key="chip"><span class="px-2.5 py-1 rounded-md bg-woah-50 text-woah-700 border border-woah-200 text-[10px] font-bold" x-text="chip"></span></template>
+        </div>
+      </div>
+
+      <div class="kpi-grid grid grid-cols-4 gap-4">
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-4"><p class="text-[10px] font-bold uppercase text-slate-400">Filtered roadmaps</p><p class="mt-2 text-2xl font-bold" x-text="filteredCountries.length"></p><p class="text-[11px] text-slate-500">Multi-country aggregation source</p></div>
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-4"><p class="text-[10px] font-bold uppercase text-slate-400">Coverage gaps</p><p class="mt-2 text-2xl font-bold text-amber-600" x-text="coverageGapCount"></p><p class="text-[11px] text-slate-500">Filtered countries without roadmaps</p></div>
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-4"><p class="text-[10px] font-bold uppercase text-slate-400">Activities</p><p class="mt-2 text-2xl font-bold" x-text="filteredActivities.length"></p><p class="text-[11px] text-slate-500">Same activities power chart and Gantt</p></div>
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-4"><p class="text-[10px] font-bold uppercase text-slate-400">5-year budget</p><p class="mt-2 text-2xl font-bold" x-text="formatMoney(totalBudget)"></p><p class="text-[11px] text-slate-500">Historical mission-type averages</p></div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-3 bg-slate-900 text-white rounded-xl p-3 text-xs">
+        <div class="font-bold text-woah-200">Filtered roadmap dataset</div>
+        <div><b x-text="filteredCountries.length"></b> country rows</div>
+        <div><b x-text="filteredActivities.length"></b> activities</div>
+        <div><b x-text="filteredRequests.length"></b> request projections</div>
+        <div><b x-text="coverageGapCount"></b> coverage gaps</div>
+      </div>
+
+      <div class="analytics-grid grid grid-cols-[1fr_360px] gap-5">
+        <div class="space-y-5">
+          <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+            <div class="flex items-center justify-between mb-5">
+              <div><h2 class="text-sm font-bold">Aggregated Annual Budget Projection</h2><p class="text-[11px] text-slate-500">Calculated from filtered activities using historical mission-type averages.</p></div>
+              <div class="flex rounded-lg border border-slate-200 overflow-hidden text-xs font-semibold">
+                <button @click="chartMode='total'" :class="chartMode==='total'?'bg-woah-50 text-woah-700':'bg-white text-slate-500'" class="px-3 py-1.5">Total</button>
+                <button @click="chartMode='stacked'" :class="chartMode==='stacked'?'bg-woah-50 text-woah-700':'bg-white text-slate-500'" class="px-3 py-1.5 border-l border-slate-200">Stacked</button>
+              </div>
+            </div>
+            <div class="grid grid-cols-[42px_1fr] gap-3 h-72">
+              <div class="flex flex-col justify-between text-[10px] text-slate-400 text-right pt-1 pb-8"><span x-text="formatMoney(maxBudget)"></span><span x-text="formatMoney(maxBudget*.66)"></span><span x-text="formatMoney(maxBudget*.33)"></span><span>$0</span></div>
+              <div class="relative border-l border-b border-slate-200">
+                <div class="absolute inset-0 grid grid-rows-3"><div class="border-t border-slate-100"></div><div class="border-t border-slate-100"></div><div class="border-t border-slate-100"></div></div>
+                <div class="absolute inset-x-4 bottom-0 top-4 flex items-end justify-between gap-4">
+                  <template x-for="item in budgetsByYear" :key="item.year">
+                    <div class="flex-1 h-full flex flex-col justify-end items-center">
+                      <span class="mb-1 text-[10px] font-bold text-slate-600" x-text="formatMoney(item.total)"></span>
+                      <div class="w-full max-w-[86px] rounded-t-md overflow-hidden bg-woah-500 relative" :style="`height:${barHeight(item.total)}%`" :title="`${item.year}: ${formatMoney(item.total)}`">
+                        <template x-if="chartMode==='total'"><div class="absolute inset-0 bg-woah-500"></div></template>
+                        <template x-if="chartMode==='stacked'">
+                          <div class="absolute inset-0 flex flex-col-reverse">
+                            <template x-for="seg in item.segments" :key="seg.type"><div :class="missionClass(seg.type)" :style="`height:${segmentHeight(seg.amount,item.total)}%`" :title="`${seg.type}: ${formatMoney(seg.amount)}`"></div></template>
+                          </div>
+                        </template>
+                      </div>
+                      <span class="mt-2 text-[10px] font-semibold text-slate-500" x-text="item.year"></span>
+                    </div>
+                  </template>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4 flex flex-wrap items-center gap-3 text-[10px] text-slate-500">
+              <span class="font-semibold">Estimates based on historical averages.</span>
+              <template x-for="type in missionOptions" :key="type"><span class="flex items-center gap-1"><i class="w-2.5 h-2.5 rounded" :class="missionClass(type)"></i><span x-text="type"></span></span></template>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+            <div class="p-4 border-b border-slate-100 flex items-center justify-between gap-3">
+              <div><h2 class="text-sm font-bold">Multi-Country Aggregation Table</h2><p class="text-[11px] text-slate-500">Sortable columns are modeled; country names navigate to Screen 1.</p></div>
+              <button @click="filters.statuses=['No Roadmap']" class="text-xs font-bold text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-2 py-1"><span x-text="coverageGapCount"></span> without roadmaps</button>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full min-w-[760px] text-xs">
+                <thead class="bg-slate-50 text-slate-500 uppercase text-[10px]">
+                  <tr><th class="p-3 text-left">Country Name</th><th class="p-3 text-left">Region</th><th class="p-3 text-left">Roadmap Status</th><th class="p-3 text-right">Activity Count</th><th class="p-3 text-right">Estimated Programme Budget</th></tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  <template x-for="country in filteredCountries" :key="country.name">
+                    <tr class="hover:bg-slate-50">
+                      <td class="p-3 font-bold text-woah-700"><a href="screen-1-timeline.html" x-text="country.name"></a></td>
+                      <td class="p-3 text-slate-600" x-text="country.region"></td>
+                      <td class="p-3"><span class="px-2 py-1 rounded-full text-[10px] font-bold" :class="statusBadge(country.status)" x-text="country.status"></span></td>
+                      <td class="p-3 text-right font-semibold" x-text="country.status === 'No Roadmap' ? '-' : activityCount(country.name)"></td>
+                      <td class="p-3 text-right font-bold" x-text="country.status === 'No Roadmap' ? '-' : formatMoney(countryBudget(country.name))"></td>
+                    </tr>
+                  </template>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+            <div class="flex items-center justify-between mb-4">
+              <div><h2 class="text-sm font-bold">Gantt-Style Cohort Timeline</h2><p class="text-[11px] text-slate-500">Rows and bars are filtered from the same activity dataset as the chart.</p></div>
+              <div class="flex rounded-lg border border-slate-200 overflow-hidden text-xs font-semibold">
+                <button @click="colorMode='activity'" :class="colorMode==='activity'?'bg-woah-50 text-woah-700':'bg-white text-slate-500'" class="px-3 py-1.5">By activity type</button>
+                <button @click="colorMode='country'" :class="colorMode==='country'?'bg-woah-50 text-woah-700':'bg-white text-slate-500'" class="px-3 py-1.5 border-l border-slate-200">By country</button>
+              </div>
+            </div>
+            <div class="overflow-auto border border-slate-200 rounded-lg max-h-80">
+              <div class="grid gantt-grid text-[10px] font-bold text-slate-500 bg-slate-50 sticky top-0 z-10">
+                <div class="p-3 border-r border-b border-slate-200">Country</div>
+                <template x-for="year in filteredYears" :key="year"><div class="p-3 text-center border-r border-b border-slate-200" x-text="year"></div></template>
+              </div>
+              <template x-for="country in filteredCountriesWithRoadmaps" :key="country.name">
+                <div class="grid gantt-grid min-h-[56px] text-xs">
+                  <div class="p-3 border-r border-b border-slate-100 font-semibold bg-white" x-text="country.name"></div>
+                  <template x-for="year in filteredYears" :key="year">
+                    <div class="relative p-2 border-r border-b border-slate-100 bg-white">
+                      <template x-for="bar in filteredActivities.filter(i => i.country === country.name && i.year === year)" :key="bar.country+bar.year+bar.type">
+                        <a href="screen-1-timeline.html" class="block rounded-md px-2 py-1 text-white text-[10px] font-bold truncate mb-1" :class="colorMode==='activity'?missionClass(bar.type):country.color" x-text="bar.type"></a>
+                      </template>
+                    </div>
+                  </template>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+
+        <aside class="space-y-5">
+          <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-4">
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="text-sm font-bold">Activity Summary</h2>
+              <button @click="summaryView=summaryView==='table'?'heatmap':'table'" class="text-xs font-bold text-woah-600" x-text="summaryView==='table'?'Heatmap view':'Table view'"></button>
+            </div>
+            <template x-if="summaryView==='table'">
+              <div class="overflow-x-auto">
+                <table class="w-full min-w-[420px] text-[11px]">
+                  <thead class="text-slate-400"><tr><th class="text-left py-2">Type</th><template x-for="year in filteredYears" :key="year"><th x-text="year"></th></template><th>Total</th></tr></thead>
+                  <tbody class="divide-y divide-slate-100">
+                    <template x-for="type in missionOptions" :key="type"><tr><td class="py-2 font-semibold" x-text="type"></td><template x-for="year in filteredYears" :key="year"><td class="text-center" x-text="activitySummary[type][year] || 0"></td></template><td class="text-center font-bold" x-text="typeTotal(type)"></td></tr></template>
+                    <tr class="bg-slate-50 font-bold"><td class="py-2">Total</td><template x-for="year in filteredYears" :key="year"><td class="text-center" x-text="yearTotal(year)"></td></template><td class="text-center" x-text="filteredActivities.length"></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </template>
+            <template x-if="summaryView==='heatmap'">
+              <div class="grid gap-1 text-[10px]" :style="`grid-template-columns:90px repeat(${filteredYears.length},1fr)`">
+                <template x-for="cell in heatmapCells" :key="cell.key">
+                  <div class="min-h-9 rounded flex items-center justify-center font-bold" :class="cell.className" x-text="cell.label"></div>
+                </template>
+              </div>
+            </template>
+          </div>
+
+          <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+            <div class="p-4 border-b border-slate-100"><h2 class="text-sm font-bold">Country Request Projections</h2><p class="text-[11px] text-slate-500">Uses the same cohort, year, country, and mission filters.</p></div>
+            <div class="divide-y divide-slate-100 max-h-80 overflow-auto">
+              <template x-for="request in filteredRequests" :key="request.country+request.year+request.activity">
+                <a href="screen-1-timeline.html" class="block p-3 hover:bg-slate-50">
+                  <div class="flex items-center justify-between gap-2"><p class="text-xs font-bold" x-text="request.country"></p><span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-600" x-text="request.source"></span></div>
+                  <p class="text-[11px] text-slate-500 mt-1"><span x-text="request.region"></span> - <span x-text="request.activity"></span> - <span x-text="request.year"></span></p>
+                </a>
+              </template>
+              <div x-show="filteredRequests.length===0" class="p-4 text-xs text-slate-500">No request projections match current filters.</div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-4">
+            <h2 class="text-sm font-bold mb-3">Countries Without Roadmaps</h2>
+            <template x-for="gap in coverageGapsByRegion" :key="gap.region"><button @click="filters.regions=[gap.region]; filters.statuses=['No Roadmap']" class="w-full flex items-center justify-between text-xs py-2 border-b border-slate-100 hover:text-woah-700"><span x-text="gap.region"></span><b x-text="gap.count"></b></button></template>
+            <button @click="exportType='gapList'" class="mt-3 w-full rounded-lg border border-slate-200 px-3 py-2 text-xs font-bold hover:bg-slate-50">Export filtered gap list</button>
+          </div>
+
+          <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-4">
+            <h2 class="text-sm font-bold mb-3">Export Preview</h2>
+            <p class="text-[11px] text-slate-500 mb-3" x-text="exportDescription"></p>
+            <div class="rounded-lg border border-slate-200 overflow-hidden text-[11px]">
+              <div class="bg-slate-50 px-3 py-2 font-bold" x-text="exportTitle"></div>
+              <div class="p-3 space-y-1">
+                <p><b>Filters:</b> <span x-text="activeChips.join(', ') || 'None'"></span></p>
+                <p><b>Country rows:</b> <span x-text="filteredCountries.length"></span></p>
+                <p><b>Activity rows:</b> <span x-text="filteredActivities.length"></span></p>
+                <p><b>Request rows:</b> <span x-text="filteredRequests.length"></span></p>
+                <p><b>Coverage gaps:</b> <span x-text="coverageGapCount"></span></p>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </template>
+</main>
+
+<script>
+function cohortAnalytics(){
+  return {
+    role:'Admin',
+    openFilter:null,
+    openExport:false,
+    chartMode:'stacked',
+    colorMode:'activity',
+    summaryView:'table',
+    exportType:'tables',
+    years:['2027','2028','2029','2030','2031'],
+    missionOptions:['Evaluation','Gap Analysis','Targeted Support','Laboratory','Welfare'],
+    statusOptions:['Draft','Submitted','Approved','No Roadmap'],
+    filters:{regions:['Africa - Southern'],startYear:'2027',endYear:'2031',missionTypes:[],countries:[],statuses:[]},
+    countries:[
+      {name:'Eswatini',region:'Africa - Southern',status:'Draft',color:'bg-sky-600'},
+      {name:'Kenya',region:'Africa - Eastern',status:'Submitted',color:'bg-emerald-600'},
+      {name:'Jordan',region:'Middle East',status:'Approved',color:'bg-violet-600'},
+      {name:'Rwanda',region:'Africa - Eastern',status:'Draft',color:'bg-rose-600'},
+      {name:'Namibia',region:'Africa - Southern',status:'Submitted',color:'bg-amber-600'},
+      {name:'Botswana',region:'Africa - Southern',status:'No Roadmap',color:'bg-slate-500'},
+      {name:'Lesotho',region:'Africa - Southern',status:'No Roadmap',color:'bg-slate-500'},
+      {name:'Uganda',region:'Africa - Eastern',status:'No Roadmap',color:'bg-slate-500'},
+      {name:'Lebanon',region:'Middle East',status:'No Roadmap',color:'bg-slate-500'}
+    ],
+    averages:{'Evaluation':210000,'Gap Analysis':260000,'Targeted Support':180000,'Laboratory':320000,'Welfare':140000},
+    activities:[
+      {country:'Eswatini',region:'Africa - Southern',year:'2027',type:'Evaluation'},
+      {country:'Eswatini',region:'Africa - Southern',year:'2028',type:'Gap Analysis'},
+      {country:'Eswatini',region:'Africa - Southern',year:'2030',type:'Targeted Support'},
+      {country:'Kenya',region:'Africa - Eastern',year:'2028',type:'Laboratory'},
+      {country:'Kenya',region:'Africa - Eastern',year:'2029',type:'Welfare'},
+      {country:'Kenya',region:'Africa - Eastern',year:'2031',type:'Evaluation'},
+      {country:'Jordan',region:'Middle East',year:'2027',type:'Welfare'},
+      {country:'Jordan',region:'Middle East',year:'2030',type:'Gap Analysis'},
+      {country:'Rwanda',region:'Africa - Eastern',year:'2029',type:'Evaluation'},
+      {country:'Rwanda',region:'Africa - Eastern',year:'2030',type:'Targeted Support'},
+      {country:'Namibia',region:'Africa - Southern',year:'2028',type:'Welfare'},
+      {country:'Namibia',region:'Africa - Southern',year:'2031',type:'Laboratory'}
+    ],
+    requests:[
+      {country:'Eswatini',region:'Africa - Southern',activity:'Gap Analysis',year:'2028',source:'AI'},
+      {country:'Kenya',region:'Africa - Eastern',activity:'Laboratory',year:'2029',source:'CBD'},
+      {country:'Jordan',region:'Middle East',activity:'Evaluation',year:'2027',source:'Delegate'},
+      {country:'Rwanda',region:'Africa - Eastern',activity:'Targeted Support',year:'2030',source:'AI'},
+      {country:'Namibia',region:'Africa - Southern',activity:'Laboratory',year:'2031',source:'CBD'}
+    ],
+    toggleFilter(key,value){const list=this.filters[key]; const i=list.indexOf(value); i>=0?list.splice(i,1):list.push(value)},
+    clearFilters(){this.filters={regions:[],startYear:'2027',endYear:'2031',missionTypes:[],countries:[],statuses:[]}},
+    inYearRange(year){return Number(year)>=Number(this.filters.startYear)&&Number(year)<=Number(this.filters.endYear)},
+    matchesCountryFilters(country){return (!this.filters.regions.length||this.filters.regions.includes(country.region))&&(!this.filters.countries.length||this.filters.countries.includes(country.name))&&(!this.filters.statuses.length||this.filters.statuses.includes(country.status))},
+    matchesActivityFilters(item){return this.inYearRange(item.year)&&(!this.filters.regions.length||this.filters.regions.includes(item.region))&&(!this.filters.countries.length||this.filters.countries.includes(item.country))&&(!this.filters.missionTypes.length||this.filters.missionTypes.includes(item.type))},
+    get regionOptions(){return [...new Set(this.countries.map(c=>c.region))]},
+    get countryOptions(){return this.countries.map(c=>c.name)},
+    get filteredYears(){return this.years.filter(y=>this.inYearRange(y))},
+    get filteredCountries(){return this.countries.filter(c=>this.matchesCountryFilters(c))},
+    get filteredCountriesWithRoadmaps(){return this.filteredCountries.filter(c=>c.status!=='No Roadmap')},
+    get filteredActivities(){return this.activities.filter(a=>this.matchesActivityFilters(a)&&this.filteredCountriesWithRoadmaps.some(c=>c.name===a.country))},
+    get filteredRequests(){return this.requests.filter(r=>this.inYearRange(r.year)&&(!this.filters.regions.length||this.filters.regions.includes(r.region))&&(!this.filters.countries.length||this.filters.countries.includes(r.country))&&(!this.filters.missionTypes.length||this.filters.missionTypes.includes(r.activity))&&this.filteredCountriesWithRoadmaps.some(c=>c.name===r.country))},
+    get activeFilterCount(){return (this.filters.regions.length?1:0)+1+(this.filters.missionTypes.length?1:0)+(this.filters.countries.length?1:0)+(this.filters.statuses.length?1:0)},
+    get yearLabel(){return `${this.filters.startYear}-${this.filters.endYear}`},
+    get activeChips(){
+      const chips=[];
+      if(this.filters.regions.length) chips.push(`Regions: ${this.filters.regions.join(', ')}`);
+      chips.push(`Years: ${this.yearLabel}`);
+      if(this.filters.missionTypes.length) chips.push(`Mission: ${this.filters.missionTypes.join(', ')}`);
+      if(this.filters.countries.length) chips.push(`Countries: ${this.filters.countries.join(', ')}`);
+      if(this.filters.statuses.length) chips.push(`Status: ${this.filters.statuses.join(', ')}`);
+      return chips;
+    },
+    get budgetsByYear(){
+      return this.filteredYears.map(year=>{
+        const acts=this.filteredActivities.filter(a=>a.year===year);
+        const segments=this.missionOptions.map(type=>({type,amount:acts.filter(a=>a.type===type).reduce((sum,a)=>sum+this.averages[a.type],0)})).filter(s=>s.amount>0);
+        return {year,total:segments.reduce((sum,s)=>sum+s.amount,0),segments};
+      });
+    },
+    get totalBudget(){return this.filteredActivities.reduce((sum,a)=>sum+this.averages[a.type],0)},
+    get maxBudget(){return Math.max(400000,...this.budgetsByYear.map(b=>b.total))},
+    get coverageGapCount(){return this.filteredCountries.filter(c=>c.status==='No Roadmap').length},
+    get coverageGapsByRegion(){
+      return this.regionOptions.map(region=>({region,count:this.countries.filter(c=>c.region===region&&c.status==='No Roadmap'&&(!this.filters.regions.length||this.filters.regions.includes(region))).length})).filter(g=>g.count>0);
+    },
+    get activitySummary(){
+      const out={}; this.missionOptions.forEach(type=>{out[type]={}; this.filteredYears.forEach(year=>out[type][year]=0)});
+      this.filteredActivities.forEach(a=>{out[a.type][a.year]=(out[a.type][a.year]||0)+1});
+      return out;
+    },
+    get heatmapCells(){
+      const cells=[{key:'blank',label:'',className:''}];
+      this.filteredYears.forEach(year=>cells.push({key:`head-${year}`,label:year,className:'text-slate-400'}));
+      this.missionOptions.forEach(type=>{
+        cells.push({key:`label-${type}`,label:type,className:'justify-start text-slate-700'});
+        this.filteredYears.forEach(year=>{
+          const count=this.activitySummary[type][year]||0;
+          cells.push({key:`${type}-${year}`,label:count,className:this.heatClass(count)});
+        });
+      });
+      return cells;
+    },
+    get exportTitle(){return this.exportType==='charts'?'Chart Capture Package':this.exportType==='workbook'?'Full Report Workbook':this.exportType==='gapList'?'Coverage Gap Export':'Table Export Package'},
+    get exportDescription(){
+      if(this.exportType==='charts') return 'Exports budget projection PNG/PDF and Gantt PNG/PDF using the current filter state.';
+      if(this.exportType==='workbook') return 'Creates a workbook with country table, activity summary, requests, gaps, and embedded chart captures.';
+      if(this.exportType==='gapList') return 'Exports only filtered countries without roadmaps for CBD coverage follow-up.';
+      return 'Exports CSV/Excel tables for countries, activity summary, and country request projections.';
+    },
+    activityCount(country){return this.filteredActivities.filter(a=>a.country===country).length},
+    countryBudget(country){return this.filteredActivities.filter(a=>a.country===country).reduce((sum,a)=>sum+this.averages[a.type],0)},
+    typeTotal(type){return this.filteredActivities.filter(a=>a.type===type).length},
+    yearTotal(year){return this.filteredActivities.filter(a=>a.year===year).length},
+    barHeight(total){return Math.max(total?12:2,Math.round((total/this.maxBudget)*100))},
+    segmentHeight(amount,total){return total?Math.round((amount/total)*100):0},
+    formatMoney(value){return `$${(value/1000000).toFixed(value>=1000000?1:2)}M`},
+    statusBadge(status){return status==='Draft'?'bg-amber-100 text-amber-700':status==='Submitted'?'bg-blue-100 text-blue-700':status==='Approved'?'bg-green-100 text-green-700':'bg-slate-100 text-slate-600'},
+    missionClass(type){return {'Evaluation':'bg-pvs-blue','Gap Analysis':'bg-pvs-purple','Targeted Support':'bg-pvs-green','Laboratory':'bg-pvs-orange','Welfare':'bg-pvs-teal'}[type]||'bg-slate-500'},
+    heatClass(n){return n>=3?'bg-woah-200 text-woah-800':n===2?'bg-orange-100 text-orange-800':n===1?'bg-slate-100 text-slate-700':'bg-white border border-slate-100 text-slate-300'}
+  }
+}
+</script>
+</body>
+</html>

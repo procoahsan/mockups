@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Screen 13 - Role-Based View Annotations | PVS Roadmap Planner</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config={theme:{extend:{fontFamily:{sans:['Sohne','Inter','Arial','sans-serif']},colors:{woah:{50:'#fff7ed',100:'#ffedd5',200:'#fed7aa',500:'#ff4815',600:'#ea580c',700:'#c2410c'},pvs:{blue:'#2563eb',purple:'#7c3aed',green:'#16a34a',orange:'#ea580c',teal:'#0d9488'}}}}}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;color:#27282A}
+[x-cloak]{display:none!important}
+::-webkit-scrollbar{width:6px;height:8px}
+::-webkit-scrollbar-track{background:#f1f5f9;border-radius:4px}
+::-webkit-scrollbar-thumb{background:#94a3b8;border-radius:4px}
+.sidebar{width:240px;transition:width .2s ease}.main-content{margin-left:240px;transition:margin-left .2s ease}.header-brand{width:240px;transition:width .2s ease}
+.sidebar-item{transition:all .15s ease}.sidebar-item:hover{background:rgba(255,255,255,.08)}.sidebar-item.active{background:rgba(255,72,21,.15);border-right:3px solid #ff4815}
+.nav-screen{transition:all .15s ease}.nav-screen:hover{background:#f1f5f9}.nav-screen.current{background:#fff7ed;color:#ea580c;font-weight:700;border:1px solid #fed7aa}
+.callout{box-shadow:0 8px 24px rgba(15,23,42,.12)}
+.timeline-grid{grid-template-columns:120px repeat(5,minmax(130px,1fr))}
+@media (max-width:1500px){.sidebar{width:64px!important;overflow:hidden}.main-content{margin-left:64px!important}.header-brand{width:64px!important;justify-content:center!important}.brand-text,.sidebar-text,.sidebar-section-label,.sidebar-badge{display:none!important}.sidebar-item{justify-content:center!important;padding:12px 0!important}.nav-list{overflow-x:auto;max-width:42vw;white-space:nowrap}.nav-screen{font-size:10px!important;padding:4px 6px!important}.role-layout,.matrix-layout{grid-template-columns:1fr!important}.annotation-row{grid-template-columns:1fr!important}}
+@media (max-width:1100px){.sidebar{display:none!important}.main-content{margin-left:0!important}.header-brand{width:auto!important}.nav-list{max-width:52vw}.timeline-grid{grid-template-columns:110px repeat(5,140px)}}
+</style>
+</head>
+<body class="bg-slate-50" x-data="roleAnnotations()" x-cloak>
+
+<header class="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-slate-200 flex items-center pr-4 gap-3 shadow-sm">
+  <div class="header-brand flex items-center gap-2.5 flex-shrink-0 px-4">
+    <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:#ff4815"><svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18zM3.6 9h16.8M3.6 15h16.8M12 3c2.4 2.5 3.6 5.5 3.6 9s-1.2 6.5-3.6 9M12 3C9.6 5.5 8.4 8.5 8.4 12s1.2 6.5 3.6 9"/></svg></div>
+    <div class="brand-text flex flex-col leading-none"><span class="text-[10px] font-bold tracking-widest uppercase" style="color:#ff4815">WOAH</span><span class="text-[13px] font-semibold">PVS Information System</span></div>
+  </div>
+  <div class="h-6 w-px bg-slate-200"></div>
+  <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-sm font-medium">
+    <span class="w-5 h-4 rounded-sm bg-gradient-to-b from-blue-600 to-yellow-500 text-[7px] text-white font-bold flex items-center justify-center">SZ</span>
+    <span x-text="canViewAllCountries ? 'All Countries' : 'Eswatini'"></span>
+  </div>
+  <div class="flex-1"></div>
+  <div class="nav-list flex items-center gap-1 text-xs">
+    <a href="screen-1-timeline.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Timeline</a>
+    <a href="screen-12-cohort-analytics.html" class="nav-screen px-2.5 py-1 rounded-md text-slate-500">Cohort</a>
+    <span class="nav-screen current px-2.5 py-1 rounded-md">Roles</span>
+  </div>
+  <div class="w-7 h-7 rounded-full bg-gradient-to-br from-woah-500 to-woah-700 flex items-center justify-center text-white text-xs font-semibold" x-text="roleInitials"></div>
+</header>
+
+<aside class="sidebar fixed top-14 left-0 bottom-0 z-40 flex flex-col overflow-y-auto text-white" style="background:#1e293b">
+  <nav class="flex-1 py-4 px-3 space-y-0.5">
+    <p class="sidebar-section-label px-3 text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2">Rendered Navigation</p>
+    <a href="#" class="sidebar-item active flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-white font-semibold"><svg class="w-[18px] h-[18px]" style="color:#ff4815" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.8 3v2.3M17.3 3v2.3M3 18.8V7.5a2.3 2.3 0 012.3-2.3h13.5A2.3 2.3 0 0121 7.5v11.3A2.3 2.3 0 0118.8 21H5.3A2.3 2.3 0 013 18.8z"/></svg><span class="sidebar-text">Roadmaps</span></a>
+    <a x-show="role === 'Admin'" href="screen-12-cohort-analytics.html" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.1C3 12.5 3.5 12 4.1 12h2.3c.6 0 1.1.5 1.1 1.1v6.8c0 .6-.5 1.1-1.1 1.1H4.1c-.6 0-1.1-.5-1.1-1.1v-6.8zM9.8 8.6c0-.6.5-1.1 1.1-1.1h2.3c.6 0 1.1.5 1.1 1.1v11.3c0 .6-.5 1.1-1.1 1.1h-2.3c-.6 0-1.1-.5-1.1-1.1V8.6zM16.5 4.1c0-.6.5-1.1 1.1-1.1h2.3c.6 0 1.1.5 1.1 1.1v15.8c0 .6-.5 1.1-1.1 1.1h-2.3c-.6 0-1.1-.5-1.1-1.1V4.1z"/></svg><span class="sidebar-text">Cohort Analytics</span><span class="sidebar-badge ml-auto text-[9px] font-bold bg-green-500 px-1.5 py-0.5 rounded-full">Admin</span></a>
+    <a x-show="role === 'Admin'" href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.6 3.9c.1-.5.6-.9 1.1-.9h2.6c.5 0 1 .4 1.1.9l.2 1.3c.1.4.3.7.6.9l1.2-.5c.5-.2 1.1 0 1.4.5l1.3 2.2c.3.5.2 1.1-.3 1.4l-1 .8c-.3.2-.4.6-.4 1v1c0 .4.1.7.4 1l1 .8c.4.4.6 1 .3 1.4l-1.3 2.2c-.3.5-.9.7-1.4.5l-1.2-.5c-.3.2-.6.4-.9.5l-.2 1.3c-.1.5-.6.9-1.1.9h-2.6c-.5 0-1-.4-1.1-.9l-.2-1.3c-.3-.1-.6-.3-.9-.5l-1.2.5c-.5.2-1.1 0-1.4-.5l-1.3-2.2c-.3-.5-.2-1.1.3-1.4l1-.8c.3-.2.4-.6.4-1v-1c0-.4-.1-.7-.4-1l-1-.8c-.4-.4-.6-1-.3-1.4l1.3-2.2c.3-.5.9-.7 1.4-.5l1.2.5c.3-.2.6-.4.9-.5l.3-1.3z"/></svg><span class="sidebar-text">Algorithm Config</span></a>
+    <a x-show="role === 'Admin'" href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span class="sidebar-text">Audit Trail</span></a>
+    <a x-show="role === 'Admin'" href="#" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-slate-300"><svg class="w-[18px] h-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.8 6a3.8 3.8 0 11-7.5 0 3.8 3.8 0 017.5 0zM4.5 20.1a7.5 7.5 0 0115 0"/></svg><span class="sidebar-text">User Management</span></a>
+  </nav>
+</aside>
+
+<main class="main-content pt-14 min-h-screen">
+  <section class="p-6 space-y-5">
+    <div class="flex flex-wrap items-end gap-4">
+      <div>
+        <h1 class="text-2xl font-bold">Screen 13 - Role-Based View Annotations</h1>
+        <p class="text-sm text-slate-500 mt-1">One control surface shows exact conditional rendering for role, status, country scope, edit controls, comments, and workflow buttons.</p>
+      </div>
+      <div class="ml-auto flex items-center gap-2">
+        <select x-model="role" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-bold">
+          <option>Delegate</option>
+          <option>CBD Staff</option>
+          <option>Admin</option>
+        </select>
+        <select x-model="status" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-bold">
+          <option>Not Started</option>
+          <option>Draft</option>
+          <option>Submitted</option>
+          <option>Approved</option>
+          <option>Rejected</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-5 gap-2">
+      <template x-for="state in statuses" :key="state">
+        <button @click="status=state" class="rounded-lg border px-3 py-2 text-xs font-bold text-left" :class="status===state?'bg-woah-50 border-woah-200 text-woah-700':'bg-white border-slate-200 text-slate-500'">
+          <span x-text="state"></span>
+          <span class="block text-[10px] font-medium mt-1" x-text="statusRules[state].short"></span>
+        </button>
+      </template>
+    </div>
+
+    <div class="annotation-row grid grid-cols-3 gap-4">
+      <template x-for="card in roleCards" :key="card.role">
+        <button @click="role=card.role" class="text-left bg-white rounded-xl border p-4 shadow-sm" :class="role===card.role?card.active:'border-slate-200'">
+          <div class="flex items-center justify-between mb-2">
+            <h2 class="text-sm font-bold" x-text="card.role"></h2>
+            <span class="text-[10px] font-bold uppercase px-2 py-1 rounded" :class="card.badge" x-text="card.scope"></span>
+          </div>
+          <p class="text-xs text-slate-500 leading-relaxed" x-text="card.summary"></p>
+        </button>
+      </template>
+    </div>
+
+    <div class="role-layout grid grid-cols-[1fr_340px] gap-5">
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="p-4 border-b border-slate-100 flex flex-wrap items-center gap-3">
+          <span class="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase" :class="roleColor" x-text="role"></span>
+          <span class="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase bg-slate-100 text-slate-600" x-text="status"></span>
+          <span class="text-xs text-slate-500" x-text="countryScope"></span>
+          <div class="ml-auto flex items-center gap-2 flex-wrap">
+            <select x-show="canViewAllCountries" class="rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-xs font-semibold"><option>Eswatini</option><option>Kenya</option><option>Jordan</option></select>
+            <button x-show="showGenerate" class="px-3 py-1.5 rounded-lg bg-amber-500 text-white text-xs font-bold">Generate Roadmap</button>
+            <button x-show="showSubmit" class="px-3 py-1.5 rounded-lg bg-woah-500 text-white text-xs font-bold" x-text="status==='Rejected'?'Re-submit to Delegate':'Submit to Delegate'"></button>
+            <button x-show="showApproveReject" class="px-3 py-1.5 rounded-lg bg-green-600 text-white text-xs font-bold">Approve</button>
+            <button x-show="showApproveReject" class="px-3 py-1.5 rounded-lg bg-red-600 text-white text-xs font-bold">Reject</button>
+            <button x-show="showRequestAmendment" class="px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-bold">Request Amendment</button>
+            <button x-show="showNewRevision" class="px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-bold">Create New Revision</button>
+          </div>
+        </div>
+
+        <div class="relative p-5">
+          <div x-show="status === 'Not Started'" class="h-72 flex items-center justify-center bg-slate-50 border border-dashed border-slate-300 rounded-xl">
+            <div class="text-center">
+              <p class="text-sm font-bold">No roadmap timeline yet</p>
+              <p class="text-xs text-slate-500 mt-1" x-text="showGenerate ? 'Generate Roadmap is visible for this role.' : 'Generate Roadmap is hidden for this role.'"></p>
+            </div>
+          </div>
+
+          <div x-show="status !== 'Not Started'" class="overflow-auto">
+            <div class="grid timeline-grid rounded-lg border border-slate-200 overflow-hidden min-w-[780px]">
+              <div class="bg-slate-50 p-3 text-[10px] font-bold text-slate-500 border-r border-b">Mission</div>
+              <template x-for="year in years" :key="year"><div class="bg-slate-50 p-3 text-center text-[10px] font-bold text-slate-500 border-r border-b" x-text="year"></div></template>
+              <div class="p-3 text-xs font-semibold border-r border-b">Evaluation</div>
+              <div class="p-2 border-r border-b relative">
+                <div class="rounded-md bg-pvs-blue text-white px-2 py-2 text-[10px] font-bold">PVS Evaluation</div>
+                <button x-show="showEditControls" class="absolute top-1 right-1 rounded bg-white/90 px-1 text-[9px] font-bold text-slate-700">Edit</button>
+              </div>
+              <div class="border-r border-b bg-slate-50"></div><div class="border-r border-b bg-slate-50"></div><div class="border-r border-b bg-slate-50"></div><div class="border-b bg-slate-50"></div>
+              <div class="p-3 text-xs font-semibold border-r border-b">Support</div>
+              <div class="border-r border-b bg-slate-50"></div>
+              <div class="p-2 border-r border-b relative"><div class="rounded-md bg-pvs-purple text-white px-2 py-2 text-[10px] font-bold">Gap Analysis</div><button x-show="showEditControls" class="absolute top-1 right-1 rounded bg-white/90 px-1 text-[9px] font-bold text-slate-700">Drag</button></div>
+              <div class="p-2 border-r border-b relative"><div class="rounded-md bg-pvs-orange text-white px-2 py-2 text-[10px] font-bold">Laboratory</div><button x-show="showEditControls" class="absolute top-1 right-1 rounded bg-white/90 px-1 text-[9px] font-bold text-slate-700">Remove</button></div>
+              <div class="border-r border-b bg-slate-50"></div><div class="border-b bg-slate-50"></div>
+              <div class="p-3 text-xs font-semibold border-r">Planning</div>
+              <div class="border-r bg-slate-50"></div><div class="border-r bg-slate-50"></div><div class="border-r bg-slate-50"></div>
+              <div class="p-2 border-r relative"><div class="rounded-md bg-pvs-green text-white px-2 py-2 text-[10px] font-bold">Workforce</div><button x-show="showEditControls" class="absolute top-1 right-1 rounded bg-white/90 px-1 text-[9px] font-bold text-slate-700">Edit</button></div>
+              <div class="bg-slate-50"></div>
+            </div>
+          </div>
+
+          <div x-show="status !== 'Not Started'" class="mt-4 flex flex-wrap gap-2">
+            <button x-show="showEditControls" class="px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs font-bold">Add Activity</button>
+            <button x-show="showEditControls" class="px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs font-bold">Drag Enabled</button>
+            <button x-show="showEditControls" class="px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs font-bold">Remove Enabled</button>
+            <span x-show="!showEditControls" class="px-3 py-2 rounded-lg bg-slate-100 text-slate-500 text-xs font-bold">Timeline read-only</span>
+            <button x-show="showComments" class="px-3 py-2 rounded-lg border border-blue-200 bg-blue-50 text-blue-700 text-xs font-bold">Comments / Feedback</button>
+            <button class="px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs font-bold">Notification Preferences</button>
+          </div>
+
+          <div class="mt-4 grid grid-cols-1 lg:grid-cols-3 gap-3">
+            <div class="callout rounded-lg border p-3" :class="annotationClass"><p class="text-[10px] font-bold uppercase mb-1">Country scope</p><p class="text-xs leading-snug" x-text="countryScopeDetail"></p></div>
+            <div class="callout rounded-lg border p-3" :class="annotationClass"><p class="text-[10px] font-bold uppercase mb-1">Action controls</p><p class="text-xs leading-snug" x-text="actionCallout"></p></div>
+            <div class="callout rounded-lg border p-3" :class="annotationClass"><p class="text-[10px] font-bold uppercase mb-1">Review state</p><p class="text-xs leading-snug" x-text="reviewCallout"></p></div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="space-y-4">
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-4">
+          <h2 class="text-sm font-bold mb-3">Exact Visible Elements</h2>
+          <div class="space-y-2 text-xs">
+            <template x-for="item in visibleElements" :key="item"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500"></span><span x-text="item"></span></div></template>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-4">
+          <h2 class="text-sm font-bold mb-3">Exact Hidden / Disabled</h2>
+          <div class="space-y-2 text-xs">
+            <template x-for="item in hiddenElements" :key="item"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-red-500"></span><span x-text="item"></span></div></template>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-4">
+          <h2 class="text-sm font-bold mb-3">Review / Comments Panel</h2>
+          <div x-show="showComments" class="rounded-lg border border-blue-200 bg-blue-50 p-3 text-xs text-blue-800">
+            <p class="font-bold" x-text="status==='Rejected'?'Delegate rejection comments':'Submitted roadmap comments'"></p>
+            <p class="mt-1">Visible to this role/status combination. Used by CBD for rejected revisions and by Delegates during review.</p>
+          </div>
+          <div x-show="!showComments" class="rounded-lg bg-slate-50 p-3 text-xs text-slate-500">Comments are hidden for this status unless review or rejection context exists.</div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="matrix-layout grid grid-cols-2 gap-5">
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="p-4 border-b border-slate-100"><h2 class="text-sm font-bold">Developer Handoff Visibility Table</h2></div>
+        <div class="overflow-x-auto">
+          <table class="w-full min-w-[720px] text-xs">
+            <thead class="bg-slate-50 text-[10px] uppercase text-slate-500"><tr><th class="p-3 text-left">UI Element</th><th class="p-3 text-left">Current Render</th><th class="p-3 text-left">Rule</th></tr></thead>
+            <tbody class="divide-y divide-slate-100">
+              <template x-for="row in handoffRows" :key="row.element"><tr><td class="p-3 font-semibold" x-text="row.element"></td><td class="p-3"><span class="px-2 py-1 rounded-full text-[10px] font-bold" :class="row.visible?'bg-green-100 text-green-700':'bg-red-100 text-red-700'" x-text="row.visible?'Visible':'Hidden'"></span></td><td class="p-3 text-slate-600" x-text="row.rule"></td></tr></template>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="p-4 border-b border-slate-100"><h2 class="text-sm font-bold">Permission Matrix</h2></div>
+        <div class="overflow-x-auto">
+          <table class="w-full min-w-[620px] text-xs">
+            <thead class="bg-slate-50 text-[10px] uppercase text-slate-500"><tr><th class="p-3 text-left">UI Element</th><th class="p-3">Delegate</th><th class="p-3">CBD Staff</th><th class="p-3">Admin</th></tr></thead>
+            <tbody class="divide-y divide-slate-100">
+              <template x-for="row in matrix" :key="row.item"><tr><td class="p-3 font-semibold" x-text="row.item"></td><td class="p-3 text-center" x-text="row.delegate"></td><td class="p-3 text-center" x-text="row.cbd"></td><td class="p-3 text-center" x-text="row.admin"></td></tr></template>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+      <div class="p-4 border-b border-slate-100"><h2 class="text-sm font-bold">Status-Dependent Rendering Detail</h2></div>
+      <div class="overflow-x-auto">
+        <table class="w-full min-w-[900px] text-xs">
+          <thead class="bg-slate-50 text-[10px] uppercase text-slate-500"><tr><th class="p-3 text-left">Status</th><th class="p-3 text-left">Timeline</th><th class="p-3 text-left">Primary Button</th><th class="p-3 text-left">Edit Controls</th><th class="p-3 text-left">Review / Comments</th></tr></thead>
+          <tbody class="divide-y divide-slate-100">
+            <template x-for="state in statuses" :key="state"><tr :class="status===state?'bg-woah-50':''"><td class="p-3 font-bold" x-text="state"></td><td class="p-3" x-text="statusRules[state].timeline"></td><td class="p-3" x-text="statusRules[state].button"></td><td class="p-3" x-text="statusRules[state].edit"></td><td class="p-3" x-text="statusRules[state].comments"></td></tr></template>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+function roleAnnotations(){
+  return {
+    role:'Delegate',
+    status:'Submitted',
+    years:['2027','2028','2029','2030','2031'],
+    statuses:['Not Started','Draft','Submitted','Approved','Rejected'],
+    statusRules:{
+      'Not Started':{short:'Generate only',timeline:'Empty state. No timeline rendered.',button:'Generate Roadmap for CBD/Admin only.',edit:'None.',comments:'None.'},
+      'Draft':{short:'Editable draft',timeline:'Timeline rendered.',button:'Submit to Delegate for CBD/Admin.',edit:'Visible for authorised role.',comments:'Internal comments optional.'},
+      'Submitted':{short:'Review mode',timeline:'Read-only timeline.',button:'Approve/Reject for Delegate only.',edit:'Hidden for everyone.',comments:'Delegate feedback visible.'},
+      'Approved':{short:'Locked',timeline:'Read-only timeline.',button:'Request Amendment for Delegate, Create New Revision for CBD/Admin.',edit:'Hidden until new revision.',comments:'Approval record visible.'},
+      'Rejected':{short:'Revise',timeline:'Timeline rendered with rejection context.',button:'Re-submit to Delegate for CBD/Admin.',edit:'Visible for CBD/Admin and own Delegate rejected roadmap.',comments:'Rejection comments visible.'}
+    },
+    roleCards:[
+      {role:'Delegate',scope:'Own only',badge:'bg-orange-100 text-orange-700',active:'border-orange-300 ring-2 ring-orange-100',summary:'Own country only. No generation, cohort analytics, admin config, or country switcher. Reviews submitted roadmaps.'},
+      {role:'CBD Staff',scope:'All countries',badge:'bg-blue-100 text-blue-700',active:'border-blue-300 ring-2 ring-blue-100',summary:'Can view all countries, generate roadmaps, edit draft/rejected roadmaps, and submit to Delegate. No approve/reject.'},
+      {role:'Admin',scope:'All + system',badge:'bg-green-100 text-green-700',active:'border-green-300 ring-2 ring-green-100',summary:'CBD capabilities plus cohort analytics, algorithm config, audit trail, and user management.'}
+    ],
+    get roleInitials(){return this.role==='Delegate'?'DL':this.role==='CBD Staff'?'CB':'AD'},
+    get roleColor(){return this.role==='Delegate'?'bg-orange-100 text-orange-700':this.role==='CBD Staff'?'bg-blue-100 text-blue-700':'bg-green-100 text-green-700'},
+    get annotationClass(){return this.role==='Delegate'?'bg-orange-50 border-orange-200 text-orange-800':this.role==='CBD Staff'?'bg-blue-50 border-blue-200 text-blue-800':'bg-green-50 border-green-200 text-green-800'},
+    get canViewAllCountries(){return this.role!=='Delegate'},
+    get showGenerate(){return (this.role==='CBD Staff'||this.role==='Admin') && this.status==='Not Started'},
+    get showSubmit(){return (this.role==='CBD Staff'||this.role==='Admin') && (this.status==='Draft'||this.status==='Rejected')},
+    get showApproveReject(){return this.role==='Delegate' && this.status==='Submitted'},
+    get showRequestAmendment(){return this.role==='Delegate' && this.status==='Approved'},
+    get showNewRevision(){return (this.role==='CBD Staff'||this.role==='Admin') && this.status==='Approved'},
+    get showEditControls(){return (this.status==='Draft' && (this.role==='CBD Staff'||this.role==='Admin'||this.role==='Delegate')) || (this.status==='Rejected' && (this.role==='CBD Staff'||this.role==='Admin'||this.role==='Delegate'))},
+    get showComments(){return this.status==='Submitted'||this.status==='Rejected'||this.status==='Approved'},
+    get countryScope(){return this.canViewAllCountries?'All countries visible - country switcher/list enabled':'Own country only - country switcher hidden'},
+    get countryScopeDetail(){return this.canViewAllCountries?'Country switcher is rendered and all country roadmaps are available.':'Delegate route is scoped to the authenticated user country. Country selector is not rendered.'},
+    get actionCallout(){
+      if(this.role==='Delegate') return 'Generate hidden. Approve/Reject appears only in Submitted. Request Amendment appears only in Approved.';
+      if(this.role==='CBD Staff') return 'Generate, edit, submit, re-submit, and create revision are available by status. Approve/Reject remains hidden.';
+      return 'Admin gets CBD controls plus system/admin navigation and can generate on behalf of any country.';
+    },
+    get reviewCallout(){
+      if(this.status==='Submitted') return this.role==='Delegate'?'Delegate approval workflow is active.':'Submitted roadmap is read-only while awaiting Delegate action.';
+      if(this.status==='Rejected') return 'Rejection comments are visible and revision controls are available to authorised editors.';
+      if(this.status==='Approved') return 'Roadmap is locked. Amendment/revision actions are role-specific.';
+      return 'No formal review controls in this state.';
+    },
+    get visibleElements(){
+      const out=['Timeline shell','Notification Preferences'];
+      if(this.canViewAllCountries) out.push('Country switcher/list','All country roadmaps');
+      if(this.showGenerate) out.push('Generate Roadmap');
+      if(this.showSubmit) out.push(this.status==='Rejected'?'Re-submit to Delegate':'Submit to Delegate');
+      if(this.showApproveReject) out.push('Approve button','Reject button');
+      if(this.showEditControls) out.push('Drag controls','Add Activity','Remove Activity','Inline edit buttons');
+      if(this.showComments) out.push('Review/comments panel');
+      if(this.showRequestAmendment) out.push('Request Amendment');
+      if(this.showNewRevision) out.push('Create New Revision');
+      if(this.role==='Admin') out.push('Cohort Analytics nav','Algorithm Config nav','Audit Trail nav','User Management nav');
+      return out;
+    },
+    get hiddenElements(){
+      const out=[];
+      if(!this.canViewAllCountries) out.push('Country switcher/list','All-country roadmap access');
+      if(!this.showGenerate) out.push('Generate Roadmap');
+      if(!this.showSubmit) out.push('Submit/Re-submit to Delegate');
+      if(!this.showApproveReject) out.push('Approve/Reject');
+      if(!this.showEditControls) out.push('Drag/Add/Remove edit controls');
+      if(this.role!=='Admin') out.push('Cohort Analytics nav','Algorithm Config nav','Audit Trail nav','User Management nav');
+      if(this.role==='CBD Staff'||this.role==='Admin') out.push('Delegate-only approval workflow');
+      return out;
+    },
+    get handoffRows(){
+      return [
+        {element:'Country switcher',visible:this.canViewAllCountries,rule:'Render for CBD Staff/Admin only.'},
+        {element:'Generate Roadmap',visible:this.showGenerate,rule:'CBD Staff/Admin plus Not Started status.'},
+        {element:'Drag/Add/Remove controls',visible:this.showEditControls,rule:'Authorised role plus Draft or Rejected.'},
+        {element:'Submit/Re-submit to Delegate',visible:this.showSubmit,rule:'CBD Staff/Admin plus Draft or Rejected.'},
+        {element:'Approve/Reject',visible:this.showApproveReject,rule:'Delegate plus Submitted only.'},
+        {element:'Request Amendment',visible:this.showRequestAmendment,rule:'Delegate plus Approved only.'},
+        {element:'Create New Revision',visible:this.showNewRevision,rule:'CBD Staff/Admin plus Approved only.'},
+        {element:'Comments / feedback',visible:this.showComments,rule:'Submitted, Approved, or Rejected review context.'},
+        {element:'Cohort Analytics navigation',visible:this.role==='Admin',rule:'Admin only.'},
+        {element:'Algorithm Config / Audit / Users',visible:this.role==='Admin',rule:'Admin and super-admin only.'}
+      ];
+    },
+    matrix:[
+      {item:'View own country roadmap',delegate:'Yes',cbd:'Yes',admin:'Yes'},
+      {item:'View all countries',delegate:'No',cbd:'Yes',admin:'Yes'},
+      {item:'Generate Roadmap',delegate:'No',cbd:'Yes',admin:'Yes'},
+      {item:'Edit Draft roadmap',delegate:'Own only',cbd:'All',admin:'All'},
+      {item:'Add/Remove activities',delegate:'Own Draft/Rejected',cbd:'All Draft',admin:'All Draft'},
+      {item:'Submit to Delegate',delegate:'No',cbd:'Yes',admin:'Yes'},
+      {item:'Approve/Reject',delegate:'Own',cbd:'No',admin:'No'},
+      {item:'Cohort Analytics',delegate:'No',cbd:'No',admin:'Yes'},
+      {item:'Algorithm Config',delegate:'No',cbd:'No',admin:'Yes'},
+      {item:'Audit Trail',delegate:'No',cbd:'No',admin:'Yes'},
+      {item:'Notification Preferences',delegate:'Yes',cbd:'Yes',admin:'Yes'}
+    ]
+  }
+}
+</script>
+</body>
+</html>
