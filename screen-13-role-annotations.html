@@ -22,13 +22,16 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .nav-screen{transition:all .15s ease}.nav-screen:hover{background:#f1f5f9}.nav-screen.current{background:#fff7ed;color:#ea580c;font-weight:700;border:1px solid #fed7aa}
 .callout{box-shadow:0 8px 24px rgba(15,23,42,.12)}
 .timeline-grid{grid-template-columns:120px repeat(5,minmax(130px,1fr))}
+.focus-ring:focus-visible{outline:2px solid #ff4815;outline-offset:2px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.compare-grid{grid-template-columns:repeat(4,minmax(260px,1fr))}
+  @media print{header,.sidebar,.no-print{display:none!important}.main-content{margin-left:0!important;padding-top:0!important}.print-all-roles{display:block!important}.print-grid{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:12px!important}.role-layout{grid-template-columns:1fr!important}.single-role-view{display:none!important}body{background:#fff!important}.compare-grid{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:12px!important}}
 @media (max-width:1500px){.sidebar{width:64px!important;overflow:hidden}.main-content{margin-left:64px!important}.header-brand{width:64px!important;justify-content:center!important}.brand-text,.sidebar-text,.sidebar-section-label,.sidebar-badge{display:none!important}.sidebar-item{justify-content:center!important;padding:12px 0!important}.nav-list{overflow-x:auto;max-width:42vw;white-space:nowrap}.nav-screen{font-size:10px!important;padding:4px 6px!important}.role-layout,.matrix-layout{grid-template-columns:1fr!important}.annotation-row{grid-template-columns:1fr!important}}
-@media (max-width:1100px){.sidebar{display:none!important}.main-content{margin-left:0!important}.header-brand{width:auto!important}.nav-list{max-width:52vw}.timeline-grid{grid-template-columns:110px repeat(5,140px)}}
+@media (max-width:1100px){.sidebar{display:none!important}.main-content{margin-left:0!important}.header-brand{width:auto!important}.nav-list{max-width:52vw}.timeline-grid{grid-template-columns:110px repeat(5,140px)}.compare-grid{grid-template-columns:1fr!important}}
 </style>
 </head>
 <body class="bg-slate-50" x-data="roleAnnotations()" x-cloak>
 
-<header class="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-slate-200 flex items-center pr-4 gap-3 shadow-sm">
+<header class="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-slate-200 flex items-center pr-4 gap-3 shadow-sm no-print">
   <div class="header-brand flex items-center gap-2.5 flex-shrink-0 px-4">
     <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:#ff4815"><svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18zM3.6 9h16.8M3.6 15h16.8M12 3c2.4 2.5 3.6 5.5 3.6 9s-1.2 6.5-3.6 9M12 3C9.6 5.5 8.4 8.5 8.4 12s1.2 6.5 3.6 9"/></svg></div>
     <div class="brand-text flex flex-col leading-none"><span class="text-[10px] font-bold tracking-widest uppercase" style="color:#ff4815">WOAH</span><span class="text-[13px] font-semibold">PVS Information System</span></div>
@@ -47,7 +50,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
   <div class="w-7 h-7 rounded-full bg-gradient-to-br from-woah-500 to-woah-700 flex items-center justify-center text-white text-xs font-semibold" x-text="roleInitials"></div>
 </header>
 
-<aside class="sidebar fixed top-14 left-0 bottom-0 z-40 flex flex-col overflow-y-auto text-white" style="background:#1e293b">
+<aside class="sidebar fixed top-14 left-0 bottom-0 z-40 flex flex-col overflow-y-auto text-white no-print" style="background:#1e293b">
   <nav class="flex-1 py-4 px-3 space-y-0.5">
     <p class="sidebar-section-label px-3 text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2">Rendered Navigation</p>
     <a href="#" class="sidebar-item active flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-white font-semibold"><svg class="w-[18px] h-[18px]" style="color:#ff4815" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.8 3v2.3M17.3 3v2.3M3 18.8V7.5a2.3 2.3 0 012.3-2.3h13.5A2.3 2.3 0 0121 7.5v11.3A2.3 2.3 0 0118.8 21H5.3A2.3 2.3 0 013 18.8z"/></svg><span class="sidebar-text">Roadmaps</span></a>
@@ -60,39 +63,43 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 
 <main class="main-content pt-14 min-h-screen">
   <section class="p-6 space-y-5">
+    <div class="sr-only" aria-live="polite" x-text="announcement"></div>
     <div class="flex flex-wrap items-end gap-4">
       <div>
         <h1 class="text-2xl font-bold">Screen 13 - Role-Based View Annotations</h1>
         <p class="text-sm text-slate-500 mt-1">One control surface shows exact conditional rendering for role, status, country scope, edit controls, comments, and workflow buttons.</p>
       </div>
-      <div class="ml-auto flex items-center gap-2">
-        <select x-model="role" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-bold">
-          <option>Delegate</option>
-          <option>CBD Staff</option>
-          <option>Admin</option>
-        </select>
-        <select x-model="status" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-bold">
-          <option>Not Started</option>
-          <option>Draft</option>
-          <option>Submitted</option>
-          <option>Approved</option>
-          <option>Rejected</option>
-        </select>
+      <div class="ml-auto flex items-center gap-2 no-print">
+        <div class="relative">
+          <select x-model="role" @change="announceState()" @keydown.enter="announceState()" @keydown.space.prevent="announceState()" aria-label="Select role view" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-bold focus-ring" role="combobox" aria-expanded="false" aria-haspopup="listbox">
+            <template x-for="item in roles" :key="item"><option x-text="item"></option></template>
+          </select>
+        </div>
+        <div class="relative">
+          <select x-model="status" @change="announceState()" @keydown.enter="announceState()" @keydown.space.prevent="announceState()" aria-label="Select roadmap status" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-bold focus-ring" role="combobox" aria-expanded="false" aria-haspopup="listbox">
+            <template x-for="state in statuses" :key="state"><option x-text="state"></option></template>
+          </select>
+        </div>
+        <label class="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-bold focus-ring" tabindex="0" @keydown.enter="compareMode = !compareMode; announceState()" @keydown.space.prevent="compareMode = !compareMode; announceState()" role="switch" aria-checked="false" aria-label="Toggle role comparison mode">
+          <input type="checkbox" x-model="compareMode" @change="announceState()" class="rounded text-woah-500" aria-hidden="true">
+          Compare
+        </label>
+        <button @click="window.print()" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-bold hover:bg-slate-50 focus-ring" aria-label="Print all role views">Print</button>
       </div>
     </div>
 
-    <div class="grid grid-cols-5 gap-2">
+    <div class="grid grid-cols-5 gap-2 no-print" role="tablist" aria-label="Roadmap status selector">
       <template x-for="state in statuses" :key="state">
-        <button @click="status=state" class="rounded-lg border px-3 py-2 text-xs font-bold text-left" :class="status===state?'bg-woah-50 border-woah-200 text-woah-700':'bg-white border-slate-200 text-slate-500'">
+        <button @click="setStatus(state)" role="tab" :aria-selected="status===state" :aria-expanded="status===state" :tabindex="status===state?0:-1" :aria-label="`Show ${state} status rules`" class="rounded-lg border px-3 py-2 text-xs font-bold text-left focus-ring" :class="status===state?'bg-woah-50 border-woah-200 text-woah-700':'bg-white border-slate-200 text-slate-500'">
           <span x-text="state"></span>
           <span class="block text-[10px] font-medium mt-1" x-text="statusRules[state].short"></span>
         </button>
       </template>
     </div>
 
-    <div class="annotation-row grid grid-cols-3 gap-4">
+    <div class="annotation-row grid grid-cols-4 gap-4 no-print" role="tablist" aria-label="Role selector">
       <template x-for="card in roleCards" :key="card.role">
-        <button @click="role=card.role" class="text-left bg-white rounded-xl border p-4 shadow-sm" :class="role===card.role?card.active:'border-slate-200'">
+        <button @click="setRole(card.role)" role="tab" :aria-selected="role===card.role" :aria-expanded="role===card.role && !compareMode" :tabindex="role===card.role?0:-1" :aria-label="`Show ${card.role} role view`" class="text-left bg-white rounded-xl border p-4 shadow-sm focus-ring" :class="role===card.role?card.active:'border-slate-200'">
           <div class="flex items-center justify-between mb-2">
             <h2 class="text-sm font-bold" x-text="card.role"></h2>
             <span class="text-[10px] font-bold uppercase px-2 py-1 rounded" :class="card.badge" x-text="card.scope"></span>
@@ -102,20 +109,54 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
       </template>
     </div>
 
-    <div class="role-layout grid grid-cols-[1fr_340px] gap-5">
+    <div x-show="compareMode" class="print-all-roles bg-white rounded-xl border border-slate-200 shadow-sm p-4">
+      <div class="mb-3 flex items-center justify-between">
+        <h2 class="text-sm font-bold">Side-by-Side Role Comparison</h2>
+        <span class="text-[10px] font-bold uppercase text-slate-400" x-text="status"></span>
+      </div>
+      <div class="compare-grid print-grid grid gap-3">
+        <template x-for="roleName in roles" :key="roleName">
+          <div class="rounded-lg border border-slate-200 overflow-hidden">
+            <div class="p-3 border-b border-slate-100 flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase" :class="roleColorFor(roleName)" x-text="roleName"></span>
+              <span class="text-[10px] text-slate-500" x-text="countryScopeFor(roleName)"></span>
+            </div>
+            <div class="p-3 space-y-3">
+              <div class="grid grid-cols-5 gap-1 text-[9px] font-bold text-slate-400">
+                <template x-for="year in years" :key="year"><span class="text-center" x-text="year"></span></template>
+              </div>
+              <template x-for="activity in activities" :key="roleName+activity.name">
+                <div class="grid grid-cols-5 gap-1 items-center">
+                  <template x-for="year in years" :key="year">
+                    <div class="min-h-8 rounded bg-slate-50 relative">
+                      <div x-show="activity.year===year" class="rounded px-1.5 py-1 text-[9px] font-bold text-white truncate" :class="activity.color" x-text="activity.name"></div>
+                      <button x-show="activity.year===year && canEditActivity(roleName, activity.type)" class="absolute -top-1 -right-1 rounded bg-white border border-slate-200 px-1 text-[8px] font-bold text-slate-700 focus-ring" :aria-label="`Edit ${activity.name} as ${roleName}`">Edit</button>
+                    </div>
+                  </template>
+                </div>
+              </template>
+              <div class="callout rounded-lg border p-2" :class="annotationClassFor(roleName)"><p class="text-[10px] font-bold uppercase mb-1">Visible actions</p><p class="text-[11px] leading-snug" x-text="visibleElementsFor(roleName).join(', ')"></p></div>
+              <div class="callout rounded-lg border p-2" :class="annotationClassFor(roleName)"><p class="text-[10px] font-bold uppercase mb-1">Hidden actions</p><p class="text-[11px] leading-snug" x-text="hiddenElementsFor(roleName).join(', ')"></p></div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <div class="role-layout single-role-view grid grid-cols-[1fr_340px] gap-5">
       <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
         <div class="p-4 border-b border-slate-100 flex flex-wrap items-center gap-3">
           <span class="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase" :class="roleColor" x-text="role"></span>
           <span class="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase bg-slate-100 text-slate-600" x-text="status"></span>
           <span class="text-xs text-slate-500" x-text="countryScope"></span>
           <div class="ml-auto flex items-center gap-2 flex-wrap">
-            <select x-show="canViewAllCountries" class="rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-xs font-semibold"><option>Eswatini</option><option>Kenya</option><option>Jordan</option></select>
-            <button x-show="showGenerate" class="px-3 py-1.5 rounded-lg bg-amber-500 text-white text-xs font-bold">Generate Roadmap</button>
-            <button x-show="showSubmit" class="px-3 py-1.5 rounded-lg bg-woah-500 text-white text-xs font-bold" x-text="status==='Rejected'?'Re-submit to Delegate':'Submit to Delegate'"></button>
-            <button x-show="showApproveReject" class="px-3 py-1.5 rounded-lg bg-green-600 text-white text-xs font-bold">Approve</button>
-            <button x-show="showApproveReject" class="px-3 py-1.5 rounded-lg bg-red-600 text-white text-xs font-bold">Reject</button>
-            <button x-show="showRequestAmendment" class="px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-bold">Request Amendment</button>
-            <button x-show="showNewRevision" class="px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-bold">Create New Revision</button>
+            <select x-show="canViewAllCountries" x-model="roadmap.country" @change="announceState()" aria-label="Select roadmap country" class="rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-xs font-semibold focus-ring"><option>Eswatini</option><option>Kenya</option><option>Jordan</option></select>
+            <button x-show="showGenerate" class="px-3 py-1.5 rounded-lg bg-amber-500 text-white text-xs font-bold focus-ring" aria-label="Generate roadmap">Generate Roadmap</button>
+            <button x-show="showSubmit" class="px-3 py-1.5 rounded-lg bg-woah-500 text-white text-xs font-bold focus-ring" :aria-label="status==='Rejected'?'Re-submit to Delegate':'Submit to Delegate'" x-text="status==='Rejected'?'Re-submit to Delegate':'Submit to Delegate'"></button>
+            <button x-show="showApproveReject" class="px-3 py-1.5 rounded-lg bg-green-600 text-white text-xs font-bold focus-ring" aria-label="Approve roadmap">Approve</button>
+            <button x-show="showApproveReject" class="px-3 py-1.5 rounded-lg bg-red-600 text-white text-xs font-bold focus-ring" aria-label="Reject roadmap">Reject</button>
+            <button x-show="showRequestAmendment" class="px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-bold focus-ring" aria-label="Request amendment">Request Amendment</button>
+            <button x-show="showNewRevision" class="px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-bold focus-ring" aria-label="Create new revision">Create New Revision</button>
           </div>
         </div>
 
@@ -134,28 +175,28 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
               <div class="p-3 text-xs font-semibold border-r border-b">Evaluation</div>
               <div class="p-2 border-r border-b relative">
                 <div class="rounded-md bg-pvs-blue text-white px-2 py-2 text-[10px] font-bold">PVS Evaluation</div>
-                <button x-show="showEditControls" class="absolute top-1 right-1 rounded bg-white/90 px-1 text-[9px] font-bold text-slate-700">Edit</button>
+                <button x-show="canEditActivity(role, 'Evaluation')" class="absolute top-1 right-1 rounded bg-white/90 px-1 text-[9px] font-bold text-slate-700 focus-ring" aria-label="Edit PVS Evaluation">Edit</button>
               </div>
               <div class="border-r border-b bg-slate-50"></div><div class="border-r border-b bg-slate-50"></div><div class="border-r border-b bg-slate-50"></div><div class="border-b bg-slate-50"></div>
               <div class="p-3 text-xs font-semibold border-r border-b">Support</div>
               <div class="border-r border-b bg-slate-50"></div>
-              <div class="p-2 border-r border-b relative"><div class="rounded-md bg-pvs-purple text-white px-2 py-2 text-[10px] font-bold">Gap Analysis</div><button x-show="showEditControls" class="absolute top-1 right-1 rounded bg-white/90 px-1 text-[9px] font-bold text-slate-700">Drag</button></div>
-              <div class="p-2 border-r border-b relative"><div class="rounded-md bg-pvs-orange text-white px-2 py-2 text-[10px] font-bold">Laboratory</div><button x-show="showEditControls" class="absolute top-1 right-1 rounded bg-white/90 px-1 text-[9px] font-bold text-slate-700">Remove</button></div>
+              <div class="p-2 border-r border-b relative"><div class="rounded-md bg-pvs-purple text-white px-2 py-2 text-[10px] font-bold">Gap Analysis</div><button x-show="canEditActivity(role, 'Gap Analysis')" class="absolute top-1 right-1 rounded bg-white/90 px-1 text-[9px] font-bold text-slate-700 focus-ring" aria-label="Drag Gap Analysis">Drag</button></div>
+              <div class="p-2 border-r border-b relative"><div class="rounded-md bg-pvs-orange text-white px-2 py-2 text-[10px] font-bold">Laboratory</div><button x-show="canEditActivity(role, 'Laboratory')" class="absolute top-1 right-1 rounded bg-white/90 px-1 text-[9px] font-bold text-slate-700 focus-ring" aria-label="Remove Laboratory">Remove</button></div>
               <div class="border-r border-b bg-slate-50"></div><div class="border-b bg-slate-50"></div>
               <div class="p-3 text-xs font-semibold border-r">Planning</div>
               <div class="border-r bg-slate-50"></div><div class="border-r bg-slate-50"></div><div class="border-r bg-slate-50"></div>
-              <div class="p-2 border-r relative"><div class="rounded-md bg-pvs-green text-white px-2 py-2 text-[10px] font-bold">Workforce</div><button x-show="showEditControls" class="absolute top-1 right-1 rounded bg-white/90 px-1 text-[9px] font-bold text-slate-700">Edit</button></div>
+              <div class="p-2 border-r relative"><div class="rounded-md bg-pvs-green text-white px-2 py-2 text-[10px] font-bold">Workforce</div><button x-show="canEditActivity(role, 'Workforce')" class="absolute top-1 right-1 rounded bg-white/90 px-1 text-[9px] font-bold text-slate-700 focus-ring" aria-label="Edit Workforce">Edit</button></div>
               <div class="bg-slate-50"></div>
             </div>
           </div>
 
           <div x-show="status !== 'Not Started'" class="mt-4 flex flex-wrap gap-2">
-            <button x-show="showEditControls" class="px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs font-bold">Add Activity</button>
-            <button x-show="showEditControls" class="px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs font-bold">Drag Enabled</button>
-            <button x-show="showEditControls" class="px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs font-bold">Remove Enabled</button>
+            <button x-show="showEditControls" class="px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs font-bold focus-ring" aria-label="Add activity">Add Activity</button>
+            <button x-show="showEditControls" class="px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs font-bold focus-ring" aria-label="Drag enabled">Drag Enabled</button>
+            <button x-show="showEditControls" class="px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs font-bold focus-ring" aria-label="Remove enabled">Remove Enabled</button>
             <span x-show="!showEditControls" class="px-3 py-2 rounded-lg bg-slate-100 text-slate-500 text-xs font-bold">Timeline read-only</span>
-            <button x-show="showComments" class="px-3 py-2 rounded-lg border border-blue-200 bg-blue-50 text-blue-700 text-xs font-bold">Comments / Feedback</button>
-            <button class="px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs font-bold">Notification Preferences</button>
+            <button x-show="showComments" class="px-3 py-2 rounded-lg border border-blue-200 bg-blue-50 text-blue-700 text-xs font-bold focus-ring" aria-label="Open comments and feedback">Comments / Feedback</button>
+            <button class="px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs font-bold focus-ring" aria-label="Open notification preferences">Notification Preferences</button>
           </div>
 
           <div class="mt-4 grid grid-cols-1 lg:grid-cols-3 gap-3">
@@ -190,6 +231,22 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
       </aside>
     </div>
 
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-4">
+      <h2 class="text-sm font-bold mb-3">Screen 11 Mobile RBAC Inheritance</h2>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-xs">
+        <div class="callout rounded-lg border p-3" :class="annotationClass"><p class="text-[10px] font-bold uppercase mb-1">Hidden actions</p><p x-text="hiddenElements.join(', ')"></p></div>
+        <div class="callout rounded-lg border p-3" :class="annotationClass"><p class="text-[10px] font-bold uppercase mb-1">Visible actions</p><p x-text="visibleElements.join(', ')"></p></div>
+        <div class="callout rounded-lg border p-3" :class="annotationClass"><p class="text-[10px] font-bold uppercase mb-1">Responsive behaviour</p><p>Mobile condenses controls into card actions and overflow menus while preserving the same hidden/edit/read-only states.</p></div>
+        <div class="callout rounded-lg border p-3" :class="annotationClass"><p class="text-[10px] font-bold uppercase mb-1">Permission consistency</p><p>Desktop and Screen 11 mobile evaluate the same role, country, status, and mission-type permissions.</p></div>
+      </div>
+      <div class="mt-4 grid grid-cols-1 md:grid-cols-4 gap-3 text-xs">
+        <div class="callout rounded-lg border p-3 bg-slate-50 border-slate-200"><p class="text-[10px] font-bold uppercase mb-1 text-slate-700">Delegate (Mobile)</p><p>Own country roadmap only. Timeline read-only in Submitted/Approved. Edit controls in Draft/Rejected. Approve/Reject in Submitted. Request Amendment in Approved. Comments in Submitted/Rejected/Approved. Notification Preferences always.</p></div>
+        <div class="callout rounded-lg border p-3 bg-slate-50 border-slate-200"><p class="text-[10px] font-bold uppercase mb-1 text-slate-700">CBD Staff (Mobile)</p><p>All countries via country switcher. Generate in Not Started. Edit/Submit in Draft/Rejected. Re-submit in Rejected. Create Revision in Approved. Comments in Submitted/Rejected/Approved. Cohort Analytics hidden.</p></div>
+        <div class="callout rounded-lg border p-3 bg-slate-50 border-slate-200"><p class="text-[10px] font-bold uppercase mb-1 text-slate-700">Mission Manager (Mobile)</p><p>All countries via country switcher. Edit only assigned mission types (Gap Analysis, Laboratory) in Draft/Rejected. No Generate, Approve/Reject, Cohort Analytics, Admin Config. Comments in Submitted/Rejected/Approved.</p></div>
+        <div class="callout rounded-lg border p-3 bg-slate-50 border-slate-200"><p class="text-[10px] font-bold uppercase mb-1 text-slate-700">Admin (Mobile)</p><p>All CBD Staff capabilities plus Cohort Analytics, Algorithm Config, Audit Trail, User Management. Generate for any country. Create Revision in Approved. Full system access.</p></div>
+      </div>
+    </div>
+
     <div class="matrix-layout grid grid-cols-2 gap-5">
       <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
         <div class="p-4 border-b border-slate-100"><h2 class="text-sm font-bold">Developer Handoff Visibility Table</h2></div>
@@ -206,9 +263,9 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
         <div class="p-4 border-b border-slate-100"><h2 class="text-sm font-bold">Permission Matrix</h2></div>
         <div class="overflow-x-auto">
           <table class="w-full min-w-[620px] text-xs">
-            <thead class="bg-slate-50 text-[10px] uppercase text-slate-500"><tr><th class="p-3 text-left">UI Element</th><th class="p-3">Delegate</th><th class="p-3">CBD Staff</th><th class="p-3">Admin</th></tr></thead>
+            <thead class="bg-slate-50 text-[10px] uppercase text-slate-500"><tr><th class="p-3 text-left">UI Element</th><th class="p-3">Delegate</th><th class="p-3">CBD Staff</th><th class="p-3">Mission Manager</th><th class="p-3">Admin</th></tr></thead>
             <tbody class="divide-y divide-slate-100">
-              <template x-for="row in matrix" :key="row.item"><tr><td class="p-3 font-semibold" x-text="row.item"></td><td class="p-3 text-center" x-text="row.delegate"></td><td class="p-3 text-center" x-text="row.cbd"></td><td class="p-3 text-center" x-text="row.admin"></td></tr></template>
+              <template x-for="row in matrix" :key="row.item"><tr><td class="p-3 font-semibold" x-text="row.item"></td><td class="p-3 text-center" x-text="row.delegate"></td><td class="p-3 text-center" x-text="row.cbd"></td><td class="p-3 text-center" x-text="row.missionManager"></td><td class="p-3 text-center" x-text="row.admin"></td></tr></template>
             </tbody>
           </table>
         </div>
@@ -219,9 +276,9 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
       <div class="p-4 border-b border-slate-100"><h2 class="text-sm font-bold">Status-Dependent Rendering Detail</h2></div>
       <div class="overflow-x-auto">
         <table class="w-full min-w-[900px] text-xs">
-          <thead class="bg-slate-50 text-[10px] uppercase text-slate-500"><tr><th class="p-3 text-left">Status</th><th class="p-3 text-left">Timeline</th><th class="p-3 text-left">Primary Button</th><th class="p-3 text-left">Edit Controls</th><th class="p-3 text-left">Review / Comments</th></tr></thead>
+          <thead class="bg-slate-50 text-[10px] uppercase text-slate-500"><tr><th class="p-3 text-left">Status</th><th class="p-3 text-left">Role</th><th class="p-3 text-left">Primary Action</th><th class="p-3 text-left">Timeline</th><th class="p-3 text-left">Edit Controls</th><th class="p-3 text-left">Review / Comments</th></tr></thead>
           <tbody class="divide-y divide-slate-100">
-            <template x-for="state in statuses" :key="state"><tr :class="status===state?'bg-woah-50':''"><td class="p-3 font-bold" x-text="state"></td><td class="p-3" x-text="statusRules[state].timeline"></td><td class="p-3" x-text="statusRules[state].button"></td><td class="p-3" x-text="statusRules[state].edit"></td><td class="p-3" x-text="statusRules[state].comments"></td></tr></template>
+            <template x-for="row in statusActionRows" :key="row.status+row.role"><tr :class="status===row.status?'bg-woah-50':''"><td class="p-3 font-bold" x-text="row.status"></td><td class="p-3" x-text="row.role"></td><td class="p-3" x-text="row.action"></td><td class="p-3" x-text="statusRules[row.status].timeline"></td><td class="p-3" x-text="row.edit"></td><td class="p-3" x-text="statusRules[row.status].comments"></td></tr></template>
           </tbody>
         </table>
       </div>
@@ -234,36 +291,58 @@ function roleAnnotations(){
   return {
     role:'Delegate',
     status:'Submitted',
+    compareMode:false,
+    announcement:'',
+    currentUser:{country:'Eswatini'},
+    roadmap:{country:'Eswatini'},
+    roles:['Delegate','CBD Staff','Mission Manager','Admin'],
     years:['2027','2028','2029','2030','2031'],
     statuses:['Not Started','Draft','Submitted','Approved','Rejected'],
+    missionManagerAssignedTypes:['Gap Analysis','Laboratory'],
+    activities:[
+      {name:'PVS Evaluation',type:'Evaluation',year:'2027',color:'bg-pvs-blue'},
+      {name:'Gap Analysis',type:'Gap Analysis',year:'2028',color:'bg-pvs-purple'},
+      {name:'Laboratory',type:'Laboratory',year:'2029',color:'bg-pvs-orange'},
+      {name:'Workforce',type:'Workforce',year:'2030',color:'bg-pvs-green'}
+    ],
     statusRules:{
       'Not Started':{short:'Generate only',timeline:'Empty state. No timeline rendered.',button:'Generate Roadmap for CBD/Admin only.',edit:'None.',comments:'None.'},
       'Draft':{short:'Editable draft',timeline:'Timeline rendered.',button:'Submit to Delegate for CBD/Admin.',edit:'Visible for authorised role.',comments:'Internal comments optional.'},
       'Submitted':{short:'Review mode',timeline:'Read-only timeline.',button:'Approve/Reject for Delegate only.',edit:'Hidden for everyone.',comments:'Delegate feedback visible.'},
-      'Approved':{short:'Locked',timeline:'Read-only timeline.',button:'Request Amendment for Delegate, Create New Revision for CBD/Admin.',edit:'Hidden until new revision.',comments:'Approval record visible.'},
-      'Rejected':{short:'Revise',timeline:'Timeline rendered with rejection context.',button:'Re-submit to Delegate for CBD/Admin.',edit:'Visible for CBD/Admin and own Delegate rejected roadmap.',comments:'Rejection comments visible.'}
+      'Approved':{short:'Locked',timeline:'Read-only timeline.',button:'Role-specific approved actions.',edit:'Hidden until new revision.',comments:'Approval record visible.'},
+      'Rejected':{short:'Revise',timeline:'Timeline rendered with rejection context.',button:'Re-submit to Delegate for CBD/Admin.',edit:'Visible for authorised role.',comments:'Rejection comments visible.'}
     },
     roleCards:[
       {role:'Delegate',scope:'Own only',badge:'bg-orange-100 text-orange-700',active:'border-orange-300 ring-2 ring-orange-100',summary:'Own country only. No generation, cohort analytics, admin config, or country switcher. Reviews submitted roadmaps.'},
       {role:'CBD Staff',scope:'All countries',badge:'bg-blue-100 text-blue-700',active:'border-blue-300 ring-2 ring-blue-100',summary:'Can view all countries, generate roadmaps, edit draft/rejected roadmaps, and submit to Delegate. No approve/reject.'},
+      {role:'Mission Manager',scope:'Mission types',badge:'bg-teal-100 text-teal-700',active:'border-teal-300 ring-2 ring-teal-100',summary:'Can view all countries and edit only assigned mission types: Gap Analysis and Laboratory. No approve/reject or admin config.'},
       {role:'Admin',scope:'All + system',badge:'bg-green-100 text-green-700',active:'border-green-300 ring-2 ring-green-100',summary:'CBD capabilities plus cohort analytics, algorithm config, audit trail, and user management.'}
     ],
-    get roleInitials(){return this.role==='Delegate'?'DL':this.role==='CBD Staff'?'CB':'AD'},
-    get roleColor(){return this.role==='Delegate'?'bg-orange-100 text-orange-700':this.role==='CBD Staff'?'bg-blue-100 text-blue-700':'bg-green-100 text-green-700'},
-    get annotationClass(){return this.role==='Delegate'?'bg-orange-50 border-orange-200 text-orange-800':this.role==='CBD Staff'?'bg-blue-50 border-blue-200 text-blue-800':'bg-green-50 border-green-200 text-green-800'},
-    get canViewAllCountries(){return this.role!=='Delegate'},
+    setRole(role){this.role=role; this.announceState()},
+    setStatus(status){this.status=status; this.announceState()},
+    announceState(){this.announcement=`${this.compareMode?'Comparison mode':'Single role mode'}: ${this.role}, ${this.status}, ${this.roadmap.country}`},
+    get roleInitials(){return this.roleInitialsFor(this.role)},
+    roleInitialsFor(role){return role==='Delegate'?'DL':role==='CBD Staff'?'CB':role==='Mission Manager'?'MM':'AD'},
+    get roleColor(){return this.roleColorFor(this.role)},
+    roleColorFor(role){return role==='Delegate'?'bg-orange-100 text-orange-700':role==='CBD Staff'?'bg-blue-100 text-blue-700':role==='Mission Manager'?'bg-teal-100 text-teal-700':'bg-green-100 text-green-700'},
+    get annotationClass(){return this.annotationClassFor(this.role)},
+    annotationClassFor(role){return role==='Delegate'?'bg-orange-50 border-orange-200 text-orange-800':role==='CBD Staff'?'bg-blue-50 border-blue-200 text-blue-800':role==='Mission Manager'?'bg-teal-50 border-teal-200 text-teal-800':'bg-green-50 border-green-200 text-green-800'},
+    get canViewAllCountries(){return this.canViewAllCountriesFor(this.role)},
+    canViewAllCountriesFor(role){return role!=='Delegate'},
     get showGenerate(){return (this.role==='CBD Staff'||this.role==='Admin') && this.status==='Not Started'},
     get showSubmit(){return (this.role==='CBD Staff'||this.role==='Admin') && (this.status==='Draft'||this.status==='Rejected')},
     get showApproveReject(){return this.role==='Delegate' && this.status==='Submitted'},
     get showRequestAmendment(){return this.role==='Delegate' && this.status==='Approved'},
     get showNewRevision(){return (this.role==='CBD Staff'||this.role==='Admin') && this.status==='Approved'},
-    get showEditControls(){return (this.status==='Draft' && (this.role==='CBD Staff'||this.role==='Admin'||this.role==='Delegate')) || (this.status==='Rejected' && (this.role==='CBD Staff'||this.role==='Admin'||this.role==='Delegate'))},
+    get showEditControls(){return this.canEditRoadmap(this.role)},
     get showComments(){return this.status==='Submitted'||this.status==='Rejected'||this.status==='Approved'},
     get countryScope(){return this.canViewAllCountries?'All countries visible - country switcher/list enabled':'Own country only - country switcher hidden'},
-    get countryScopeDetail(){return this.canViewAllCountries?'Country switcher is rendered and all country roadmaps are available.':'Delegate route is scoped to the authenticated user country. Country selector is not rendered.'},
+    countryScopeFor(role){return this.canViewAllCountriesFor(role)?'All countries':'Own country'},
+    get countryScopeDetail(){return this.role==='Mission Manager'?'Country switcher is rendered; edit permissions are restricted to assigned mission types.':this.canViewAllCountries?'Country switcher is rendered and all country roadmaps are available.':'Delegate route is scoped to the authenticated user country. Country selector is not rendered.'},
     get actionCallout(){
-      if(this.role==='Delegate') return 'Generate hidden. Approve/Reject appears only in Submitted. Request Amendment appears only in Approved.';
+      if(this.role==='Delegate') return 'Generate hidden. Edit controls render only for own-country Draft or Rejected roadmaps. Approve/Reject appears only in Submitted. Request Amendment appears only in Approved.';
       if(this.role==='CBD Staff') return 'Generate, edit, submit, re-submit, and create revision are available by status. Approve/Reject remains hidden.';
+      if(this.role==='Mission Manager') return 'Mission Manager can edit assigned mission types only: Gap Analysis and Laboratory. Approval, generation, cohort analytics, and admin config remain hidden.';
       return 'Admin gets CBD controls plus system/admin navigation and can generate on behalf of any country.';
     },
     get reviewCallout(){
@@ -273,55 +352,87 @@ function roleAnnotations(){
       return 'No formal review controls in this state.';
     },
     get visibleElements(){
-      const out=['Timeline shell','Notification Preferences'];
-      if(this.canViewAllCountries) out.push('Country switcher/list','All country roadmaps');
-      if(this.showGenerate) out.push('Generate Roadmap');
-      if(this.showSubmit) out.push(this.status==='Rejected'?'Re-submit to Delegate':'Submit to Delegate');
-      if(this.showApproveReject) out.push('Approve button','Reject button');
-      if(this.showEditControls) out.push('Drag controls','Add Activity','Remove Activity','Inline edit buttons');
-      if(this.showComments) out.push('Review/comments panel');
-      if(this.showRequestAmendment) out.push('Request Amendment');
-      if(this.showNewRevision) out.push('Create New Revision');
-      if(this.role==='Admin') out.push('Cohort Analytics nav','Algorithm Config nav','Audit Trail nav','User Management nav');
-      return out;
+      return this.visibleElementsFor(this.role);
     },
     get hiddenElements(){
+      return this.hiddenElementsFor(this.role);
+    },
+    canEditRoadmap(role){
+      const editable=this.status==='Draft'||this.status==='Rejected';
+      if(!editable) return false;
+      if(role==='Delegate') return this.currentUser.country===this.roadmap.country;
+      return role==='CBD Staff'||role==='Admin'||role==='Mission Manager';
+    },
+    canEditActivity(role,type){
+      if(!this.canEditRoadmap(role)) return false;
+      if(role==='Mission Manager') return this.missionManagerAssignedTypes.includes(type);
+      return true;
+    },
+    visibleElementsFor(role){
+      const out=['Timeline shell','Notification Preferences'];
+      if(this.canViewAllCountriesFor(role)) out.push('Country switcher/list','All country roadmaps');
+      if((role==='CBD Staff'||role==='Admin') && this.status==='Not Started') out.push('Generate Roadmap');
+      if((role==='CBD Staff'||role==='Admin') && (this.status==='Draft'||this.status==='Rejected')) out.push(this.status==='Rejected'?'Re-submit to Delegate':'Submit to Delegate');
+      if(role==='Delegate' && this.status==='Submitted') out.push('Approve button','Reject button');
+      if(this.canEditRoadmap(role)) out.push(role==='Mission Manager'?'Assigned mission-type edit buttons':'Drag controls','Add Activity','Remove Activity','Inline edit buttons');
+      if(this.showComments) out.push('Review/comments panel');
+      if(role==='Delegate' && this.status==='Approved') out.push('Request Amendment');
+      if((role==='CBD Staff'||role==='Admin') && this.status==='Approved') out.push('Create New Revision');
+      if(role==='Admin') out.push('Cohort Analytics nav','Algorithm Config nav','Audit Trail nav','User Management nav');
+      return out;
+    },
+    hiddenElementsFor(role){
       const out=[];
-      if(!this.canViewAllCountries) out.push('Country switcher/list','All-country roadmap access');
-      if(!this.showGenerate) out.push('Generate Roadmap');
-      if(!this.showSubmit) out.push('Submit/Re-submit to Delegate');
-      if(!this.showApproveReject) out.push('Approve/Reject');
-      if(!this.showEditControls) out.push('Drag/Add/Remove edit controls');
-      if(this.role!=='Admin') out.push('Cohort Analytics nav','Algorithm Config nav','Audit Trail nav','User Management nav');
-      if(this.role==='CBD Staff'||this.role==='Admin') out.push('Delegate-only approval workflow');
+      if(!this.canViewAllCountriesFor(role)) out.push('Country switcher/list','All-country roadmap access');
+      if(!((role==='CBD Staff'||role==='Admin') && this.status==='Not Started')) out.push('Generate Roadmap');
+      if(!((role==='CBD Staff'||role==='Admin') && (this.status==='Draft'||this.status==='Rejected'))) out.push('Submit/Re-submit to Delegate');
+      if(!(role==='Delegate' && this.status==='Submitted')) out.push('Approve/Reject');
+      if(!this.canEditRoadmap(role)) out.push('Drag/Add/Remove edit controls');
+      if(role==='Mission Manager') out.push('Unassigned mission-type edit buttons','Cohort Analytics nav','Algorithm Config nav','Audit Trail nav','User Management nav');
+      if(role!=='Admin' && role!=='Mission Manager') out.push('Cohort Analytics nav','Algorithm Config nav','Audit Trail nav','User Management nav');
+      if(role==='CBD Staff'||role==='Admin'||role==='Mission Manager') out.push('Delegate-only approval workflow');
       return out;
     },
     get handoffRows(){
       return [
-        {element:'Country switcher',visible:this.canViewAllCountries,rule:'Render for CBD Staff/Admin only.'},
+        {element:'Country switcher',visible:this.canViewAllCountries,rule:'Render for CBD Staff/Mission Manager/Admin only.'},
         {element:'Generate Roadmap',visible:this.showGenerate,rule:'CBD Staff/Admin plus Not Started status.'},
-        {element:'Drag/Add/Remove controls',visible:this.showEditControls,rule:'Authorised role plus Draft or Rejected.'},
+        {element:'Drag/Add/Remove controls',visible:this.showEditControls,rule:'Authorised role plus Draft or Rejected; Delegate requires own country; Mission Manager requires assigned mission type.'},
         {element:'Submit/Re-submit to Delegate',visible:this.showSubmit,rule:'CBD Staff/Admin plus Draft or Rejected.'},
         {element:'Approve/Reject',visible:this.showApproveReject,rule:'Delegate plus Submitted only.'},
         {element:'Request Amendment',visible:this.showRequestAmendment,rule:'Delegate plus Approved only.'},
-        {element:'Create New Revision',visible:this.showNewRevision,rule:'CBD Staff/Admin plus Approved only.'},
+        {element:'Create New Revision (CBD Staff)',visible:this.role==='CBD Staff' && this.status==='Approved',rule:'CBD Staff plus Approved status.'},
+        {element:'Create New Revision (Admin)',visible:this.role==='Admin' && this.status==='Approved',rule:'Admin plus Approved status.'},
         {element:'Comments / feedback',visible:this.showComments,rule:'Submitted, Approved, or Rejected review context.'},
         {element:'Cohort Analytics navigation',visible:this.role==='Admin',rule:'Admin only.'},
-        {element:'Algorithm Config / Audit / Users',visible:this.role==='Admin',rule:'Admin and super-admin only.'}
+        {element:'Algorithm Config / Audit / Users',visible:this.role==='Admin',rule:'Admin and super-admin only.'},
+        {element:'Mission-type edit scope',visible:this.role==='Mission Manager',rule:'Mission Manager can edit only assigned mission types.'}
       ];
     },
+    get statusActionRows(){
+      const editFor=(state,role)=>state==='Draft'||state==='Rejected'?role==='Mission Manager'?'Assigned mission types only':role==='Delegate'?'Own country only':role==='CBD Staff'||role==='Admin'?'All editable mission types':'None':'Hidden';
+      const actions={
+        'Not Started':{'Delegate':'Read Only','CBD Staff':'Generate Roadmap','Mission Manager':'Read Only','Admin':'Generate Roadmap'},
+        'Draft':{'Delegate':'Edit Own Draft','CBD Staff':'Submit to Delegate','Mission Manager':'Edit Assigned Mission Types','Admin':'Submit to Delegate'},
+        'Submitted':{'Delegate':'Approve / Reject','CBD Staff':'Read Only','Mission Manager':'Read Only','Admin':'Read Only'},
+        'Approved':{'Delegate':'Request Amendment','CBD Staff':'Create New Revision','Mission Manager':'Read Only','Admin':'Create New Revision'},
+        'Rejected':{'Delegate':'Edit Own Rejected','CBD Staff':'Re-submit to Delegate','Mission Manager':'Edit Assigned Mission Types','Admin':'Re-submit to Delegate'}
+      };
+      return this.statuses.flatMap(state=>this.roles.map(role=>({status:state,role,action:actions[state][role],edit:state==='Draft'||state==='Rejected'?editFor(state,role):'Hidden'})));
+    },
     matrix:[
-      {item:'View own country roadmap',delegate:'Yes',cbd:'Yes',admin:'Yes'},
-      {item:'View all countries',delegate:'No',cbd:'Yes',admin:'Yes'},
-      {item:'Generate Roadmap',delegate:'No',cbd:'Yes',admin:'Yes'},
-      {item:'Edit Draft roadmap',delegate:'Own only',cbd:'All',admin:'All'},
-      {item:'Add/Remove activities',delegate:'Own Draft/Rejected',cbd:'All Draft',admin:'All Draft'},
-      {item:'Submit to Delegate',delegate:'No',cbd:'Yes',admin:'Yes'},
-      {item:'Approve/Reject',delegate:'Own',cbd:'No',admin:'No'},
-      {item:'Cohort Analytics',delegate:'No',cbd:'No',admin:'Yes'},
-      {item:'Algorithm Config',delegate:'No',cbd:'No',admin:'Yes'},
-      {item:'Audit Trail',delegate:'No',cbd:'No',admin:'Yes'},
-      {item:'Notification Preferences',delegate:'Yes',cbd:'Yes',admin:'Yes'}
+      {item:'View own country roadmap',delegate:'Yes',cbd:'Yes',missionManager:'Yes',admin:'Yes'},
+      {item:'View all countries',delegate:'No',cbd:'Yes',missionManager:'Yes',admin:'Yes'},
+      {item:'Generate Roadmap',delegate:'No',cbd:'Yes',missionManager:'No',admin:'Yes'},
+      {item:'Edit Draft roadmap',delegate:'Own Draft only',cbd:'All',missionManager:'Assigned mission types',admin:'All'},
+      {item:'Edit Rejected roadmap',delegate:'Own Rejected only',cbd:'All',missionManager:'Assigned mission types',admin:'All'},
+      {item:'Add/Remove activities',delegate:'Own Draft/Rejected',cbd:'All Draft/Rejected',missionManager:'Assigned mission types',admin:'All Draft/Rejected'},
+      {item:'Submit to Delegate',delegate:'No',cbd:'Yes',missionManager:'No',admin:'Yes'},
+      {item:'Approve/Reject',delegate:'Own',cbd:'No',missionManager:'No',admin:'No'},
+      {item:'Cohort Analytics',delegate:'No',cbd:'No',missionManager:'No',admin:'Yes'},
+      {item:'Algorithm Config',delegate:'No',cbd:'No',missionManager:'No',admin:'Yes'},
+      {item:'Audit Trail',delegate:'No',cbd:'No',missionManager:'No',admin:'Yes'},
+      {item:'Notification Preferences',delegate:'Yes',cbd:'Yes',missionManager:'Yes',admin:'Yes'}
     ]
   }
 }
