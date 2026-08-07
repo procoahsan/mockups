@@ -25,12 +25,15 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .filter-chip{border:1px solid #e2e8f0;background:#fff;color:#475569;transition:all .15s ease}.filter-chip:hover,.filter-chip.active{border-color:#ff4815;background:#fff7ed;color:#ea580c}
 .filter-menu{box-shadow:0 20px 40px rgba(15,23,42,.14)}
 .gantt-grid{grid-template-columns:180px repeat(5,minmax(150px,1fr))}
+.chart-axis-title{writing-mode:vertical-rl;text-orientation:mixed;display:flex;align-items:center;justify-content:center;height:100%}
 .skeleton{position:relative;overflow:hidden;background:#e2e8f0}.skeleton::after{content:"";position:absolute;inset:0;transform:translateX(-100%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);animation:shimmer 1.15s infinite}@keyframes shimmer{100%{transform:translateX(100%)}}
 .sort-button{width:100%;transition:color .15s ease,background .15s ease}.sort-button:hover{color:#ea580c;background:#fff7ed}.sort-button:focus-visible,.focus-ring:focus-visible{outline:2px solid #ff4815;outline-offset:2px}.sort-indicator{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:0;line-height:.75;font-size:9px;font-weight:900;color:#94a3b8;flex-shrink:0}.sort-indicator .active{color:#ea580c}
 .country-table{table-layout:fixed}.country-table th,.country-table td{vertical-align:middle}.country-table .num-cell{text-align:right;font-variant-numeric:tabular-nums}
 @media (max-width:1500px){.sidebar{width:64px!important;overflow:hidden}.main-content{margin-left:64px!important}.header-brand{width:64px!important;justify-content:center!important}.brand-text,.sidebar-text,.sidebar-section-label,.sidebar-badge{display:none!important}.sidebar-item{justify-content:center!important;padding:12px 0!important}.nav-list{overflow-x:auto;max-width:48vw;white-space:nowrap}.nav-screen{font-size:10px!important;padding:4px 6px!important}.analytics-grid{grid-template-columns:1fr!important}.kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 @media (max-width:1100px){.sidebar{display:none!important}.main-content{margin-left:0!important}.header-brand{width:auto!important}.nav-list{max-width:52vw}.kpi-grid{grid-template-columns:1fr!important}.gantt-grid{grid-template-columns:150px repeat(5,150px)}}
+@media print{header,.sidebar,.no-print{display:none!important}body{background:#fff!important;color:#000!important}.main-content{margin-left:0!important;padding-top:0!important}main section{padding:0!important}.analytics-grid,.kpi-grid{display:block!important}.analytics-grid>*,.kpi-grid>*{margin-bottom:12px!important}.max-h-\[420px\],.max-h-\[500px\],.max-h-80,.overflow-auto,.overflow-y-auto,.overflow-x-auto{max-height:none!important;overflow:visible!important}.sticky{position:static!important}.shadow-sm,.shadow-lg{box-shadow:none!important}.rounded-xl,.rounded-lg{border-radius:0!important}.gantt-grid{display:grid!important}thead{display:table-header-group!important}tbody{display:table-row-group!important}tr{page-break-inside:avoid!important}button,select,.filter-menu,.nav-list{display:none!important}}
 </style>
+<link rel="stylesheet" href="pvs-brand.css" />
 </head>
 <body class="bg-slate-50 text-slate-900" x-data="cohortAnalytics()" x-init="init()" x-cloak>
 
@@ -98,7 +101,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
         </div>
       </div>
 
-      <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-4">
+      <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-4" role="search" aria-label="Cohort analytics filters">
         <div class="flex items-center gap-2 flex-wrap">
           <div class="flex items-center gap-1.5 text-xs text-woah-600 mr-1 font-bold">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.8 0 5.5.2 8.1.7.5.1.9.6.9 1.1v1a2.3 2.3 0 01-.7 1.6l-5.4 5.4a2.3 2.3 0 00-.7 1.6v2.9a2.3 2.3 0 01-1.2 2L9.8 21v-6.6a2.3 2.3 0 00-.7-1.6L3.7 7.4A2.3 2.3 0 013 5.8v-1c0-.5.4-1 .9-1.1C6.5 3.2 9.2 3 12 3z"/></svg>
@@ -200,11 +203,13 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
                 <button @click="chartMode='stacked'" :class="chartMode==='stacked'?'bg-woah-50 text-woah-700':'bg-white text-slate-500'" class="px-3 py-1.5 border-l border-slate-200">Stacked</button>
               </div>
             </div>
-            <div x-show="isLoading" class="grid grid-cols-[42px_1fr] gap-3 h-72">
+            <div x-show="isLoading" class="grid grid-cols-[22px_54px_1fr] gap-3 h-72" role="img" aria-label="Budget projection chart">
+              <div class="chart-axis-title flex items-center justify-center text-[10px] font-bold text-slate-500">Estimated Budget (USD)</div>
               <div class="space-y-10 pt-1"><div class="h-3 skeleton rounded"></div><div class="h-3 skeleton rounded"></div><div class="h-3 skeleton rounded"></div><div class="h-3 skeleton rounded"></div></div>
               <div class="relative border-l border-b border-slate-200"><div class="absolute inset-x-4 bottom-0 top-4 flex items-end justify-between gap-4"><template x-for="n in 5" :key="n"><div class="w-full max-w-[86px] skeleton rounded-t-md" :style="`height:${30+n*10}%`"></div></template></div></div>
             </div>
-            <div x-show="!isLoading" class="grid grid-cols-[42px_1fr] gap-3 h-72">
+            <div x-show="!isLoading" class="grid grid-cols-[22px_54px_1fr] gap-3 h-72" role="img" aria-label="Budget projection chart">
+              <div class="chart-axis-title flex items-center justify-center text-[10px] font-bold text-slate-500">Estimated Budget (USD)</div>
               <div class="flex flex-col justify-between text-[10px] text-slate-400 text-right pt-1 pb-8"><span x-text="formatMoney(maxBudget)"></span><span x-text="formatMoney(maxBudget*.66)"></span><span x-text="formatMoney(maxBudget*.33)"></span><span>$0</span></div>
               <div class="relative border-l border-b border-slate-200">
                 <div class="absolute inset-0 grid grid-rows-3"><div class="border-t border-slate-100"></div><div class="border-t border-slate-100"></div><div class="border-t border-slate-100"></div></div>
@@ -239,7 +244,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
             </div>
             <div class="px-4 py-2 border-b border-slate-100 text-[11px] text-slate-500"><span x-text="visibleCountries.length"></span> visible of <span x-text="filteredCountries.length"></span> total countries</div>
             <div class="max-h-[420px] overflow-auto">
-              <table class="country-table w-full min-w-[860px] text-xs">
+              <table class="country-table w-full min-w-[860px] text-xs" role="grid">
                 <colgroup><col class="w-[220px]"><col class="w-[220px]"><col class="w-[220px]"><col class="w-[160px]"><col class="w-[260px]"></colgroup>
                 <thead class="sticky top-0 z-10 bg-slate-50 text-slate-500 uppercase text-[10px] shadow-[0_1px_0_#e2e8f0]">
                   <tr>
@@ -277,7 +282,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
                 <button @click="colorMode='country'" :class="colorMode==='country'?'bg-woah-50 text-woah-700':'bg-white text-slate-500'" class="px-3 py-1.5 border-l border-slate-200">By country</button>
               </div>
             </div>
-            <div class="overflow-auto border border-slate-200 rounded-lg max-h-80">
+            <div class="max-h-[500px] overflow-y-auto overflow-x-auto border border-slate-200 rounded-lg" role="grid" aria-label="Gantt-style cohort timeline">
               <div class="grid gantt-grid text-[10px] font-bold text-slate-500 bg-slate-50 sticky top-0 z-10">
                 <div class="p-3 border-r border-b border-slate-200">Country</div>
                 <template x-for="year in filteredYears" :key="year"><div class="p-3 text-center border-r border-b border-slate-200" x-text="year"></div></template>
@@ -539,5 +544,6 @@ function cohortAnalytics(){
   }
 }
 </script>
+<script src="pvs-brand.js"></script>
 </body>
 </html>
